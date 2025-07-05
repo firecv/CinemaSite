@@ -7,8 +7,8 @@ namespace CinemaSite.Models
         [Key]
         public int movie_id { get; set; }
 
-        public string tmdb_id { get; set; }
-
+        public string title { get; set; }
+        public string poster_id { get; set; }
         public bool for_kids { get; set; }
     }
 }
