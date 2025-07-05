@@ -9,6 +9,7 @@ namespace CinemaSite.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly CinemaDbContext _context;
+        public List<TicketTypeEntity> tickettypes = new List<TicketTypeEntity>();
 
         public HomeController(ILogger<HomeController> logger, CinemaDbContext context)
         {
@@ -18,9 +19,8 @@ namespace CinemaSite.Controllers
 
         public IActionResult Index()
         {
-            List<TicketTypeEntity> tickettypes = new List<TicketTypeEntity>();
             tickettypes = _context.TicketType.ToList();
-            return View();
+            return View(tickettypes);
         }
 
         public IActionResult Privacy()
