@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using CinemaSite.Data;
 using CinemaSite.Models;
+using CinemaSite.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaSite.Controllers
@@ -19,8 +20,13 @@ namespace CinemaSite.Controllers
 
         public IActionResult Index()
         {
-            tickettypes = _context.TicketType.ToList();
-            return View(tickettypes);
+            var viewModel = new HomeIndexViewModel
+            {
+                Articles = _context.Article.ToList(),
+                Movies = _context.Movie.ToList()
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

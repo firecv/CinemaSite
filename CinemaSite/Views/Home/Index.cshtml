@@ -2,16 +2,19 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model IEnumerable<TicketTypeEntity>
+@model CinemaSite.ViewModels.HomeIndexViewModel
 
 <div class="text-center">
-    @if (Model != null) {
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.ticket_type_id</td>
-                <td>@item.ticket_type</td>
-            </tr>
+
+    <div class="horizontal-scroll">
+        @if (Model != null) {
+            @foreach (var item in Model.Articles)
+            {
+                <div>
+                    <td>@item.title</td>
+                    <td>@item.content</td>
+                </div>
+            }
         }
-    }
+    </div>
 </div>
