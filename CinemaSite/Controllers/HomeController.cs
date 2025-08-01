@@ -22,8 +22,8 @@ namespace CinemaSite.Controllers
         {
             var viewModel = new HomeIndexViewModel
             {
-                Articles = _context.Article.ToList(),
-                Movies = _context.Movie.ToList()
+                Articles = _context.Article.OrderBy(a => a.article_id).ToList(),
+                Movies = _context.Movie.OrderBy(m => m.movie_id).Take(10).ToList()
             };
 
             return View(viewModel);
