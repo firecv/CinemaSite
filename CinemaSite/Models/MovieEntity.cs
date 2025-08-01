@@ -8,7 +8,7 @@ namespace CinemaSite.Models
         public int movie_id { get; set; }
 
         public string title { get; set; }
-        public string poster_id { get; set; }
+        public string poster_link { get; set; }
         public bool for_kids { get; set; }
     }
 }
