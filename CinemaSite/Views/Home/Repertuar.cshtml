@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Repertuar";
+    bool kidFilterOn = Context.Request.Query["forKids"] == "on";
+}
+
+@model CinemaSite.ViewModels.DatabaseViewModel
+
+<div>
+    <form id="kit-filter-form" method="get" asp-action="Repertuar">
+        <label for="kid-filter">Kids' Movies only?</label>
+        <input name="forKids" type="checkbox" id="kid-filter" autocomplete="off" onChange="this.form.submit()"
+                @(kidFilterOn ? "checked" : "")/>
+    </form>
+    
+    <div>
+        <h2>NEW MOVIES</h2>
+        @if (Model != null)
+        {
+            @foreach (var item in Model.Movies)
+            {
+                var posterImage = $"/Content/img2.jpg"; //change later
+
+                <a>
+                    <img src="@posterImage" alt="Image for @item.title" />
+                </a>
+            }
+        }
+    </div>
+</div>

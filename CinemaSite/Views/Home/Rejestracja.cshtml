@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Rejestracja";
+}
+
+@model CinemaSite.Models.UserAccountEntity
+
+<div >
+    <form asp-action="Rejestracja">
+        <input asp-for="username" placeholder="Nazwa Uzytkownika" />
+        <input asp-for="email" placeholder="Adres e-mail" />
+        <input asp-for="password_hash" placeholder="Hasło" />
+        <input placeholder="Powtórz Hasło" />
+        <input />
+        <button type="submit">Zarejestruj</button>
+    </form>
+</div>

@@ -20,13 +20,43 @@ namespace CinemaSite.Controllers
 
         public IActionResult Index()
         {
-            var viewModel = new HomeIndexViewModel
+            var viewModel = new DatabaseViewModel
             {
                 Articles = _context.Article.OrderBy(a => a.article_id).ToList(),
                 Movies = _context.Movie.OrderBy(m => m.movie_id).Take(10).ToList()
             };
 
             return View(viewModel);
+        }
+
+        public IActionResult Repertuar(bool forKids = false)
+        {
+            if (forKids) {
+                var viewModel = new DatabaseViewModel
+                {
+                    Movies = _context.Movie.AsQueryable().Where(m => m.for_kids).OrderBy(m => m.movie_id).ToList()
+                };
+                return View(viewModel);
+            } else
+            {
+                var viewModel = new DatabaseViewModel
+                {
+                    Movies = _context.Movie.AsQueryable().OrderBy(m => m.movie_id).ToList()
+                };
+                return View(viewModel);
+            }
+        }
+
+        public IActionResult Rejestracja(UserAccountEntity newUser) {
+            if (ModelState.IsValid)
+            {
+                _context.UserAccount.Add(newUser);
+                _context.SaveChanges();
+                return RedirectToAction("Index"); // change this to user account page later, or add email verification
+            } else
+            {
+                return View(); // alert user or refresh page maybe?
+            }
         }
 
         public IActionResult Privacy()

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CinemaSite.ViewModels
 {
-    public class HomeIndexViewModel
+    public class DatabaseViewModel
     {
         public List<TicketTypeEntity> TicketTypes { get; set; }
         public List<SeatTypeEntity> SeatTypes { get; set; }
