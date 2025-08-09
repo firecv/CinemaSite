@@ -25,7 +25,9 @@ namespace CinemaSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.UserAccount.Add()
+                // HASH PASSWORDS HERE!!! DON'T FUCKING FORGET
+                _context.UserAccount.Add(nowyUzytkownik);
+                _context.SaveChanges();
             }
 
             return RedirectToAction("Rejestracja");

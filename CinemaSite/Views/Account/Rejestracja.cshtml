@@ -4,14 +4,15 @@
 
 @model CinemaSite.ViewModels.AccountViewModel
 
-<div >
-    <form asp-action="NowyUzytkownik">
+<div>
+    <form asp-action="NowyUzytkownik" method="post">
         <input asp-for="username" placeholder="Nazwa Uzytkownika" />
         <input asp-for="email" placeholder="Adres e-mail" />
         <input asp-for="phone" placeholder="Numer telefonu" />
         <input id="password" asp-for="password_hash" placeholder="Hasło" />
         <input id="repeat-password" placeholder="Powtórz Hasło" />
-        <input />
-        <button type="submit">Zarejestruj</button>
+        <button type="submit" disabled>Zarejestruj</button>
     </form>
 </div>
+
+<script src="~/js/detail-validation.js"></script>
