@@ -2,12 +2,13 @@
     ViewData["Title"] = "Rejestracja";
 }
 
-@model CinemaSite.Models.UserAccountEntity
+@model CinemaSite.ViewModels.AccountViewModel
 
 <div >
     <form asp-action="NowyUzytkownik">
         <input asp-for="username" placeholder="Nazwa Uzytkownika" />
         <input asp-for="email" placeholder="Adres e-mail" />
+        <input asp-for="phone" placeholder="Numer telefonu" />
         <input id="password" asp-for="password_hash" placeholder="Hasło" />
         <input id="repeat-password" placeholder="Powtórz Hasło" />
         <input />
