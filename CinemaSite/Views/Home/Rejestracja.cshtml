@@ -5,11 +5,11 @@
 @model CinemaSite.Models.UserAccountEntity
 
 <div >
-    <form asp-action="Rejestracja">
+    <form asp-action="NowyUzytkownik">
         <input asp-for="username" placeholder="Nazwa Uzytkownika" />
         <input asp-for="email" placeholder="Adres e-mail" />
-        <input asp-for="password_hash" placeholder="Hasło" />
-        <input placeholder="Powtórz Hasło" />
+        <input id="password" asp-for="password_hash" placeholder="Hasło" />
+        <input id="repeat-password" placeholder="Powtórz Hasło" />
         <input />
         <button type="submit">Zarejestruj</button>
     </form>

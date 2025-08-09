@@ -47,16 +47,14 @@ namespace CinemaSite.Controllers
             }
         }
 
-        public IActionResult Rejestracja(UserAccountEntity newUser) {
-            if (ModelState.IsValid)
+        public IActionResult Rejestracja()
+        {
+            var viewModel = new AccountViewModel
             {
-                _context.UserAccount.Add(newUser);
-                _context.SaveChanges();
-                return RedirectToAction("Index"); // change this to user account page later, or add email verification
-            } else
-            {
-                return View(); // alert user or refresh page maybe?
-            }
+                UserAccounts = _context.UserAccount.OrderBy(u => u.account_id).ToList()
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
