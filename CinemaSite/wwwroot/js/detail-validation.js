@@ -1,26 +1,26 @@
-﻿alert("AAA");
+﻿/*alert("AAA");
 
-let validPassword = false;
+document.addEventListener("DOMContentLoaded", () => {
+    let validPassword = false;
 
-const submitBtn = document.getElementById("submit-button");
-const passwordBox = document.getElementById("password");
-const repeatPasswordBox = document.getElementById("repeat-password");
+    const submitBtn = document.getElementById("submit-button");
+    const passwordBox = document.getElementById("password");
+    const repeatPasswordBox = document.getElementById("repeat-password");
 
-if (validPassword) {
-    btn.disabled = false;
-} else {
-    btn.disabled = true;
-}
-
-var checkPassword = function () {
-    if (passwordBox.value = repeatPasswordBox.value) {
-        validPassword = true;
-    } else {
-        validPassword = false;
+    var checkPassword = function () {
+        if (passwordBox.value == repeatPasswordBox.value && passwordBox.value.length > 0) {
+            validPassword = true;
+            submitBtn.disabled = false;
+        } else {
+            validPassword = false;
+            submitBtn.disabled = true;
+        }
     }
-}
 
-checkPassword();
+    checkPassword();
 
-passwordBox.addEventListener("input", checkPassword());
-repeatPasswordBox.addEventListener("input", checkPassword());
+    passwordBox.addEventListener("input", checkPassword());
+    passwordBox.addEventListener("keyup", checkPassword());
+    repeatPasswordBox.addEventListener("input", checkPassword());
+    repeatPasswordBox.addEventListener("keyup", checkPassword());
+});*/

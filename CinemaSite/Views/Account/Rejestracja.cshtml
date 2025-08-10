@@ -9,10 +9,8 @@
         <input asp-for="username" placeholder="Nazwa Uzytkownika" />
         <input asp-for="email" placeholder="Adres e-mail" />
         <input asp-for="phone" placeholder="Numer telefonu" />
-        <input id="password" asp-for="password_hash" placeholder="Hasło" />
-        <input id="repeat-password" placeholder="Powtórz Hasło" />
-        <button type="submit">Zarejestruj</button>
+        <input asp-for="password_unhashed" id="password" type="password" placeholder="Hasło" />
+        <input asp-for="repeat_password_unhashed" id="repeat-password" type="password" placeholder="Powtórz Hasło" />
+        <button id="submit-button" type="submit">Zarejestruj</button>
     </form>
 </div>
-
-<script src="~/js/detail-validation.js"></script>

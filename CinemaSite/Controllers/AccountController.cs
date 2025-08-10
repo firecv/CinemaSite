@@ -21,12 +21,20 @@ namespace CinemaSite.Controllers
             return View();
         }
 
-        public IActionResult NowyUzytkownik(UserAccountEntity nowyUzytkownik)
+        public IActionResult NowyUzytkownik(NewUserAccount nowyUzytkownik)
         {
             if (ModelState.IsValid)
             {
-                // HASH PASSWORDS HERE!!! DON'T FUCKING FORGET
-                _context.UserAccount.Add(nowyUzytkownik);
+                UserAccountEntity userAccount = new UserAccountEntity();
+
+                userAccount.username = nowyUzytkownik.username;
+                userAccount.email = nowyUzytkownik.email;
+                userAccount.phone = nowyUzytkownik.phone;
+                userAccount.password_hash = nowyUzytkownik.password_unhashed;
+                // ^ this must be changed
+                // HASH PASSWORDS HERE!!! DON'T FUCKING FORGET smth salt
+
+                _context.UserAccount.Add(userAccount);
                 _context.SaveChanges();
             }
 

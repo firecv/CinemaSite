@@ -10,13 +10,13 @@ namespace CinemaSite.Models
         [Required]
         public string username { get; set; }
 
-        [Required] 
+        [Required, EmailAddress] 
         public string email { get; set; }
 
-        [Required] 
+        [Required, Phone] 
         public string phone { get; set; }
 
-        [Required] 
+        [Required]
         public string password_hash { get; set; }
     }
 }
