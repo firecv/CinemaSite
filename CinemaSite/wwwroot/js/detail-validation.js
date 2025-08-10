@@ -1,4 +1,6 @@
-﻿let validPassword = false;
+﻿alert("AAA");
+
+let validPassword = false;
 
 const submitBtn = document.getElementById("submit-button");
 const passwordBox = document.getElementById("password");
