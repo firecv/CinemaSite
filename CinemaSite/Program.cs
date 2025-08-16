@@ -1,4 +1,6 @@
 using CinemaSite.Data;
+using CinemaSite.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,8 @@ builder.Services.AddDbContext<CinemaDbContext>(options =>
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
+
+builder.Services.AddScoped<IPasswordHasher<UserAccountEntity>, PasswordHasher<UserAccountEntity>>();  
 
 var app = builder.Build();
 
