@@ -13,37 +13,29 @@
     const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     // zrodlo: https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
     const phoneRegex = /^[\+]?[0-9]{0,3}\W?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-    // zrodlo: https://stackoverflow.com/questions/4338267/validate-phone-number-with-javascript (edytowane)
+    // zrodlo: https://stackoverflow.com/questions/4338267/validate-phone-number-with-javascript (naprawione dla js)
+
+    var updateErrorMessage = function (string message) {
+        submitBtn.disabled = true;
+        errorMessage.textContent = message;
+        errorMessage.style.visibility = "visible";
+    }
 
     var validateForm = function () {
         if (username.value.length < 6) {
-            submitBtn.disabled = true;
-            errorMessage.textContent = "Nazwa uzytkownika musi zawierać conajmniej 6 znaki.";
-            errorMessage.style.visibility = "visible";
+            updateErrorMessage("Nazwa uzytkownika musi zawierać conajmniej 6 znaki.");
         } else if (username.value.length > 16) {
-            submitBtn.disabled = true;
-            errorMessage.textContent = "Nazwa uzytkownika może zawierać najwyżej 16 znaki.";
-            errorMessage.style.visibility = "visible";
+            updateErrorMessage("Nazwa uzytkownika może zawierać najwyżej 16 znaki.");
         } else if (!email.value.match(emailRegex)) {
-            submitBtn.disabled = true;
-            errorMessage.textContent = "Nieprawidłowy adres e-mail.";
-            errorMessage.style.visibility = "visible";
+            updateErrorMessage("Nieprawidłowy adres e-mail.");
         } else if (!phone.value.match(phoneRegex)) {
-            submitBtn.disabled = true;
-            errorMessage.textContent = "Nieprawidłowy numer telefonu.";
-            errorMessage.style.visibility = "visible";
+            updateErrorMessage("Nieprawidłowy numer telefonu.");
         } else if (password.value.length < 8) {
-            submitBtn.disabled = true;
-            errorMessage.textContent = "Hasło musi zawierać conajmniej 8 znaki.";
-            errorMessage.style.visibility = "visible";
+            updateErrorMessage("Hasło musi zawierać conajmniej 8 znaki.");
         } else if (password.value.length > 256) {
-            submitBtn.disabled = true;
-            errorMessage.textContent = "Hasło może zawierać najwyżej 256 znaki.";
-            errorMessage.style.visibility = "visible";
+            updateErrorMessage("Hasło może zawierać najwyżej 256 znaki.");
         } else if (password.value != repeatPassword.value) {
-            submitBtn.disabled = true;
-            errorMessage.textContent = "Hasła się nie zgadzają.";
-            errorMessage.style.visibility = "visible";
+            updateErrorMessage("Hasła się nie zgadzają.");
         } else {
             submitBtn.disabled = false;
             errorMessage.textContent = "";

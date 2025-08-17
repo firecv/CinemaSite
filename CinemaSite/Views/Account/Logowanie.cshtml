@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Logowanie";
+}
+
+@model CinemaSite.ViewModels.AccountViewModel
+
+<div style="display:flex; flex-direction:column;">
+    <form asp-action="KontoLogowanie" method="post">
+        <input asp-for="email" id="email" placeholder="Adres e-mail" />
+        <input asp-for="password_unhashed" id="password" type="password" placeholder="Hasło" />
+        <button id="submit-button" type="submit">Login</button>
+    </form>
+    <p id="error-message">AAA</p>
+</div>
+
+@section Scripts {
+    <script src="~/js/detail-validation.js" asp-append-version="true" defer></script>
+}

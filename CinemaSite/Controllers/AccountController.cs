@@ -24,6 +24,11 @@ namespace CinemaSite.Controllers
             return View();
         }
 
+        public IActionResult Logowanie()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> NowyUzytkownik(NewUserAccount nowyUzytkownik)
         {
             var _hasher = new PasswordHasher<UserAccountEntity>();
@@ -52,7 +57,24 @@ namespace CinemaSite.Controllers
                 return RedirectToAction("Rejestracja");
             }
 
-            return RedirectToAction("Rejestracja"); //add message to say that account already exists
+            return RedirectToAction("Rejestracja"); //add error message to say that account already exists
+        }
+
+        public async Task<IActionResult> KontoLogowanie(LoginForm login)
+        {
+            var _hasher = new PasswordHasher<UserAccountEntity>();
+
+            bool loginDetailsMatch = await _context.UserAccount.AnyAsync(u => u.email == login.email ||
+                u.password_hash == _hasher.HashPassword(null, login.password_unhashed));
+
+            if (ModelState.IsValid && loginDetailsMatch) {
+                var currentUser = await _context.UserAccount.FirstOrDefaultAsync(u => u.email == login.email);
+
+                HttpContext.Session.SetInt32("ActiveUserID", currentUser.account_id);
+                HttpContext.Session.SetString("ActiveUserUsername", currentUser.username);
+            }
+
+            return RedirectToAction("Logowanie");
         }
     }
 }
