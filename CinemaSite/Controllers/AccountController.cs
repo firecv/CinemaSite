@@ -72,6 +72,7 @@ namespace CinemaSite.Controllers
 
                 HttpContext.Session.SetInt32("ActiveUserID", currentUser.account_id);
                 HttpContext.Session.SetString("ActiveUserUsername", currentUser.username);
+                HttpContext.Session.SetString("ActiveUserEmail", currentUser.email);
             }
 
             return RedirectToAction("Logowanie");

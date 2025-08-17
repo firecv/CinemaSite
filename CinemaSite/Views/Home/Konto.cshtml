@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Logowanie";
+    var activeUserID = Context.Session.GetInt32("ActiveUserID");
+}
+
+@model List<UserTicket>
+
+<div style="display:flex; flex-direction:column;">
+    <p>@(Context.Session.GetString("ActiveUserUsername"))</p>
+    <p>@(Context.Session.GetString("ActiveUserEmail"))</p>
+    
+    <p>Your Tickets:</p>
+    @foreach (var item in Model)
+    {
+        <p>@item.title - @item.hall_id - @item.ticket_type Seat: Row @item.rowNum, Column @item.columnNum</p>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/detail-validation.js" asp-append-version="true" defer></script>
+}

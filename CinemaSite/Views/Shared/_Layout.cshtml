@@ -22,7 +22,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Rejestracja">Rejestracja</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logowanie">@(Context.Session.GetString("ActiveUserUsername") ?? "Log in")</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logowanie">Logowanie</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Konto">@(Context.Session.GetString("ActiveUserUsername") ?? "")</a>
                         </li>
                     </ul>
                 </div>

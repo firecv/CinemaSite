@@ -47,6 +47,27 @@ namespace CinemaSite.Controllers
             }
         }
 
+        public IActionResult Konto()
+        {
+            var UserTickets = from t in _context.Ticket
+                              join sc in _context.Screening on t.screening_id equals sc.screening_id
+                              join m in _context.Movie on sc.movie_id equals m.movie_id
+                              join h in _context.Hall on sc.hall_id equals h.hall_id
+                              join tt in _context.TicketType on t.ticket_type_id equals tt.ticket_type_id
+                              join s in _context.Seat on t.seat_id equals s.seat_id
+                              orderby t.ticket_id descending
+                              select new UserTicket {
+                                  ticket_id = t.ticket_id,
+                                  ticket_type = tt.ticket_type,
+                                  title = m.title,
+                                  hall_id = h.hall_id,
+                                  rowNum = s.rowNum,
+                                  columnNum = s.columnNum,
+                              };
+
+            return View(UserTickets.ToList());
+        }
+
         public IActionResult Rejestracja()
         {
             var viewModel = new AccountViewModel
