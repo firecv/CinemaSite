@@ -1,6 +1,10 @@
-﻿@{
+﻿@using System.Globalization
+
+@{
     ViewData["Title"] = "Repertuar";
     bool kidFilterOn = Context.Request.Query["forKids"] == "on";
+    var currentDate = DateTime.Today;
+    var translateToPolish = new CultureInfo("pl-PL");
 }
 
 @model CinemaSite.ViewModels.DatabaseViewModel
@@ -14,16 +18,60 @@
     
     <div>
         <h2>NEW MOVIES</h2>
-        @if (Model != null)
-        {
-            @foreach (var item in Model.Movies)
-            {
-                var posterImage = $"/Content/img2.jpg"; //change later
 
-                <a>
-                    <img src="@posterImage" alt="Image for @item.title" />
-                </a>
-            }
-        }
+        <table>
+            <thead>
+                <tr>
+                    <th>Film</th>
+                    <th>Czas</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Movies)
+                {
+                    var posterImage = $"/Content/img{item.poster_id}.jpg";
+
+                    <tr>
+                        <td><p>@item.title</p><img src="@posterImage" alt="Plakat dla @item.title" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        @for (var i = 0; i < 14; i++)
+                                        {
+                                            var date = currentDate.AddDays(i);
+
+                                            <th>@date.ToString("dddd dd MMM", translateToPolish)</th> //maybe change to browser-set language later
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        @for (var i = 0; i < 14; i++)
+                                        {
+                                            var date = currentDate.AddDays(i);
+                                            var screeningsThatDay = Model.Screenings.Where(
+                                                s => s.movie_id == item.movie_id &&
+                                                     s.screening_time.Date == date
+                                            );
+
+                                            @if (screeningsThatDay != null)
+                                            {
+                                                @foreach (var subitem in screeningsThatDay)
+                                                {
+                                                    <td>PLACEHOLDER</td>
+                                                }
+                                            }
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>

@@ -34,14 +34,16 @@ namespace CinemaSite.Controllers
             if (forKids) {
                 var viewModel = new DatabaseViewModel
                 {
-                    Movies = _context.Movie.AsQueryable().Where(m => m.for_kids).OrderBy(m => m.movie_id).ToList()
+                    Movies = _context.Movie.AsQueryable().Where(m => m.for_kids).OrderBy(m => m.movie_id).ToList(),
+                    Screenings = _context.Screening.ToList()
                 };
                 return View(viewModel);
             } else
             {
                 var viewModel = new DatabaseViewModel
                 {
-                    Movies = _context.Movie.AsQueryable().OrderBy(m => m.movie_id).ToList()
+                    Movies = _context.Movie.AsQueryable().OrderBy(m => m.movie_id).ToList(),
+                    Screenings = _context.Screening.ToList()
                 };
                 return View(viewModel);
             }
