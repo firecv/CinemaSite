@@ -15,9 +15,6 @@ namespace CinemaSite.Models
         public int hall_id { get; set; }
 
         [Required]
-        public DateTime screening_date { get; set; }
-
-        [Required]
-        public TimeSpan screeningTime { get; set; }
+        public DateTime screening_time { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace CinemaSite.Models
         public int seat_type_id { get; set; }
 
         [Required]
-        public int rowNum { get; set; }
+        public char rowNum { get; set; }
 
         [Required]
         public int columnNum { get; set; }

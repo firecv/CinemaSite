@@ -10,10 +10,31 @@
     <p>@(Context.Session.GetString("ActiveUserEmail"))</p>
     
     <p>Your Tickets:</p>
-    @foreach (var item in Model)
-    {
-        <p>@item.title - @item.hall_id - @item.ticket_type Seat: Row @item.rowNum, Column @item.columnNum</p>
-    }
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Film</th>
+                <th>Data/Godzina</th>
+                <th>Sala</th>
+                <th>Siedzenie</th>
+                <th>Rodzaj Biletu</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ticket_id</td>
+                    <td>@item.title</td>
+                    <td>@item.datetime</td>
+                    <td>@item.hall_id</td>
+                    <td>@item.rowNum@item.columnNum</td>
+                    <td>@item.ticket_type</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
 @section Scripts {

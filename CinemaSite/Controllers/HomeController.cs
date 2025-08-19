@@ -58,6 +58,7 @@ namespace CinemaSite.Controllers
                               orderby t.ticket_id descending
                               select new UserTicket {
                                   ticket_id = t.ticket_id,
+                                  datetime = sc.screening_time,
                                   ticket_type = tt.ticket_type,
                                   title = m.title,
                                   hall_id = h.hall_id,
