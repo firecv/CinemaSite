@@ -19,5 +19,15 @@ namespace CinemaSite.Models
 
         [ForeignKey("TicketTypeEntity")]
         public int ticket_type_id { get; set; }
+
+        [Required]
+        public string payment_status { get; set; }
+
+        public string stripe_session_id { get; set; }
+
+        public string stripe_payment_id { get; set; }
+
+        [Required]
+        public DateTime payment_timestamp { get; set; }
     }
 }

@@ -9,5 +9,10 @@ namespace CinemaSite.Models
 
         [Required]
         public string ticket_type { get; set; }
+
+        [Required]
+        public int price { get; set; }
+
+        public string stripe_item_id { get; set; }
     }
 }

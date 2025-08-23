@@ -2,6 +2,7 @@ using CinemaSite.Data;
 using CinemaSite.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,9 @@ builder.Services.AddDbContext<CinemaDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-builder.Services.AddScoped<IPasswordHasher<UserAccountEntity>, PasswordHasher<UserAccountEntity>>();  
+builder.Services.AddScoped<IPasswordHasher<UserAccountEntity>, PasswordHasher<UserAccountEntity>>();
+
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 var app = builder.Build();
 

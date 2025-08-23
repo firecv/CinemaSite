@@ -32,7 +32,7 @@
                     var posterImage = $"/Content/img{item.poster_id}.jpg";
 
                     <tr>
-                        <td><p>@item.title</p><img src="@posterImage" alt="Plakat dla @item.title" /></td>
+                        <td><p>@item.title</p><img src="@posterImage" style="width: 200px; height: auto;" alt="Plakat dla @item.title" /></td>
                     </tr>
                     <tr>
                         <td>
@@ -49,22 +49,24 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        @for (var i = 0; i < 14; i++)
-                                        {
-                                            var date = currentDate.AddDays(i);
-                                            var screeningsThatDay = Model.Screenings.Where(
-                                                s => s.movie_id == item.movie_id &&
-                                                     s.screening_time.Date == date
-                                            );
-
-                                            @if (screeningsThatDay != null)
+                                        <td>
+                                            @for (var i = 0; i < 14; i++)
                                             {
-                                                @foreach (var subitem in screeningsThatDay)
+                                                var date = currentDate.AddDays(i);
+                                                var screeningsThatDay = Model.Screenings.Where(
+                                                    s => s.movie_id == item.movie_id &&
+                                                         s.screening_time.Date == date
+                                                ).OrderBy(s => s.screening_time);
+
+                                                @if (screeningsThatDay != null)
                                                 {
-                                                    <td>PLACEHOLDER</td>
+                                                    @foreach (var subitem in screeningsThatDay)
+                                                    {
+                                                        <td>PLACEHOLDER</td>
+                                                    }
                                                 }
                                             }
-                                        }
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
