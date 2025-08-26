@@ -25,7 +25,7 @@ builder.Services.AddDbContext<CinemaDbContext>(options =>
 
 builder.Services.AddScoped<IPasswordHasher<UserAccountEntity>, PasswordHasher<UserAccountEntity>>();
 
-StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"]; //using dotnet secrets, screenshot saved in #notatnik
 
 var app = builder.Build();
 
