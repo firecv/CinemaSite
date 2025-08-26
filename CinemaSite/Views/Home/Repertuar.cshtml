@@ -15,10 +15,8 @@
         <input name="forKids" type="checkbox" id="kid-filter" autocomplete="off" onChange="this.form.submit()"
                 @(kidFilterOn ? "checked" : "")/>
     </form>
-    
-    <form>
-        <input name="nameSearch" type="text" 
-    </form>
+
+    <input id="name-search" name="nameSearch" type="text" placeholder="🔍︎Szukaj filmu..." autocomplete="off" />
 
     <div>
         <h2>NEW MOVIES</h2>
@@ -30,16 +28,15 @@
                     <th>Czas</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="movies-list">
                 @foreach (var item in Model.Movies)
                 {
                     var posterImage = $"/Content/img{item.poster_id}.jpg";
 
-                    <tr>
-                        <td><p>@item.title</p><img src="@posterImage" style="width: 200px; height: auto;" alt="Plakat dla @item.title" /></td>
-                    </tr>
-                    <tr>
+                    <tr data-title="@item.title">
                         <td>
+                            <img src="@posterImage" style="width: 200px; height: auto;" alt="Plakat dla @item.title" />
+                            <p>@item.title</p>
                             <table>
                                 <thead>
                                     <tr>
@@ -47,7 +44,8 @@
                                         {
                                             var date = currentDate.AddDays(i);
 
-                                            <th>@date.ToString("dddd dd MMM", translateToPolish)</th> //maybe change to browser-set language later
+                                            <th>@date.ToString("dddd dd MMM", translateToPolish)</th>
+                                            //maybe change to browser-set language later
                                         }
                                     </tr>
                                 </thead>
@@ -58,18 +56,18 @@
                                             {
                                                 var date = currentDate.AddDays(i);
                                                 var screeningsThatDay = Model.Screenings.Where(
-                                                    s => s.movie_id == item.movie_id &&
-                                                         s.screening_time.Date == date
+                                                s => s.movie_id == item.movie_id &&
+                                                s.screening_time.Date == date
                                                 ).OrderBy(s => s.screening_time);
 
                                                 @if (screeningsThatDay != null)
                                                 {
                                                     @foreach (var subitem in screeningsThatDay)
                                                     {
-                                                        <td>PLACEHOLDER</td>
-                                                    }
+                                                    <td>PLACEHOLDER</td>
                                                 }
                                             }
+                                        }
                                         </td>
                                     </tr>
                                 </tbody>
@@ -81,3 +79,7 @@
         </table>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/repertuar-filter.js" asp-append-version="true" defer></script>
+}

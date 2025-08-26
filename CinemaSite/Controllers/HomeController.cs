@@ -52,10 +52,16 @@ namespace CinemaSite.Controllers
                 upcomingMovies = upcomingMovies.Where(m => m.for_kids).ToList();
             }
 
+            var neededMovieGenreJoins = _context.MovieGenre
+                .Where(mg => upcomingMovieIds.Contains(mg.movie_id))
+                .ToList();
+
             var viewModel = new DatabaseViewModel
             {
                 Screenings = upcomingScreenings,
-                Movies = upcomingMovies
+                Movies = upcomingMovies,
+                Genres = _context.Genre.ToList(),
+                MovieGenreJoins = neededMovieGenreJoins
             };
             return View(viewModel);
         }

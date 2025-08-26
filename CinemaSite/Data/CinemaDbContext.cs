@@ -3,7 +3,7 @@ using CinemaSite.Models;
 
 namespace CinemaSite.Data
 {
-    public class CinemaDbContext:DbContext
+    public class CinemaDbContext : DbContext
     {
         public CinemaDbContext(DbContextOptions<CinemaDbContext> options) : base(options) { }
 
@@ -19,5 +19,15 @@ namespace CinemaSite.Data
         public DbSet<ArticleEntity> Article { get; set; }
         public DbSet<GenreEntity> Genre { get; set; }
         public DbSet<MovieGenreJoinEntity> MovieGenre { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<MovieGenreJoinEntity>(mb =>
+            {
+                mb.ToTable("MovieGenre");
+                mb.HasKey(pk => new { pk.movie_id, pk.genre_id });
+            });
+        }
     }
 }
