@@ -3,6 +3,7 @@ using CinemaSite.Data;
 using CinemaSite.Models;
 using CinemaSite.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CinemaSite.Controllers
 {
@@ -31,22 +32,32 @@ namespace CinemaSite.Controllers
 
         public IActionResult Repertuar(bool forKids = false)
         {
-            if (forKids) {
-                var viewModel = new DatabaseViewModel
-                {
-                    Movies = _context.Movie.AsQueryable().Where(m => m.for_kids).OrderBy(m => m.movie_id).ToList(),
-                    Screenings = _context.Screening.ToList()
-                };
-                return View(viewModel);
-            } else
+            var upcomingScreenings = _context.Screening
+                .Where(s => s.screening_time >= DateTime.Now)
+                .OrderBy(s => s.screening_time)
+                .AsNoTracking().ToList();
+
+            var upcomingMovieIds = upcomingScreenings
+                .Select(s => s.movie_id)
+                .Distinct()
+                .ToList();
+
+            var upcomingMovies = _context.Movie
+                .Where(m => upcomingMovieIds.Contains(m.movie_id))
+                .OrderBy(m => m.movie_id)
+                .AsNoTracking().ToList();
+
+            if (forKids)
             {
-                var viewModel = new DatabaseViewModel
-                {
-                    Movies = _context.Movie.AsQueryable().OrderBy(m => m.movie_id).ToList(),
-                    Screenings = _context.Screening.ToList()
-                };
-                return View(viewModel);
+                upcomingMovies = upcomingMovies.Where(m => m.for_kids).ToList();
             }
+
+            var viewModel = new DatabaseViewModel
+            {
+                Screenings = upcomingScreenings,
+                Movies = upcomingMovies
+            };
+            return View(viewModel);
         }
 
         public IActionResult Konto()

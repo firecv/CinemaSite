@@ -17,5 +17,7 @@ namespace CinemaSite.Data
         public DbSet<HallEntity> Hall { get; set; }
         public DbSet<MovieEntity> Movie { get; set; }
         public DbSet<ArticleEntity> Article { get; set; }
+        public DbSet<GenreEntity> Genre { get; set; }
+        public DbSet<MovieGenreJoinEntity> MovieGenre { get; set; }
     }
 }

@@ -16,5 +16,7 @@ namespace CinemaSite.ViewModels
         public List<HallEntity> Halls { get; set; }
         public List<MovieEntity> Movies { get; set; }
         public List<ArticleEntity> Articles { get; set; }
+        public List<GenreEntity> Genres { get; set; }
+        public List<MovieGenreJoinEntity> MovieGenreJoins { get; set; }
     }
 }
