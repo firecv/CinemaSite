@@ -2,6 +2,7 @@
     const movieRows = Array.from(document.querySelectorAll(".movie-row"));
     const searchBar = document.getElementById("title-search");
     const kidFilter = document.getElementById("kid-filter");
+    const genreFilter = document.getElementById("genre-filter");
 
     function normalizeText(string) {
         if (string == null) {
@@ -14,16 +15,19 @@
     function filter() {
         const searchValue = normalizeText(searchBar.value);
         const kidFilterOn = kidFilter.checked;
+        const genreSelect = genreFilter.value;
 
         for (const m of movieRows) {
             const movieTitle = normalizeText(m.dataset.title);
             const kidFriendly = m.dataset.forKids == true;
+            const movieRowGenres = m.dataset.genres.split(",");
 
             const matchTitleSubstring = searchValue == "" || movieTitle.includes(searchValue);
             const matchKidFilter = !kidFilterOn || kidFriendly;
-            // genre filters tba
+            const matchGenreFilter = genreSelect == "" || movieRowGenres.includes(genreSelect);
+            // event listeners at the bottom, don't forget again
 
-            if (matchTitleSubstring && matchKidFilter) {
+            if (matchTitleSubstring && matchKidFilter && matchGenreFilter) {
                 m.style.display = "";
             } else {
                 m.style.display = "none";
@@ -38,6 +42,7 @@
     });
 
     kidFilter.addEventListener("change", filter);
+    genreFilter.addEventListener("change", filter);
 
     filter();
 });
