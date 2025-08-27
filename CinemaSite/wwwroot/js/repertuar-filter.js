@@ -1,27 +1,43 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    const input = document.getElementById("name-search");
-    const rows = Array.from(document.querySelectorAll("#movies-list tr[data-title]"));
-    const searchString = normalizeText(input.value);
+    const movieRows = Array.from(document.querySelectorAll(".movie-row"));
+    const searchBar = document.getElementById("title-search");
+    const kidFilter = document.getElementById("kid-filter");
 
     function normalizeText(string) {
         if (string == null) {
             return "";
         }
-        return string.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        return string.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // np. TWARÓG --> twarog
         //https://www.codu.co/articles/remove-accents-from-a-javascript-string-skgp1inb
     }
 
-    function search() {
-        input.addEventListener("input", () => {
-            rows.forEach(row => {
-                const title = normalizeText(row.dataset.title);
+    function filter() {
+        const searchValue = normalizeText(searchBar.value);
+        const kidFilterOn = kidFilter.checked;
 
-                row.style.display = title.includes(searchString) ? "" : "none";
-            });
-        });
+        for (const m of movieRows) {
+            const movieTitle = normalizeText(m.dataset.title);
+            const kidFriendly = m.dataset.forKids == true;
+
+            const matchTitleSubstring = searchValue == "" || movieTitle.includes(searchValue);
+            const matchKidFilter = !kidFilterOn || kidFriendly;
+            // genre filters tba
+
+            if (matchTitleSubstring && matchKidFilter) {
+                m.style.display = "";
+            } else {
+                m.style.display = "none";
+            }
+        }
     }
 
-    input.addEventListener("input", search);
-    input.addEventListener("keyup", search);
-    search();
+    let typingDelay;
+    searchBar.addEventListener("input", () => {
+        clearTimeout(typingDelay);
+        typingDelay = setTimeout(filter, 250);
+    });
+
+    kidFilter.addEventListener("change", filter);
+
+    filter();
 });

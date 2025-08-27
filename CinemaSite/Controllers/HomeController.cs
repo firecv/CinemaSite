@@ -32,8 +32,10 @@ namespace CinemaSite.Controllers
 
         public IActionResult Repertuar(bool forKids = false)
         {
+            Console.WriteLine($"[DEBUG] forKids from query: {forKids}");
+
             var upcomingScreenings = _context.Screening
-                .Where(s => s.screening_time >= DateTime.Now)
+                .Where(s => s.screening_time >= DateTime.Now && s.screening_time <= DateTime.Now.AddDays(14))
                 .OrderBy(s => s.screening_time)
                 .AsNoTracking().ToList();
 

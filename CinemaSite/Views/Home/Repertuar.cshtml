@@ -2,82 +2,43 @@
 
 @{
     ViewData["Title"] = "Repertuar";
-    bool kidFilterOn = Context.Request.Query["forKids"] == "on";
     var currentDate = DateTime.Today;
     var translateToPolish = new CultureInfo("pl-PL");
+
+    var screeningDictionary = Model.Screenings.GroupBy(s => s.movie_id).ToDictionary(g => g.Key, g => g.OrderBy(i => i.screening_time).ToList());
 }
 
 @model CinemaSite.ViewModels.DatabaseViewModel
 
-<div>
-    <form id="kit-filter-form" method="get" asp-action="Repertuar">
-        <label for="kid-filter">Kids' Movies only?</label>
-        <input name="forKids" type="checkbox" id="kid-filter" autocomplete="off" onChange="this.form.submit()"
-                @(kidFilterOn ? "checked" : "")/>
-    </form>
+<!--Screenings = upcomingScreenings,
+    Movies = upcomingMovies,
+    Genres = _context.Genre.ToList(),
+    MovieGenreJoins = neededMovieGenreJoins-->
 
-    <input id="name-search" name="nameSearch" type="text" placeholder="🔍︎Szukaj filmu..." autocomplete="off" />
+<div id="body">
 
-    <div>
-        <h2>NEW MOVIES</h2>
+    <label for="forKids">Filmy dla dzieci</label>
+    <input name="forKids" type="checkbox" id="kid-filter" />
+    <input id="title-search" name="titleSearch" type="text" placeholder="🔍︎Szukaj filmu..." autocomplete="off" />
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Film</th>
-                    <th>Czas</th>
+    <table id="movie-table">
+        <thead>
+            <tr>
+                <th>Filmy</th>
+                <th>Seanse</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model.Movies)
+            {
+                <tr class="movie-row" data-title="@movie.title" data-forkids="@movie.for_kids">
+                    <td>
+                        <p>@movie.title</p> <!--simple for now-->
+                    </td>
                 </tr>
-            </thead>
-            <tbody id="movies-list">
-                @foreach (var item in Model.Movies)
-                {
-                    var posterImage = $"/Content/img{item.poster_id}.jpg";
-
-                    <tr data-title="@item.title">
-                        <td>
-                            <img src="@posterImage" style="width: 200px; height: auto;" alt="Plakat dla @item.title" />
-                            <p>@item.title</p>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        @for (var i = 0; i < 14; i++)
-                                        {
-                                            var date = currentDate.AddDays(i);
-
-                                            <th>@date.ToString("dddd dd MMM", translateToPolish)</th>
-                                            //maybe change to browser-set language later
-                                        }
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            @for (var i = 0; i < 14; i++)
-                                            {
-                                                var date = currentDate.AddDays(i);
-                                                var screeningsThatDay = Model.Screenings.Where(
-                                                s => s.movie_id == item.movie_id &&
-                                                s.screening_time.Date == date
-                                                ).OrderBy(s => s.screening_time);
-
-                                                @if (screeningsThatDay != null)
-                                                {
-                                                    @foreach (var subitem in screeningsThatDay)
-                                                    {
-                                                    <td>PLACEHOLDER</td>
-                                                }
-                                            }
-                                        }
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table>
 </div>
 
 @section Scripts {
