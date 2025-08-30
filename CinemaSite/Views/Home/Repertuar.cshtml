@@ -47,9 +47,39 @@
                     genreIdString = "";
                 }
 
+                var posterImage = $"/Content/img{movie.poster_id}.jpg";
+
                 <tr class="movie-row" data-title="@movie.title" data-forkids="@movie.for_kids" data-genres="@genreIdString">
                     <td>
-                        <p>@movie.title</p> <!--simple for now-->
+                        <div>
+                            <div>
+                                <p>@movie.title</p>
+                                <img src="@posterImage" style="max-height: 200px;" alt="Plakat dla @movie.title" /> <!--TODO: link to movie info page-->
+                            </div>
+                            <div class="screening-box">
+                                <button class="backward">←</button>
+                                <button class="forward">→</button>
+                                
+                                @for (var i = 0; i < 14; i++)
+                                {
+                                    var today = currentDate.AddDays(i);
+
+                                    var screeningsThatDay = Model.Screenings
+                                    .Where(s => s.movie_id == movie.movie_id && s.screening_time.Date == today.Date).ToList();
+                                    
+                                    <div data-index="@i">
+                                        <p>@today.ToString("ddd dd MMM")</p>
+   
+                                        @foreach (var subitem in screeningsThatDay)
+                                        {
+                                            <div>
+                                                <p>@subitem.screening_time.ToString("HH:mm"))</p> <!--TODO: link to seat page-->
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
                     </td>
                 </tr>
             }

@@ -1,4 +1,7 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
+
+    /// FILTRY REPERTUARU
+
     const movieRows = Array.from(document.querySelectorAll(".movie-row"));
     const searchBar = document.getElementById("title-search");
     const kidFilter = document.getElementById("kid-filter");
@@ -38,11 +41,48 @@
     let typingDelay;
     searchBar.addEventListener("input", () => {
         clearTimeout(typingDelay);
-        typingDelay = setTimeout(filter, 250);
+        typingDelay = setTimeout(filter, 200);
     });
 
     kidFilter.addEventListener("change", filter);
     genreFilter.addEventListener("change", filter);
 
     filter();
+
+
+    /// PRZELACZENIE MIEDZY TYDZIEN TEN A NASTEPNY
+
+    document.querySelectorAll(".movie-row").forEach(movie => {
+        const columns = movie.querySelectorAll("[data-index]");
+        const forwardBtn = movie.querySelector(".forward");
+        const backwardBtn = movie.querySelector(".backward");
+
+        let firstDay = 0;
+        const dayCount = 7; //TODO: change with screen resize; probably after css is done 
+        const maxScroll = 14 - dayCount;
+
+        function scrollWindow() {
+            columns.forEach(column => {
+                const index = parseInt(column.dataset.index, 10);
+                if (index >= firstDay && index < firstDay + dayCount) {
+                    column.style.display = "";
+                } else {
+                    column.style.display = "none";
+                }
+            });
+        }
+
+        forwardBtn.addEventListener("click", () => {
+            if (firstDay < maxScroll) {
+                firstDay++;
+                scrollWindow();
+            } });
+        backwardBtn.addEventListener("click", () => {
+            if (firstDay > 0) {
+                firstDay--;
+                scrollWindow();
+            } });
+
+        scrollWindow();
+    });
 });
