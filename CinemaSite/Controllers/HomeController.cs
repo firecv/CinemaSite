@@ -68,6 +68,32 @@ namespace CinemaSite.Controllers
             return View(viewModel);
         }
 
+        public IActionResult Rezerwacja(int movieId, int screeningId)
+        {
+            var movie = _context.Movie.FirstOrDefault(m => m.movie_id == movieId);
+            var screening = _context.Screening.FirstOrDefault(m => m.screening_id == screeningId);
+
+            if (movie == null || screening == null) { return Repertuar(); };
+
+            var seatsInHall = _context.Seat
+                .Where(s => s.hall_id == screening.hall_id)
+                .ToList();
+
+            var ticketsRelated = _context.Ticket
+                .Where(t => t.screening_id == screening.screening_id)
+                .ToList();
+
+            var viewModel = new RezerwacjaViewModel
+            {
+                Movie = movie,
+                Screening = screening,
+                Seats = seatsInHall,
+                Tickets = ticketsRelated
+            };
+
+            return View(viewModel);
+        }
+
         public IActionResult Konto()
         {
             var UserTickets = from t in _context.Ticket
