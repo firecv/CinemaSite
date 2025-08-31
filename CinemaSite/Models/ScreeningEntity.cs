@@ -16,5 +16,7 @@ namespace CinemaSite.Models
 
         [Required]
         public DateTime screening_time { get; set; }
+
+        public bool dubbing { get; set; }
     }
 }

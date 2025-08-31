@@ -10,5 +10,6 @@ namespace CinemaSite.Models
         public string title { get; set; }
         public int poster_id { get; set; }
         public bool for_kids { get; set; }
+        public string summary { get; set; }
     }
 }

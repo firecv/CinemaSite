@@ -70,11 +70,21 @@
                                     <div data-index="@i">
                                         <p>@today.ToString("ddd dd MMM")</p>
    
-                                        @foreach (var subitem in screeningsThatDay)
+                                        @foreach (var screening in screeningsThatDay)
                                         {
-                                            <div>
-                                                <p>@subitem.screening_time.ToString("HH:mm"))</p> <!--TODO: link to seat page-->
-                                            </div>
+                                            <a class="screening-box"
+                                                asp-action="Seat"
+                                                asp-route-movieId="@movie.id"
+                                                asp-route-screeningId="@screening.id">
+                                                <p>@screening.screening_time.ToString("HH:mm"))</p>
+                                                @if (screening.dubbing)
+                                                {
+                                                    <p><i>dubbing</i></p>
+                                                } else
+                                                {
+                                                    <p><i>napisy</i></p>
+                                                }
+                                            </a>
                                         }
                                     </div>
                                 }
