@@ -10,5 +10,7 @@ namespace CinemaSite.Models
         public bool imax { get; set; }
 
         public bool available { get; set; }
+
+        public int rowsize { get; set; }
     }
 }

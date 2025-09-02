@@ -19,5 +19,10 @@ namespace CinemaSite.Models
 
         [ForeignKey("TicketTypeEntity")]
         public int ticket_type_id { get; set; }
+        
+        public int ticket_status { get; set; }
+        // 0 = pending (in cart) - should be deleted after like 15-30 minutes
+        // 1 = in process of purchasing
+        // 2 = purchased, valid
     }
 }
