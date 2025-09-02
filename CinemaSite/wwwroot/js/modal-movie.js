@@ -1,6 +1,7 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
 
     const modalWindow = document.getElementById("modal-movie");
+    const modalInfo = document.getElementById("modal-movie-info");
     const closeModalButton = document.getElementById("xbutton");
 
     const modalTitle = document.getElementById("modal-title");
@@ -27,4 +28,7 @@
         row.addEventListener("click", () => updateModal(row));
     })
     closeModalButton.addEventListener("click", closeModal);
+
+    modalWindow.addEventListener("click", closeModal);
+    modalInfo.addEventListener("click", e => { e.stopPropagation(); });
 });
