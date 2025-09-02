@@ -11,5 +11,6 @@ namespace CinemaSite.Models
         public int poster_id { get; set; }
         public bool for_kids { get; set; }
         public string summary { get; set; }
+        public string trailer_link { get; set; }
     }
 }
