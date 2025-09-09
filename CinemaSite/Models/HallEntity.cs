@@ -12,5 +12,6 @@ namespace CinemaSite.Models
         public bool available { get; set; }
 
         public int rowsize { get; set; }
+        public int rowcount { get; set; }
     }
 }

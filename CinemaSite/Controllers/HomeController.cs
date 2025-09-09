@@ -71,9 +71,10 @@ namespace CinemaSite.Controllers
         public IActionResult Rezerwacja(int movieId, int screeningId)
         {
             var movie = _context.Movie.FirstOrDefault(m => m.movie_id == movieId);
-            var screening = _context.Screening.FirstOrDefault(m => m.screening_id == screeningId);
+            var screening = _context.Screening.FirstOrDefault(s => s.screening_id == screeningId);
+            var hall = _context.Hall.FirstOrDefault(h => h.hall_id == screening.hall_id);
 
-            if (movie == null || screening == null) { return Repertuar(); };
+            if (movie == null || screening == null || hall == null) { return Repertuar(); };
 
             var seatsInHall = _context.Seat
                 .Where(s => s.hall_id == screening.hall_id)
@@ -87,6 +88,7 @@ namespace CinemaSite.Controllers
             {
                 Movie = movie,
                 Screening = screening,
+                Hall = hall,
                 Seats = seatsInHall,
                 Tickets = ticketsRelated
             };

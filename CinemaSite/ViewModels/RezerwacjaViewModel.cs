@@ -7,6 +7,7 @@ namespace CinemaSite.ViewModels
     {
         public MovieEntity Movie { get; set; }
         public ScreeningEntity Screening { get; set; }
+        public HallEntity Hall { get; set; }
         public List<SeatEntity> Seats { get; set; }
         public List<TicketEntity> Tickets { get; set; }
     }

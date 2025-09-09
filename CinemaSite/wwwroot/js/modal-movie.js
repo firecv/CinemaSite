@@ -27,6 +27,10 @@
     document.querySelectorAll(".movie-row").forEach(row => {
         row.addEventListener("click", () => updateModal(row));
     })
+    document.querySelectorAll(".screening-box").forEach(box => {
+        box.addEventListener("click", e => { e.stopPropagation(); });
+    });
+
     closeModalButton.addEventListener("click", closeModal);
 
     modalWindow.addEventListener("click", closeModal);
