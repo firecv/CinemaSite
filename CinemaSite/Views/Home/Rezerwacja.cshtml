@@ -3,7 +3,7 @@
 
     var rowCount = Model.Hall.rowcount;
     var columnCount = Model.Hall.rowsize; //last row is 2 wider
-    var lastRowSize = columnCount + 2; //for that ^
+    var columnCountForGrid = columnCount + 3; //for that ^
 
     var seatsWithTickets = Model.Tickets.Where(t => t.ticket_status == 2).Select(t => t.seat_id).ToHashSet();
 }
@@ -15,7 +15,7 @@
     #seat-grid {
         display: grid;
         grid-template-rows: repeat(@rowCount, 25px);
-        grid-template-columns: repeat(@lastRowSize, 25px);
+        grid-template-columns: repeat(@columnCountForGrid, 25px);
         gap: 5px;
         justify-content: center;
         align-content: center;
@@ -41,14 +41,16 @@
     }
 </style>
 
-<!--char rowLabel = (char)('A' + i - 1);
-            <p>rowLabel</p>  add later-->
-
 <div>
     <h1>@Model.Movie.title</h1>
     <div id="seat-grid">
         @for (int i = 1; i < Model.Hall.rowcount; i++)
         {
+            char rowLabel = (char)('A' + i - 1);
+
+            <div style="width:25px; height: 25px;">
+                <p>@rowLabel</p>
+            </div>
 
             @for (int j = 1; j <= (int)(Model.Hall.rowsize / 2); j++)
             {
@@ -56,11 +58,13 @@
                 var taken = seatsWithTickets.Contains(thisSeat.seat_id);
 
                 <div class="seat-square @(taken ? "taken" : "open")" data-seat-id="@thisSeat.seat_id"
-                    title="@j"></div>
+                     title="@j">
+                    <p>@j</p>
+                </div>
             }
 
-            <div style="width:20px; height:20px;"></div>
-            <div style="width:20px; height:20px;"></div>
+            <div style="width:25px; height:25px;"></div>
+            <div style="width:25px; height:25px;"></div>
 
             @for (int k = (int)(Model.Hall.rowsize / 2) + 1; k <= Model.Hall.rowsize; k++)
             {
@@ -68,16 +72,27 @@
                 var taken = seatsWithTickets.Contains(thisSeat.seat_id);
 
                 <div class="seat-square @(taken ? "taken" : "open")" data-seat-id="@thisSeat.seat_id"
-                     title="@k"></div>
+                     title="@k">
+                    <p>@k</p>
+                </div>
             }
         }
+
+        <!--last row has 2 extra seats-->
+
+        <div style="width:25px; height: 25px;">
+            <p>@((char)('A' + rowCount - 1))</p>
+        </div>
+
         @for (int h = 1; h <= Model.Hall.rowsize + 2; h++)
         {
             var thisSeat = Model.Seats.FirstOrDefault(s => (int)(s.rowNum - 'A' + 1) == Model.Hall.rowcount && s.columnNum == h);
             var taken = seatsWithTickets.Contains(thisSeat.seat_id);
 
             <div class="seat-square @(taken ? "taken" : "open")" data-seat-id="@thisSeat.seat_id"
-                 title="@h"></div>
+                 title="@h">
+                <p>@h</p>
+            </div>
         }
     </div>
 </div>
