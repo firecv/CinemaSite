@@ -3,6 +3,7 @@
 
     var rowCount = Model.Hall.rowcount;
     var columnCount = Model.Hall.rowsize; //last row is 2 wider
+    var lastRowSize = columnCount + 2; //for that ^
 
     var seatsWithTickets = Model.Tickets.Where(t => t.ticket_status == 2).Select(t => t.seat_id).ToHashSet();
 }
@@ -13,26 +14,29 @@
 <style>
     #seat-grid {
         display: grid;
-        grid-template-rows: repeat(@rowCount, 20px);
-        grid-template-columns: repeat(@columnCount, 20px);
+        grid-template-rows: repeat(@rowCount, 25px);
+        grid-template-columns: repeat(@lastRowSize, 25px);
+        gap: 5px;
+        justify-content: center;
+        align-content: center;
     }
 
     .seat-square {
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 25px;
         cursor: pointer;
     }
 
-    .seat.open {
+    .seat-square.open {
         background: #000000;
     }
 
-    .seat.taken {
+    .seat-square.taken {
         background: #646464;
         cursor: not-allowed;
     }
 
-    .seat.selected {
+    .seat-square.selected {
         background: #d8315b;
     }
 </style>
