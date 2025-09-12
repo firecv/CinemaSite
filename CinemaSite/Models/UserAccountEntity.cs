@@ -18,5 +18,6 @@ namespace CinemaSite.Models
 
         [Required]
         public string password_hash { get; set; }
+
     }
 }

@@ -15,7 +15,7 @@
     const phoneRegex = /^[\+]?[0-9]{0,3}\W?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
     // zrodlo: https://stackoverflow.com/questions/4338267/validate-phone-number-with-javascript (naprawione dla js)
 
-    var updateErrorMessage = function (string message) {
+    var updateErrorMessage = function (message) {
         submitBtn.disabled = true;
         errorMessage.textContent = message;
         errorMessage.style.visibility = "visible";

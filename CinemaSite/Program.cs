@@ -49,4 +49,15 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+/*       ---=== Just to check if stripe is running ===---
+try
+{
+    var stripeTest = new BalanceService().Get();
+    Console.WriteLine("Stripe running in mode: " + (stripeTest.Livemode ? "Live" : "Test")); //make sure it's test
+}
+catch (Exception ex)
+{
+    Console.WriteLine("Stripe not running, error: " + ex.Message);
+}*/
+
 app.Run();

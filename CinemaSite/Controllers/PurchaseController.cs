@@ -1,5 +1,6 @@
 ﻿using CinemaSite.Data;
 using CinemaSite.Models;
+using CinemaSite.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Stripe;
@@ -15,51 +16,49 @@ namespace CinemaSite.Controllers
     {
         private readonly CinemaDbContext _context;
 
-        Cart cart = new Cart(); //TODO: change this to store it in cookies, then retrieve it from there as well
-
         public PurchaseController(CinemaDbContext context) => _context = context;
 
-        [HttpPost]
-        public async Task<IActionResult> CheckoutAsync([FromBody] Cart? cart = null)
+        [HttpPost("stripe-checkout")]
+        public ActionResult checkout()
         {
             try {
-                var ticketTypePrices = await _context.TicketType.ToDictionaryAsync(tt => tt.ticket_type_id, tt => tt.price);
-                var cartTotal = cart.tickets.Sum(t => ticketTypePrices[t.ticket_type_id]);
+                //var ticketTypePrices = _context.TicketType.ToDictionary(tt => tt.ticket_type_id, tt => tt.price);
 
-                var testTicket = await _context.Ticket.FirstOrDefaultAsync(t => t.ticket_id == 1);
-                cart.tickets.Add(testTicket);
+                var itemTotalCost = 5000; //placeholder
 
-                var origin = $"{Request.Scheme}://{Request.Host}";
-
-
-                var stripeSessionService = new SessionService();
-
-                var checkoutSession = await stripeSessionService.CreateAsync(new SessionCreateOptions
+                var stripeOptions = new Stripe.Checkout.SessionCreateOptions
                 {
                     Mode = "payment",
                     ClientReferenceId = Guid.NewGuid().ToString(),
-                    SuccessUrl = $"{origin}/Home/Index",
-                    CancelUrl = $"{origin}/Home/Repertuar",
-                    CustomerEmail = HttpContext.Session.GetString("ActiveUserEmail"),
+                    
+                    //CustomerEmail = HttpContext.Session.GetString("ActiveUserEmail"),
+
+                    SuccessUrl = "https://docs.stripe.com/api/checkout/sessions/object?lang=dotnet", //placeholder links, will do it later
+                    CancelUrl = "https://www.youtube.com/watch?v=MYb5TrjMCNU",
+                    
                     LineItems = new()
                     {
                         new ()
                         {
-                            PriceData = new()
+                            PriceData = new SessionLineItemPriceDataOptions
                             {
                                 Currency = "pln",
-                                ProductData = new()
+                                ProductData = new SessionLineItemPriceDataProductDataOptions
                                 {
                                     Name = "Bilety"
                                 },
-                                UnitAmountDecimal = cartTotal
+                                UnitAmountDecimal = itemTotalCost
                             },
                             Quantity = 1
                         }
                     }
-                });
+                };
 
-                return Ok (new {redirectUrl = checkoutSession.Url});
+                var stripeSessionService = new SessionService();
+                Session session = stripeSessionService.Create(stripeOptions);
+
+                Response.Headers.Add("Location", session.Url);
+                return new StatusCodeResult(303); //redirect to above url
             }
             catch (StripeException ex)
             {
