@@ -6,6 +6,10 @@
     var columnCountForGrid = columnCount + 3; //for that ^
 
     var seatsWithTickets = Model.Tickets.Where(t => t.ticket_status == 2).Select(t => t.seat_id).ToHashSet();
+
+    var seatTypeDictionary = Model.SeatTypes.ToDictionary(st => st.seat_type_id, st => st.seat_type);
+
+    var ticketTypeDictionary = Model.TicketTypes.ToDictionary(tt => tt.ticket_type_id, tt => tt.ticket_type);
 }
 
 @model CinemaSite.ViewModels.RezerwacjaViewModel;
@@ -57,8 +61,12 @@
                 var thisSeat = Model.Seats.FirstOrDefault(s => (int)(s.rowNum - 'A' + 1) == i && s.columnNum == j); //rowNum is a char in the database
                 var taken = seatsWithTickets.Contains(thisSeat.seat_id);
 
-                <div class="seat-square @(taken ? "taken" : "open")" data-seat-id="@thisSeat.seat_id"
-                     title="@j">
+                <div class="seat-square @(taken ? "taken" : "open")"
+                        data-seat-id="@thisSeat.seat_id"
+                        data-row="@i"
+                        data-column="@j"
+                        data-seat-type="@seatTypeDictionary[thisSeat.seat_type_id]"
+                        title="@j">
                     <p>@j</p>
                 </div>
             }
@@ -70,9 +78,14 @@
             {
                 var thisSeat = Model.Seats.FirstOrDefault(s => (int)(s.rowNum - 'A' + 1) == i && s.columnNum == k);
                 var taken = seatsWithTickets.Contains(thisSeat.seat_id);
+                var seatType = thisSeat.seat_type_id;
 
-                <div class="seat-square @(taken ? "taken" : "open")" data-seat-id="@thisSeat.seat_id"
-                     title="@k">
+                <div class="seat-square @(taken ? "taken" : "open")"
+                        data-seat-id="@thisSeat.seat_id"
+                        data-row="@i"
+                        data-column="@k"
+                        data-seat-type="@seatTypeDictionary[thisSeat.seat_type_id]"
+                        title="@k">
                     <p>@k</p>
                 </div>
             }
@@ -89,15 +102,37 @@
             var thisSeat = Model.Seats.FirstOrDefault(s => (int)(s.rowNum - 'A' + 1) == Model.Hall.rowcount && s.columnNum == h);
             var taken = seatsWithTickets.Contains(thisSeat.seat_id);
 
-            <div class="seat-square @(taken ? "taken" : "open")" data-seat-id="@thisSeat.seat_id"
-                 title="@h">
+            <div class="seat-square @(taken ? "taken" : "open")"
+                    data-seat-id="@thisSeat.seat_id"
+                    data-row="@((char)('A' + rowCount - 1))"
+                    data-column="@h"
+                    data-seat-type="@seatTypeDictionary[thisSeat.seat_type_id]"
+                    title="@h">
                 <p>@h</p>
             </div>
         }
     </div>
 </div>
+
 <div>
-    <form asp-controller="Purchase" asp-action="checkout" method="POST">
+    <form id="pseudo-cart" asp-controller="Purchase" asp-action="checkout" method="POST">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Miejsce</th>
+                    <th>Rodzaj siedzenia</th>
+                    <th>Rodzaj biletu</th>
+                    <th>Cena</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                <tr>
+
+                </tr>
+            </tbody>
+        </table>
+
         <button type="submit">Head to Checkout (please work this time)</button>
     </form>
 </div>

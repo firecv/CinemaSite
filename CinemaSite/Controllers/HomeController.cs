@@ -68,6 +68,8 @@ namespace CinemaSite.Controllers
             return View(viewModel);
         }
 
+
+
         public IActionResult Rezerwacja(int movieId, int screeningId)
         {
             var movie = _context.Movie.FirstOrDefault(m => m.movie_id == movieId);
@@ -84,17 +86,23 @@ namespace CinemaSite.Controllers
                 .Where(t => t.screening_id == screening.screening_id)
                 .ToList();
 
+            
+
             var viewModel = new RezerwacjaViewModel
             {
                 Movie = movie,
                 Screening = screening,
                 Hall = hall,
                 Seats = seatsInHall,
-                Tickets = ticketsRelated
+                SeatTypes = _context.SeatType.ToList(),
+                Tickets = ticketsRelated,
+                TicketTypes = _context.TicketType.ToList()
             };
 
             return View(viewModel);
         }
+
+
 
         public IActionResult Konto()
         {

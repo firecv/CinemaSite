@@ -22,8 +22,6 @@ namespace CinemaSite.Controllers
         public ActionResult checkout()
         {
             try {
-                //var ticketTypePrices = _context.TicketType.ToDictionary(tt => tt.ticket_type_id, tt => tt.price);
-
                 var itemTotalCost = 5000; //placeholder
 
                 var stripeOptions = new Stripe.Checkout.SessionCreateOptions
