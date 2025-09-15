@@ -72,34 +72,49 @@ namespace CinemaSite.Controllers
 
         public IActionResult Rezerwacja(int movieId, int screeningId)
         {
-            var movie = _context.Movie.FirstOrDefault(m => m.movie_id == movieId);
-            var screening = _context.Screening.FirstOrDefault(s => s.screening_id == screeningId);
-            var hall = _context.Hall.FirstOrDefault(h => h.hall_id == screening.hall_id);
-
-            if (movie == null || screening == null || hall == null) { return Repertuar(); };
-
-            var seatsInHall = _context.Seat
-                .Where(s => s.hall_id == screening.hall_id)
-                .ToList();
-
-            var ticketsRelated = _context.Ticket
-                .Where(t => t.screening_id == screening.screening_id)
-                .ToList();
-
-            
-
-            var viewModel = new RezerwacjaViewModel
+            try
             {
-                Movie = movie,
-                Screening = screening,
-                Hall = hall,
-                Seats = seatsInHall,
-                SeatTypes = _context.SeatType.ToList(),
-                Tickets = ticketsRelated,
-                TicketTypes = _context.TicketType.ToList()
-            };
+                var movie = _context.Movie.FirstOrDefault(m => m.movie_id == movieId);
+                var screening = _context.Screening.FirstOrDefault(s => s.screening_id == screeningId);
+                var hall = _context.Hall.FirstOrDefault(h => h.hall_id == screening.hall_id);
 
-            return View(viewModel);
+                if (movie == null || screening == null || hall == null) { return Repertuar(); }
+                ;
+
+                var seatsInHall = _context.Seat
+                    .Where(s => s.hall_id == screening.hall_id)
+                    .ToList();
+
+                var ticketsRelated = _context.Ticket
+                    .Where(t => t.screening_id == screening.screening_id)
+                    .ToList();
+
+
+
+                var viewModel = new RezerwacjaViewModel
+                {
+                    Movie = movie,
+                    Screening = screening,
+                    Hall = hall,
+                    Seats = seatsInHall,
+                    SeatTypes = _context.SeatType.ToList(),
+                    Tickets = ticketsRelated,
+                    TicketTypes = _context.TicketType.ToList()
+                };
+
+                return View(viewModel);
+            } catch (Exception ex) {
+                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Stack: " + ex.StackTrace);
+
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine("Inner: " + ex.InnerException.Message);
+                    Console.WriteLine("Inner stack: " + ex.InnerException.StackTrace);
+                }
+
+                throw; // rethrow so you still see it in the browser
+            }
         }
 
 

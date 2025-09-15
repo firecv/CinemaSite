@@ -65,7 +65,7 @@
                         data-seat-id="@thisSeat.seat_id"
                         data-row="@i"
                         data-column="@j"
-                        data-seat-type="@seatTypeDictionary[thisSeat.seat_type_id]"
+                        data-seat-type="@thisSeat.seat_type_id"
                         title="@j">
                     <p>@j</p>
                 </div>
@@ -84,7 +84,7 @@
                         data-seat-id="@thisSeat.seat_id"
                         data-row="@i"
                         data-column="@k"
-                        data-seat-type="@seatTypeDictionary[thisSeat.seat_type_id]"
+                        data-seat-type="@thisSeat.seat_type_id"
                         title="@k">
                     <p>@k</p>
                 </div>
@@ -104,9 +104,9 @@
 
             <div class="seat-square @(taken ? "taken" : "open")"
                     data-seat-id="@thisSeat.seat_id"
-                    data-row="@((char)('A' + rowCount - 1))"
+                    data-row="@((int)('A' + rowCount - 1))"
                     data-column="@h"
-                    data-seat-type="@seatTypeDictionary[thisSeat.seat_type_id]"
+                    data-seat-type="@thisSeat.seat_type_id"
                     title="@h">
                 <p>@h</p>
             </div>

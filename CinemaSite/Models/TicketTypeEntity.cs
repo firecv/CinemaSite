@@ -13,6 +13,6 @@ namespace CinemaSite.Models
         [Required]
         public int price { get; set; }
 
-        public string stripe_item_id { get; set; }
+        public string? stripe_item_id { get; set; }
     }
 }
