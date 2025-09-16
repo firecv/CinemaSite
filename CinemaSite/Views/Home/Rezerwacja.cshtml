@@ -14,6 +14,17 @@
 
 @model CinemaSite.ViewModels.RezerwacjaViewModel;
 
+<template id="dropdown-template">
+    <select class="ttoption">
+        @foreach (var tt in Model.TicketTypes)
+        {
+            <option value="@tt.ticket_type_id" data-price="@tt.price">@tt.ticket_type - @((tt.price/100.0).ToString("F2"))zł</option>
+        }
+    </select>
+</template>
+
+
+
 <!--will be moved to css file later-->
 <style>
     #seat-grid {
@@ -66,6 +77,7 @@
                         data-row="@i"
                         data-column="@j"
                         data-seat-type="@thisSeat.seat_type_id"
+                        data-seat-name="@seatTypeDictionary[thisSeat.seat_type_id]"
                         title="@j">
                     <p>@j</p>
                 </div>
@@ -85,6 +97,7 @@
                         data-row="@i"
                         data-column="@k"
                         data-seat-type="@thisSeat.seat_type_id"
+                        data-seat-name="@seatTypeDictionary[thisSeat.seat_type_id]"
                         title="@k">
                     <p>@k</p>
                 </div>
@@ -107,6 +120,7 @@
                     data-row="@((int)('A' + rowCount - 1))"
                     data-column="@h"
                     data-seat-type="@thisSeat.seat_type_id"
+                    data-seat-name="@seatTypeDictionary[thisSeat.seat_type_id]"
                     title="@h">
                 <p>@h</p>
             </div>
