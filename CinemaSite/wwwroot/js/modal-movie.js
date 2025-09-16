@@ -24,6 +24,7 @@
         modalTrailer.src = "";
     }
 
+    //TODO: change to closest(), i like those more lol
     document.querySelectorAll(".movie-row").forEach(row => {
         row.addEventListener("click", () => updateModal(row));
     })

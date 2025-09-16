@@ -97,5 +97,5 @@
         cart.delete(seatId);
 
         renderCart();
-    })
+    });
 });
