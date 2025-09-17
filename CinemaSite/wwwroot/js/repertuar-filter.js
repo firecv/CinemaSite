@@ -22,7 +22,7 @@
 
         for (const m of movieRows) {
             const movieTitle = normalizeText(m.dataset.title);
-            const kidFriendly = m.dataset.forKids == true;
+            const kidFriendly = m.dataset.forKids == "true";
             const movieRowGenres = m.dataset.genres.split(",");
 
             const matchTitleSubstring = searchValue == "" || movieTitle.includes(searchValue);
@@ -52,13 +52,26 @@
 
     /// PRZELACZENIE MIEDZY TYDZIEN TEN A NASTEPNY
 
+    const screeningBox = document.querySelectorAll(".screening-box");
+
+    function scrollWindow(firstDay, dayCount) {
+        columns.forEach(column => {
+            const index = parseInt(column.dataset.index, 10);
+            if (index >= firstDay && index < firstDay + dayCount) {
+                column.style.display = "";
+            } else {
+                column.style.display = "none";
+            }
+        });
+    }
+
     document.querySelectorAll(".movie-row").forEach(movie => {
         const columns = movie.querySelectorAll("[data-index]");
         const forwardBtn = movie.querySelector(".forward");
         const backwardBtn = movie.querySelector(".backward");
 
         let firstDay = 0;
-        const dayCount = 7; //TODO: change with screen resize; probably after css is done 
+        const dayCount = 7; //amount onscreen  TODO: change with screen resize; probably after css is done 
         const maxScroll = 14 - dayCount;
 
         function scrollWindow() {

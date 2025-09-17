@@ -2,7 +2,7 @@
 
     const modalWindow = document.getElementById("modal-movie");
     const modalInfo = document.getElementById("modal-movie-info");
-    const closeModalButton = document.getElementById("xbutton");
+    const xButton = document.getElementById("xbutton");
 
     const modalTitle = document.getElementById("modal-title");
     const modalPoster = document.getElementById("modal-poster");
@@ -24,15 +24,22 @@
         modalTrailer.src = "";
     }
 
-    //TODO: change to closest(), i like those more lol
-    document.querySelectorAll(".movie-row").forEach(row => {
-        row.addEventListener("click", () => updateModal(row));
-    })
-    document.querySelectorAll(".screening-box").forEach(box => {
-        box.addEventListener("click", e => { e.stopPropagation(); });
+    const moviesList = document.getElementById("movies-list");
+    moviesList.addEventListener("click", (e) => {
+
+        if (e.target.closest(".screening-box")) return;
+
+        const movieSelected = e.target.closest(".movie-row");
+
+        if (movieSelected == null) return;
+          
+        updateModal(movieSelected);
     });
 
-    closeModalButton.addEventListener("click", closeModal);
+    xButton.addEventListener("click", closeModal);
+    document.addEventListener("keydown", function (e) { //https://lexingtonthemes.com/tutorials/how-to-create-a-image-gallery-with-tailwind-css-and-javascript/
+        if (e.key === "Escape") closeModal;
+    });
 
     modalWindow.addEventListener("click", closeModal);
     modalInfo.addEventListener("click", e => { e.stopPropagation(); });

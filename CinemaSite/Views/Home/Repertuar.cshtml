@@ -29,6 +29,8 @@
         }
     </select>
 
+
+
     <table id="movie-table">
         <thead>
             <tr>
@@ -36,7 +38,7 @@
                 <th>Seanse</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="movies-list">
             @foreach (var movie in Model.Movies)
             {
                 var genreIdList = genreDictionary.TryGetValue(movie.movie_id, out var genres) ? genres : new List<int>();
@@ -59,13 +61,13 @@
                         <div>
                             <div>
                                 <p>@movie.title</p>
-                                <img src="@posterImage" style="max-height: 100px;" alt="Plakat dla @movie.title" /> <!--TODO: link to movie info page-->
+                                <img src="@posterImage" style="max-height: 100px;" alt="Plakat dla @movie.title" />
                             </div>
                             <div class="screening-box">
                                 <button class="backward">←</button>
                                 <button class="forward">→</button>
 
-                                @for (var i = 0; i < 14; i++)
+                                @for (var i = 0; i < 14; i++) //all are created, visibility is just toggled in js
                                 {
                                     var today = currentDate.AddDays(i);
 

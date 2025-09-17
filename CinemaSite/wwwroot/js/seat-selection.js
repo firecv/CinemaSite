@@ -6,11 +6,8 @@
 
     function renderCart() {
         if (cart.size == 0) {
-            //cartItems.innerHTML = "";
             cartItems.style.display = "none";
         } else {
-            /*   DOM Version */
-
             const cartRows = document.createDocumentFragment();
             for (const item of cart.values()) {
                 const tr = document.createElement("tr");
@@ -27,7 +24,7 @@
 
                 const xButton = document.createElement("button");
                 xButton.type = "button";
-                xButton.className = "unselect"; //TODO: event listener to unselect this seat
+                xButton.className = "unselect";
                 xButton.dataset.seatId = String(item.seatId);
                 xButton.textContent = "X";
 
@@ -37,25 +34,6 @@
             }
 
             cartItems.replaceChildren(cartRows);
-
-            /*   innerHTML Version
-            
-            const cartRows = [];
-            for (const item of cart.values()) {
-                cartRows.push(`
-                    <tr>
-                        <td style="display: flex; flex-direction: row;">
-                            <span>Miejsce ${item.fixedSeatRow}${item.seatCol}</p>
-                            <span>Siedzenie ${item.seatType}</p>
-                            ${dropdownClone.outerHTML}
-                            <button type="button" class="unselect" data-seat-id="${item.seatId}">X</button>
-                        </td>
-                    </tr>
-                `);
-            }
-
-            cartItems.innerHTML = cartRows.join("");*/
-
             cartItems.style.display = "";
         }
     }
