@@ -1,12 +1,27 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
     const seatGrid = document.getElementById("seat-grid");
+    const cartContainer = document.getElementById("cart-container");
     const cartItems = document.getElementById("cart-items");
+    const totalPriceDisplay = document.getElementById("total");
 
     const cart = new Map();
 
+    function sumCartItems() {
+        const cartItemPrices = document.querySelectorAll(".ttDropdown");
+        let sumPrice = 0;
+
+        for (const item of cartItemPrices) {
+            const selOption = item.selectedOptions[0];
+            sumPrice += Number(selOption.dataset.price ?? 0);
+        }
+
+        totalPriceDisplay.style.display = "";
+        totalPriceDisplay.textContent = `${(sumPrice / 100).toFixed(2)}zł`;
+    }
+
     function renderCart() {
         if (cart.size == 0) {
-            cartItems.style.display = "none";
+            cartContainer.style.display = "none";
         } else {
             const cartRows = document.createDocumentFragment();
             for (const item of cart.values()) {
@@ -21,6 +36,7 @@
 
                 const ttDropdown = document.getElementsByTagName("template")[0].content.firstElementChild.cloneNode(true);
                 ttDropdown.dataset.seatId = String(item.seatId); //template *with ticket type data* is in the cshtml file, but id is added here
+                ttDropdown.addEventListener("change", sumCartItems);
 
                 const xButton = document.createElement("button");
                 xButton.type = "button";
@@ -34,7 +50,8 @@
             }
 
             cartItems.replaceChildren(cartRows);
-            cartItems.style.display = "";
+            cartContainer.style.display = "";
+            sumCartItems();
         }
     }
 
@@ -62,7 +79,6 @@
         renderCart();
     });
 
-
     cartItems.addEventListener("click", (e) => {
         const xButton = e.target.closest(".unselect");
 
@@ -76,4 +92,6 @@
 
         renderCart();
     });
+
+    renderCart();
 });

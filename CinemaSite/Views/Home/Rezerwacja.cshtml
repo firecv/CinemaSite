@@ -15,7 +15,7 @@
 @model CinemaSite.ViewModels.RezerwacjaViewModel;
 
 <template id="dropdown-template">
-    <select class="ttoption">
+    <select class="ttDropdown">
         @foreach (var tt in Model.TicketTypes)
         {
             <option value="@tt.ticket_type_id" data-price="@tt.price">@tt.ticket_type - @((tt.price/100.0).ToString("F2"))zł</option>
@@ -128,7 +128,7 @@
     </div>
 </div>
 
-<div>
+<div id="cart-container">
     <form id="pseudo-cart" asp-controller="Purchase" asp-action="checkout" method="POST">
 
         <table>
@@ -146,6 +146,7 @@
                 </tr>
             </tbody>
         </table>
+        <p id="total"></p>
 
         <button type="submit">Head to Checkout (please work this time)</button>
     </form>
