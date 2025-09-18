@@ -18,12 +18,10 @@ namespace CinemaSite.Controllers
 
         public PurchaseController(CinemaDbContext context) => _context = context;
 
-        [HttpPost("stripe-checkout")]
-        public ActionResult checkout()
+        [HttpGet("stripe-checkout")]
+        public IActionResult Checkout(int sumTotalCost, int screeningId)
         {
             try {
-                var itemTotalCost = 5000; //placeholder
-
                 var stripeOptions = new Stripe.Checkout.SessionCreateOptions
                 {
                     Mode = "payment",
@@ -45,7 +43,7 @@ namespace CinemaSite.Controllers
                                 {
                                     Name = "Bilety"
                                 },
-                                UnitAmountDecimal = itemTotalCost
+                                UnitAmountDecimal = sumTotalCost
                             },
                             Quantity = 1
                         }

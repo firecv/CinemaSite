@@ -101,6 +101,32 @@ namespace CinemaSite.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
+        public IActionResult RedirectCheckout(int screeningIdPost, List<int> ticketTypesPost)
+        {
+            var ticketTypesDict = _context.TicketType.ToDictionary(tt => tt.ticket_type_id, tt => tt.price);
+            var sumTotalCost = 0;
+            foreach (var t in ticketTypesPost)
+            {
+                if (ticketTypesDict.TryGetValue(t, out var tp))
+                {
+                    sumTotalCost += tp;
+                } else
+                {
+                    //TODO: add some better error handling later
+                    return View();
+                }
+            }
+
+            //TODO: Lock tickets before going to purchase screen - remember there's that time field, maybe do it in Rezerwacja
+
+            return RedirectToAction(
+                controllerName: "Purchase",
+                actionName: "Checkout",
+                routeValues: new { sumTotalCost = sumTotalCost, screeningId = screeningIdPost }
+            );
+        }
+
 
 
         public IActionResult Konto()
