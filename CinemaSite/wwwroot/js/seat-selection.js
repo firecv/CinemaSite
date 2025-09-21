@@ -44,7 +44,12 @@
                 xButton.dataset.seatId = String(item.seatId);
                 xButton.textContent = "X";
 
-                td.append(seatNumText, seatTypeText, ttDropdown, xButton);
+                const hiddenSeatIdPasser = document.createElement("input");
+                hiddenSeatIdPasser.type = "hidden";
+                hiddenSeatIdPasser.name = "seatIdsPost";
+                hiddenSeatIdPasser.value = String(item.seatId); //string temporarily, html restriction
+
+                td.append(seatNumText, seatTypeText, ttDropdown, xButton, hiddenSeatIdPasser);
                 tr.appendChild(td);
                 cartRows.appendChild(tr);
             }

@@ -84,7 +84,8 @@ namespace CinemaSite.Controllers
                 .ToList();
 
             var ticketsRelated = _context.Ticket
-                .Where(t => t.screening_id == screening.screening_id)
+                .Where(t => t.screening_id == screening.screening_id
+                && (t.ticket_status == 2 || t.hold_until > DateTime.UtcNow))
                 .ToList();
 
             var viewModel = new RezerwacjaViewModel
@@ -102,13 +103,31 @@ namespace CinemaSite.Controllers
         }
 
         [HttpPost]
-        public IActionResult RedirectCheckout(int screeningIdPost, List<int> ticketTypesPost)
+        public IActionResult RedirectCheckout(int screeningIdPost, List<int> ticketTypesPost, List<int> seatIdsPost)
         {
+            if (HttpContext.Session.GetInt32("ActiveUserID") == null || screeningIdPost == 0)
+            {
+                return View();
+            }
+
+            Console.WriteLine(screeningIdPost);
+
             var ticketTypesDict = _context.TicketType.ToDictionary(tt => tt.ticket_type_id, tt => tt.price);
             var sumTotalCost = 0;
-            foreach (var t in ticketTypesPost)
+            for (int i = 0; i < ticketTypesPost.Count(); i++)
             {
-                if (ticketTypesDict.TryGetValue(t, out var tp))
+                TicketEntity newCartTicket = new TicketEntity();
+
+                newCartTicket.screening_id = screeningIdPost;
+                newCartTicket.account_id = (int)HttpContext.Session.GetInt32("ActiveUserID");
+                newCartTicket.seat_id = seatIdsPost[i];
+                newCartTicket.ticket_type_id = ticketTypesPost[i];
+                newCartTicket.ticket_status = 0;
+                newCartTicket.hold_until = DateTime.UtcNow.AddMinutes(15);
+
+                _context.Ticket.Add(newCartTicket);
+
+                if (ticketTypesDict.TryGetValue(ticketTypesPost[i], out var tp))
                 {
                     sumTotalCost += tp;
                 } else
@@ -117,6 +136,8 @@ namespace CinemaSite.Controllers
                     return View();
                 }
             }
+
+            _context.SaveChanges();
 
             //TODO: Lock tickets before going to purchase screen - remember there's that time field, maybe do it in Rezerwacja
 

@@ -5,7 +5,7 @@
     var columnCount = Model.Hall.rowsize; //last row is 2 wider
     var columnCountForGrid = columnCount + 3; //for that ^
 
-    var seatsWithTickets = Model.Tickets.Where(t => t.ticket_status == 2).Select(t => t.seat_id).ToHashSet();
+    var seatsWithTickets = Model.Tickets.Select(t => t.seat_id).ToHashSet();
 
     var seatTypeDictionary = Model.SeatTypes.ToDictionary(st => st.seat_type_id, st => st.seat_type);
 
@@ -130,7 +130,7 @@
 
 <div id="cart-container">
     <form id="pseudo-cart" asp-controller="Home" asp-action="RedirectCheckout" method="POST">
-        <input name="screeningIdPost" type="hidden" value="@Model.Screening" />
+        <input name="screeningIdPost" type="hidden" value="@Model.Screening.screening_id" />
 
         <table>
             <thead>
