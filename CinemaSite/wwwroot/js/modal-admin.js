@@ -9,12 +9,30 @@
     const modalSummary = document.getElementById("modal-summary");
     const modalTrailer = document.getElementById("modal-trailer");
 
+    
+    const modalIdEditHidden = document.getElementById("edit-id");
+    const modalTitleEdit = document.getElementById("edit-title");
+    const modalSummaryEdit = document.getElementById("edit-summary");
+    const modalTrailerEdit = document.getElementById("edit-trailer");
+    const modalKidsEdit = document.getElementById("edit-kids");
+
     function updateModal(movieRow) {
         modalTitle.textContent = movieRow.dataset.title;
         modalPoster.src = movieRow.dataset.poster;
         modalPoster.alt = "Plakat dla " + movieRow.dataset.title;
         modalSummary.textContent = movieRow.dataset.summary;
         modalTrailer.src = "https://www.youtube.com/embed/" + movieRow.dataset.trailer;
+
+        modalIdEditHidden.value = movieRow.dataset.id;
+        modalTitleEdit.value = movieRow.dataset.title;
+        modalSummaryEdit.value = movieRow.dataset.summary;
+        modalTrailerEdit.value = movieRow.dataset.trailer;
+
+        if (movieRow.dataset.forkids == "true" || movieRow.dataset.forkids == "True" || movieRow.dataset.forkids == "1") {
+            modalKidsEdit.checked = true;
+        } else {
+            modalKidsEdit.checked = false;
+        }
 
         modalWindow.hidden = false;
     }
