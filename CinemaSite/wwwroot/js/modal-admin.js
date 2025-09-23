@@ -45,7 +45,7 @@
     const moviesList = document.getElementById("movies-list");
     moviesList.addEventListener("click", (e) => {
 
-        if (e.target.closest(".screening-box")) return;
+        if (e.target.closest(".control-box")) return;
 
         const movieSelected = e.target.closest(".movie-row");
 
@@ -61,4 +61,33 @@
 
     modalWindow.addEventListener("click", closeModal);
     modalInfo.addEventListener("click", e => { e.stopPropagation(); });
+
+
+
+    const delButton = document.querySelectorAll(".delete-button");
+    const deleteModal = document.getElementById("modal-delete");
+    const movieToDelete = document.getElementById("movie-to-delete");
+    const confirmationMessage = document.getElementById("confirmation-message");
+    const confirmDeleteModal = document.getElementById("modal-delete-confirm");
+
+
+    function modalDelPopup(del) {
+        movieToDelete.value = del.dataset.id;
+        confirmationMessage.textContent = "Are you sure you wish to permanently delete " + del.dataset.title + "?";
+        deleteModal.hidden = false;
+    }
+
+    function closeDelModal() {
+        deleteModal.hidden = true;
+    }
+
+    delButton.forEach(del => {
+        del.addEventListener("click", (e) => {
+            e.stopPropagation();
+            modalDelPopup(del);
+        });
+    });
+
+    deleteModal.addEventListener("click", closeDelModal);
+    confirmDeleteModal.addEventListener("click", e => { e.stopPropagation(); });
 });

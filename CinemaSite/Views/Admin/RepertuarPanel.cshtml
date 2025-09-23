@@ -52,7 +52,11 @@
                             </div>
                             <div class="control-box">
                                 <button>Edit Screenings</button>
-                                <button>Delete</button>
+                                <button data-id="@movie.movie_id"
+                                        data-title="@movie.title"
+                                        class="delete-button">
+                                    Delete
+                                </button>
                             </div>
                         </div>
                     </td>
@@ -106,6 +110,25 @@
         <iframe id="modal-trailer" width="420" height="315"
                 src="">
         </iframe>
+    </div>
+</div>
+
+<div id="modal-delete" hidden style="position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 999;
+    background-color: rbga(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);">
+    <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
+    <div id="modal-delete-confirm" style="background-color: gray;">
+        <form asp-controller="Admin" asp-action="DeleteMovie" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" id="movie-to-delete">
+            <label id="confirmation-message"></label>
+            <button type="submit">Confirm</button>
+        </form>
     </div>
 </div>
 

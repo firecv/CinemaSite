@@ -45,7 +45,7 @@ namespace CinemaSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult EditMovieDB(MovieDTO MovieEdit)
-        {//[Bind(Prefix = "MovieEdit")] 
+        {
             var movieEntityEdit = _context.Movie.FirstOrDefault(m => m.movie_id == MovieEdit.movie_id);
 
             if (movieEntityEdit == null) return RedirectToAction("RepertuarPanel");
@@ -54,6 +54,21 @@ namespace CinemaSite.Controllers
             if (!MovieEdit.summary.IsNullOrEmpty()) movieEntityEdit.summary = MovieEdit.summary;
             if (!MovieEdit.trailer_link.IsNullOrEmpty()) movieEntityEdit.trailer_link = MovieEdit.trailer_link;
             movieEntityEdit.for_kids = MovieEdit.for_kids;
+
+            _context.SaveChanges();
+            return RedirectToAction("RepertuarPanel");
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteMovie(int id)
+        {
+            var movieEntityEdit = _context.Movie.FirstOrDefault(m => m.movie_id == id);
+
+            if (movieEntityEdit == null) return RedirectToAction("RepertuarPanel");
+
+            _context.Movie.Remove(movieEntityEdit);
 
             _context.SaveChanges();
             return RedirectToAction("RepertuarPanel");
