@@ -31,6 +31,9 @@ namespace CinemaSite.Controllers
             return View(viewModel);
         }
 
+
+
+
         public IActionResult Repertuar(bool forKids = false)
         {
             Console.WriteLine($"[DEBUG] forKids from query: {forKids}");
@@ -71,6 +74,7 @@ namespace CinemaSite.Controllers
 
 
 
+
         public IActionResult Rezerwacja(int movieId, int screeningId)
         {
             var movie = _context.Movie.FirstOrDefault(m => m.movie_id == movieId);
@@ -101,6 +105,9 @@ namespace CinemaSite.Controllers
 
             return View(viewModel);
         }
+
+
+
 
         [HttpPost]
         public IActionResult RedirectCheckout(int screeningIdPost, List<int> ticketTypesPost, List<int> seatIdsPost)

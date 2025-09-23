@@ -29,7 +29,7 @@ namespace CinemaSite.Controllers
                     
                     //CustomerEmail = HttpContext.Session.GetString("ActiveUserEmail"),
 
-                    SuccessUrl = "https://docs.stripe.com/api/checkout/sessions/object?lang=dotnet", //placeholder links, will do it later
+                    SuccessUrl = "https://localhost:7273/Home/Konto",
                     CancelUrl = "https://www.youtube.com/watch?v=MYb5TrjMCNU",
                     
                     LineItems = new()

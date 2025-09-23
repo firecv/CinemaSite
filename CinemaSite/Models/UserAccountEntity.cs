@@ -19,5 +19,6 @@ namespace CinemaSite.Models
         [Required]
         public string password_hash { get; set; }
 
+        public bool is_admin { get; set; }
     }
 }

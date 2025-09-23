@@ -1,0 +1,62 @@
+﻿@using System.Globalization
+
+@{
+    ViewData["Title"] = "Repertuar";
+    var currentDate = DateTime.Today;
+    var translateToPolish = new CultureInfo("pl-PL");
+
+    var screeningDictionary = Model.Screenings.GroupBy(s => s.movie_id).ToDictionary(g => g.Key, g => g.OrderBy(i => i.screening_time).ToList());
+
+    var genreDictionary = Model.MovieGenreJoins.GroupBy(mg => mg.movie_id).ToDictionary(g => g.Key, g => g.Select(mg => mg.genre_id).ToList());
+}
+
+@model CinemaSite.ViewModels.DatabaseViewModel
+
+<div>
+    <table id="movie-table">
+        <thead>
+            <tr>
+                <th>Filmy</th>
+                <th>Seanse</th>
+            </tr>
+        </thead>
+        <tbody id="movies-list">
+            @foreach (var movie in Model.Movies)
+            {
+                var genreIdList = genreDictionary.TryGetValue(movie.movie_id, out var genres) ? genres : new List<int>();
+                var genreIdString = string.Join(",", genreIdList);
+                var genreNameList = Model.Genres.Where(g => genreIdList.Contains(g.genre_id)).Select(g => g.genre_name);
+                var genreNameString = string.Join(", ", genreNameList);
+
+                if (genreIdList == null)
+                {
+                    genreIdString = "";
+                }
+
+                var posterImage = $"/Content/img{movie.poster_id}.jpg";
+
+                <tr class="movie-row"
+                    data-title="@movie.title"
+                    data-forkids="@movie.for_kids"
+                    data-poster="@posterImage"
+                    data-summary="@movie.summary"
+                    data-trailer="@movie.trailer_link"
+                    data-genres="@genreIdString">
+                    <td>
+                        <div>
+                            <div>
+                                <p>@movie.title</p>
+                                <img src="@posterImage" style="max-height: 100px;" alt="Plakat dla @movie.title" />
+                                <p>@genreNameString</p>
+                            </div>
+                            <div class="control-box">
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
