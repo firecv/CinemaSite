@@ -4,10 +4,10 @@
     const modalInfo = document.getElementById("modal-movie-info");
     const xButton = document.getElementById("xbutton");
 
-    const modalTitle = document.getElementById("modal-title");
+    /*const modalTitle = document.getElementById("modal-title");
     const modalPoster = document.getElementById("modal-poster");
     const modalSummary = document.getElementById("modal-summary");
-    const modalTrailer = document.getElementById("modal-trailer");
+    const modalTrailer = document.getElementById("modal-trailer");*/
 
     
     const modalIdEditHidden = document.getElementById("edit-id");
@@ -16,12 +16,17 @@
     const modalTrailerEdit = document.getElementById("edit-trailer");
     const modalKidsEdit = document.getElementById("edit-kids");
 
+    const modalScreeningBox = document.getElementById("screening-form-interior");
+    const screeningRow = document.getElementsByTagName("template")[0];
+
+    const screeningJson = JSON.parse(document.getElementById("screenings-to-json").textContent); //parse = node, textContent = data
+
     function updateModal(movieRow) {
-        modalTitle.textContent = movieRow.dataset.title;
+        /*modalTitle.textContent = movieRow.dataset.title;
         modalPoster.src = movieRow.dataset.poster;
         modalPoster.alt = "Plakat dla " + movieRow.dataset.title;
         modalSummary.textContent = movieRow.dataset.summary;
-        modalTrailer.src = "https://www.youtube.com/embed/" + movieRow.dataset.trailer;
+        modalTrailer.src = "https://www.youtube.com/embed/" + movieRow.dataset.trailer;*/
 
         modalIdEditHidden.value = movieRow.dataset.id;
         modalTitleEdit.value = movieRow.dataset.title;
@@ -33,6 +38,24 @@
         } else {
             modalKidsEdit.checked = false;
         }
+
+        const screeningsForMovie = screeningJson.filter(sc => sc.movie_id == movieRow.dataset.id);
+
+        const allRows = document.createDocumentFragment();
+
+        screeningsForMovie.forEach(sm => {
+            const row = screeningRow.content.firstElementChild.cloneNode(true);
+
+            row.querySelector(`input[name="movieId"]`).value = movieRow.dataset.id;
+            row.querySelector(`input[name="screeningId"]`).value = sm.screening_id;
+            row.querySelector(`input[name="screeningTime"]`).value = sm.screening_time;
+            row.querySelector(`select[name="hallId"]`).value = sm.hall_id;
+            row.querySelector(`.actual-checkbox`).checked = sm.dubbing;
+
+            allRows.appendChild(row);
+        });
+
+        modalScreeningBox.replaceChildren(allRows);
 
         modalWindow.hidden = false;
     }

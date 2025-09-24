@@ -8,6 +8,8 @@
     var screeningDictionary = Model.Screenings.GroupBy(s => s.movie_id).ToDictionary(g => g.Key, g => g.OrderBy(i => i.screening_time).ToList());
 
     var genreDictionary = Model.MovieGenreJoins.GroupBy(mg => mg.movie_id).ToDictionary(g => g.Key, g => g.Select(mg => mg.genre_id).ToList());
+
+    var availableHalls = Model.Halls.Where(h => h.available).ToList();
 }
 
 @model CinemaSite.ViewModels.AdminViewModel
@@ -76,6 +78,8 @@
     backdrop-filter: blur(10px);">
     <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
     <div id="modal-movie-info" style="background-color: gray;">
+        
+        <h2>Movie Details</h2>
         <form asp-controller="Admin" asp-action="EditMovieDB" method="post">
             @Html.AntiForgeryToken()
 
@@ -99,19 +103,48 @@
                 <input asp-for="MovieEdit.for_kids" id="edit-kids" type="checkbox" />
             </div>
 
-            <button type="submit">CONFIRM</button>
+            <button type="submit">Save Movie Details</button>
         </form>
+
+        <h2>Screenings</h2>
+        <form asp-controller="Admin" asp-action="EditScreeningDB" id="screening-form" method="post">
+            @Html.AntiForgeryToken()
+            <div id="screening-form-interior">
+                <!--set in js-->
+            </div>
+            <button type="submit">Save Screening Details</button>
+        </form>
+
         <button id="xbutton">X</button>
 
-        <p>USER VIEW:</p>
+        <!--<p>USER VIEW:</p>
         <h1 id="modal-title"></h1>
         <img id="modal-poster" src="" style="max-height: 200px;" alt="" />
         <p id="modal-summary"></p>
         <iframe id="modal-trailer" width="420" height="315"
                 src="">
-        </iframe>
+        </iframe>-->
+
+
     </div>
 </div>
+
+
+<template id="screening-template">
+    <div>
+        <input name="movieId" type="hidden" />
+        <input name="screeningId" type="hidden" />
+        <input name="screeningTime" type="datetime" />
+        <select name="hallId">
+            @foreach (var h in availableHalls)
+            {
+                <option value="@h.hall_id">@h.hall_id  -  Seat Count: @((int)(h.rowcount * h.rowsize + 2))</option>
+            }
+        </select>
+
+        <input name="isDubbing" type="checkbox" class="actual-checkbox" />
+    </div>
+</template>
 
 <div id="modal-delete" hidden style="position: fixed;
     top: 0;
@@ -131,6 +164,19 @@
         </form>
     </div>
 </div>
+
+<!--don't move to the js, it literally passes data there-->
+<script type="application/json" id="screenings-to-json">
+    @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+        Model.Screenings.Select(sc => new {
+            screening_id = sc.screening_id,
+            movie_id = sc.movie_id,
+            screening_time = sc.screening_time.ToString("yyyy-MM-ddTHH:mm"), //input type=datetime requires this format
+            hall_id = sc.hall_id,
+            dubbing = sc.dubbing
+        })
+    ))
+</script>
 
 @section Scripts {
     <script src="~/js/modal-admin.js" asp-append-version="true" defer></script>
