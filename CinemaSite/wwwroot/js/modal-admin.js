@@ -50,7 +50,17 @@
             row.querySelector(`input[name="screeningId"]`).value = sm.screening_id;
             row.querySelector(`input[name="screeningTime"]`).value = sm.screening_time;
             row.querySelector(`select[name="hallId"]`).value = sm.hall_id;
-            row.querySelector(`.actual-checkbox`).checked = sm.dubbing;
+
+            const dubbingCheckbox = row.querySelector(`input[name="dubCheckbox"]`);
+            dubbingCheckbox.checked = sm.dubbing;
+
+            const dubbingValue = row.querySelector(`input[name=isDubbing]`);
+
+            dubbingValue.value = dubbingCheckbox.checked ? "true" : "false";
+
+            dubbingCheckbox.addEventListener("change", () => {
+                dubbingValue.value = dubbingCheckbox.checked ? "true" : "false";
+            });
 
             allRows.appendChild(row);
         });

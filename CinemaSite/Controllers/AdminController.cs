@@ -64,7 +64,7 @@ namespace CinemaSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult EditScreeningDB(List<int> movieId, List<int> screeningId, List<DateTime> screeningTime,
-            List<int> hallId, List<bool> isDubbing)
+            List<int> hallId, List<string> isDubbing)
         {
             for (int i = 0; i < screeningId.Count(); i++)
             {
@@ -74,7 +74,13 @@ namespace CinemaSite.Controllers
                 {
                     screeningEntityEdit.screening_time = screeningTime[i];
                     screeningEntityEdit.hall_id = hallId[i];
-                    screeningEntityEdit.dubbing = isDubbing[i];
+                    if (isDubbing[i] == "true")
+                    {
+                        screeningEntityEdit.dubbing = true;
+                    } else
+                    {
+                        screeningEntityEdit.dubbing = false;
+                    }
                 }
             }
 
