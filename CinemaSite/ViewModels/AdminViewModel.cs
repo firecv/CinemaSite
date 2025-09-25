@@ -20,5 +20,6 @@ namespace CinemaSite.ViewModels
         public List<MovieGenreJoinEntity> MovieGenreJoins { get; set; }
         public MovieDTO MovieEdit { get; set; }
         public ScreeningDTO ScreeningEdit { get; set; }
+        public NewMovieDTO NewMovie { get; set; }
     }
 }

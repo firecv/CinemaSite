@@ -80,6 +80,24 @@
 
 
 
+    const newMovieButton = document.getElementById("new-movie-button");
+    const newMovieModal = document.getElementById("new-movie-modal");
+    const newMovieModalInfo = document.getElementById("new-movie-modal-info");
+    const xButtonNM = document.getElementById("new-movie-xbutton");
+    
+    function openNewMovieModal() {
+        newMovieModal.hidden = false;
+    }
+
+    function closeNewMovieModal() {
+        newMovieModal.hidden = true;
+    }
+
+    newMovieButton.addEventListener("click", openNewMovieModal);
+    xButtonNM.addEventListener("click", closeNewMovieModal);
+    newMovieModal.addEventListener("click", closeNewMovieModal);
+    newMovieModalInfo.addEventListener("click", e => { e.stopPropagation(); });
+
     const moviesList = document.getElementById("movies-list");
     moviesList.addEventListener("click", (e) => {
 

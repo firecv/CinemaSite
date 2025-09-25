@@ -15,6 +15,8 @@
 @model CinemaSite.ViewModels.AdminViewModel
 
 <div>
+    <button id="new-movie-button">Dodaj nowy film</button>
+
     <table id="movie-table">
         <thead>
             <tr>
@@ -130,11 +132,57 @@
 </div>
 
 
+<div id="new-movie-modal" hidden style="position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 999;
+    background-color: rbga(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);">
+    <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
+    <div id="new-movie-modal-info" style="background-color: gray;">
+        
+        <h2>Movie Details</h2>
+        <form asp-controller="Admin" asp-action="AddMovieDB" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <input asp-for="NewMovie.movie_id" type="hidden" id="nm-id" />
+
+            <div>
+                <label>Tytuł</label>
+                <input asp-for="NewMovie.title" id="nm-title" required />
+            </div>
+            <div>
+                <label>Plakat (plik musi mieć rozszerzenie .jpg)</label>
+                <input asp-for="NewMovie.poster" id="nm-title" type="file" accept="image/jpg" required />
+            </div>
+            <div>
+                <label>Streszczenie</label>
+                <input asp-for="NewMovie.summary" id="nm-summary" required />
+            </div>
+            <div>
+                <label>Link do zwiastunu (youtube video code)</label> <!--add like a tooltip or something later-->
+                <input asp-for="NewMovie.trailer_link" id="nm-trailer" required />
+            </div>
+            <div>
+                <label>Film dla dzieci?</label>
+                <input asp-for="NewMovie.for_kids" id="nm-kids" type="checkbox" />
+            </div>
+
+            <button type="submit">Save Movie Details</button>
+        </form>
+
+        <button id="new-movie-xbutton">X</button>
+    </div>
+</div>
+
+
 <template id="screening-template">
     <div>
         <input name="movieId" type="hidden" />
         <input name="screeningId" type="hidden" />
-        <input name="screeningTime" type="datetime" />
+        <input name="screeningTime" type="datetime-local" />
         <select name="hallId">
             @foreach (var h in availableHalls)
             {
@@ -146,6 +194,7 @@
         <input name="dubCheckbox" type="checkbox" />
     </div>
 </template>
+
 
 <div id="modal-delete" hidden style="position: fixed;
     top: 0;
@@ -170,13 +219,13 @@
 <!--don't move to the js, it literally passes data there-->
 <script type="application/json" id="screenings-to-json">
     @Html.Raw(System.Text.Json.JsonSerializer.Serialize( //https://stackoverflow.com/questions/17617263/razor-syntax-error-serializing-asp-net-model-to-json-with-html-raw
-        Model.Screenings.Select(sc => new {
+        Model.Screenings.Select(sc => new { // ^ basically just makes a json-interpretable string
             screening_id = sc.screening_id,
             movie_id = sc.movie_id,
-            screening_time = sc.screening_time.ToString("yyyy-MM-ddTHH:mm"), //input type=datetime requires this format
+            screening_time = sc.screening_time.ToString("yyyy-MM-ddTHH:mm"), //input type=datetime(-local?) requires this format
             hall_id = sc.hall_id,
             dubbing = sc.dubbing
-        })
+        }) //as the script it's just the text content - so it can be read w/ getelementbyid later
     ))
 </script>
 

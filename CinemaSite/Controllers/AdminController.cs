@@ -60,6 +60,35 @@ namespace CinemaSite.Controllers
             return RedirectToAction("RepertuarPanel");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddMovieDB(NewMovieDTO NewMovie)
+        {
+            if (NewMovie == null) return RedirectToAction("RepertuarPanel");
+            if (NewMovie.poster.Length > 10485760) return RedirectToAction("RepertuarPanel");
+            //                           ^10MB
+
+            MovieEntity NewMovieEntity = new MovieEntity();
+
+            NewMovieEntity.title = NewMovie.title;
+            NewMovieEntity.summary = NewMovie.summary;
+            NewMovieEntity.trailer_link = NewMovie.trailer_link;
+            NewMovieEntity.for_kids = NewMovie.for_kids;
+
+            Random rngesus = new Random();
+            var newImageIndex = rngesus.Next(0, 99999999);
+            var newImageName = "img" + newImageIndex + ".jpg";
+            var newImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Content", newImageName);
+
+            using (var iostream = new FileStream(newImagePath, FileMode.Create)) NewMovie.poster.CopyTo(iostream);
+
+            NewMovieEntity.poster_id = newImageIndex;
+
+            _context.Movie.Add(NewMovieEntity);
+            _context.SaveChanges();
+            return RedirectToAction("RepertuarPanel");
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
