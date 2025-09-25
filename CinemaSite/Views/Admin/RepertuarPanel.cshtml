@@ -164,11 +164,12 @@
             <button type="submit">Confirm</button>
         </form>
     </div>
+    <button id="xbutton-delete">Cancel</button>
 </div>
 
 <!--don't move to the js, it literally passes data there-->
 <script type="application/json" id="screenings-to-json">
-    @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+    @Html.Raw(System.Text.Json.JsonSerializer.Serialize( //https://stackoverflow.com/questions/17617263/razor-syntax-error-serializing-asp-net-model-to-json-with-html-raw
         Model.Screenings.Select(sc => new {
             screening_id = sc.screening_id,
             movie_id = sc.movie_id,

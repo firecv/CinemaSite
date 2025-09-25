@@ -39,6 +39,9 @@
             modalKidsEdit.checked = false;
         }
 
+
+        //from here it's just screening form handling/generating
+
         const screeningsForMovie = screeningJson.filter(sc => sc.movie_id == movieRow.dataset.id);
 
         const allRows = document.createDocumentFragment();
@@ -75,6 +78,8 @@
         modalTrailer.src = "";
     }
 
+
+
     const moviesList = document.getElementById("movies-list");
     moviesList.addEventListener("click", (e) => {
 
@@ -87,6 +92,8 @@
         updateModal(movieSelected);
     });
 
+
+
     xButton.addEventListener("click", closeModal);
     document.addEventListener("keydown", function (e) { //https://lexingtonthemes.com/tutorials/how-to-create-a-image-gallery-with-tailwind-css-and-javascript/
         if (e.key === "Escape") closeModal();
@@ -97,8 +104,11 @@
 
 
 
+    //deletion stuff
+
     const delButton = document.querySelectorAll(".delete-button");
     const deleteModal = document.getElementById("modal-delete");
+    const xButtonDelete = document.getElementById("xbutton-delete");
     const movieToDelete = document.getElementById("movie-to-delete");
     const confirmationMessage = document.getElementById("confirmation-message");
     const confirmDeleteModal = document.getElementById("modal-delete-confirm");
