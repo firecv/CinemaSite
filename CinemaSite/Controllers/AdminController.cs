@@ -16,9 +16,19 @@ namespace CinemaSite.Controllers
             _context = context;
         }
 
+        public void CleanOldData()
+        {
+            var oldScreenings = _context.Screening.Where(s => s.screening_time < DateTime.Now).ToList();
+            var unsoldTickets = _context.Ticket.Where(t => t.hold_until < DateTime.Now && t.ticket_status != 2).ToList();
+
+            _context.Screening.RemoveRange(oldScreenings);
+            _context.Ticket.RemoveRange(unsoldTickets);
+            _context.SaveChanges();
+        }
+
         public IActionResult RepertuarPanel()
         {
-            
+            CleanOldData();
 
             var viewModel = new AdminViewModel
             {
@@ -47,6 +57,8 @@ namespace CinemaSite.Controllers
 
         public IActionResult ZgloszeniePanel()
         {
+            CleanOldData();
+
             var viewModel = new AdminViewModel
             {
                 Articles = _context.Article.OrderByDescending(a => a.article_id).ToList()
@@ -150,24 +162,30 @@ namespace CinemaSite.Controllers
 
             for (int i = 0; i < screeningId.Count(); i++)
             {
-                var screeningEntityEdit = _context.Screening.FirstOrDefault(sc => sc.screening_id == screeningId[i]);
+                if (screeningId[i] == 0)
+                {
+                    ScreeningEntity newScreening = new ScreeningEntity();
+                    newScreening.movie_id = movieId[i];
+                    newScreening.screening_time = screeningTime[i];
+                    newScreening.hall_id = hallId[i];
+                    newScreening.dubbing = (isDubbing[i] == "true");
 
-                if (screeningTime[i] == toBeDeletedFlag)
+                    _context.Screening.Add(newScreening);
+                }
+                else
                 {
-                    _context.Screening.Remove(screeningEntityEdit);
-                } else
-                {
-                    if (movieId != null && screeningId != null && screeningEntityEdit != null)
+                    var screeningEntityEdit = _context.Screening.FirstOrDefault(sc => sc.screening_id == screeningId[i]);
+
+                    if (screeningTime[i] == toBeDeletedFlag)
                     {
-                        screeningEntityEdit.screening_time = screeningTime[i];
-                        screeningEntityEdit.hall_id = hallId[i];
-                        if (isDubbing[i] == "true")
+                        _context.Screening.Remove(screeningEntityEdit);
+                    } else
+                    {
+                        if (movieId != null && screeningId != null && screeningEntityEdit != null)
                         {
-                            screeningEntityEdit.dubbing = true;
-                        }
-                        else
-                        {
-                            screeningEntityEdit.dubbing = false;
+                            screeningEntityEdit.screening_time = screeningTime[i];
+                            screeningEntityEdit.hall_id = hallId[i];
+                            screeningEntityEdit.dubbing = (isDubbing[i] == "true");
                         }
                     }
                 }

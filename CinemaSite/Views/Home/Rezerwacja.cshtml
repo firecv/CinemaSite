@@ -70,6 +70,7 @@
             @for (int j = 1; j <= (int)(Model.Hall.rowsize / 2); j++)
             {
                 var thisSeat = Model.Seats.FirstOrDefault(s => (int)(s.rowNum - 'A' + 1) == i && s.columnNum == j); //rowNum is a char in the database
+                    
                 var taken = seatsWithTickets.Contains(thisSeat.seat_id);
 
                 <div class="seat-square @(taken ? "taken" : "open")"

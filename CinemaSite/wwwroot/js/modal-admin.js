@@ -22,6 +22,40 @@
     const screeningJson = JSON.parse(document.getElementById("screenings-to-json").textContent); //parse = node, textContent = data
     const movieGenreJson = JSON.parse(document.getElementById("moviegenres-to-json").textContent);
 
+    let allRows = document.createDocumentFragment();
+
+    function createNewScreeningRow(sm, movieRowDatasetId) {
+        const row = screeningRow.content.firstElementChild.cloneNode(true);
+
+        const dubbingCheckbox = row.querySelector(`input[name="dubCheckbox"]`);
+        const dubbingValue = row.querySelector(`input[name=isDubbing]`);
+        const delScreening = row.querySelector(`.del-screening`);
+
+        row.querySelector(`input[name="movieId"]`).value = movieRowDatasetId;
+        if (sm == null) {
+            row.querySelector(`input[name="screeningId"]`).value = 0; //item creation flag
+            row.querySelector(`input[name="screeningTime"]`).value = "1912-12-12T12:12";
+            row.querySelector(`select[name="hallId"]`).value = 1;
+        } else {
+            row.querySelector(`input[name="screeningId"]`).value = sm.screening_id;
+            row.querySelector(`input[name="screeningTime"]`).value = sm.screening_time;
+            row.querySelector(`select[name="hallId"]`).value = sm.hall_id;
+            dubbingCheckbox.checked = sm.dubbing;
+            dubbingValue.value = dubbingCheckbox.checked ? "true" : "false";
+        }
+
+        dubbingCheckbox.addEventListener("change", () => { //A COMMENT SO IT'S EASIER TO FIND
+            dubbingValue.value = dubbingCheckbox.checked ? "true" : "false";
+        });
+
+        delScreening.addEventListener("click", () => {
+            row.querySelector(`input[name="screeningTime"]`).value = "1912-12-12T12:12";
+            row.style.display = "none";
+        });
+
+        allRows.appendChild(row);
+    }
+
     function updateModal(movieRow) {
         /*modalTitle.textContent = movieRow.dataset.title;
         modalPoster.src = movieRow.dataset.poster;
@@ -33,6 +67,8 @@
         modalTitleEdit.value = movieRow.dataset.title;
         modalSummaryEdit.value = movieRow.dataset.summary;
         modalTrailerEdit.value = movieRow.dataset.trailer;
+
+        allRows = document.createDocumentFragment();
 
         if (movieRow.dataset.forkids == "true" || movieRow.dataset.forkids == "True" || movieRow.dataset.forkids == "1") {
             modalKidsEdit.checked = true;
@@ -52,38 +88,14 @@
 
         const screeningsForMovie = screeningJson.filter(sc => sc.movie_id == movieRow.dataset.id);
 
-        const allRows = document.createDocumentFragment();
-
-        screeningsForMovie.forEach(sm => {
-            const row = screeningRow.content.firstElementChild.cloneNode(true);
-
-            row.querySelector(`input[name="movieId"]`).value = movieRow.dataset.id;
-            row.querySelector(`input[name="screeningId"]`).value = sm.screening_id;
-            row.querySelector(`input[name="screeningTime"]`).value = sm.screening_time;
-            row.querySelector(`select[name="hallId"]`).value = sm.hall_id;
-            
-            const dubbingCheckbox = row.querySelector(`input[name="dubCheckbox"]`);
-            dubbingCheckbox.checked = sm.dubbing;
-
-            const dubbingValue = row.querySelector(`input[name=isDubbing]`);
-
-            const delScreening = row.querySelector(`.del-screening`);
-
-            dubbingValue.value = dubbingCheckbox.checked ? "true" : "false";
-
-            dubbingCheckbox.addEventListener("change", () => { //A COMMENT SO IT'S EASIER TO FIND
-                dubbingValue.value = dubbingCheckbox.checked ? "true" : "false";
-            });
-
-            delScreening.addEventListener("click", () => {
-                row.querySelector(`input[name="screeningTime"]`).value = "1912-12-12T12:12";
-                row.style.display = "hidden";
-            });
-
-            allRows.appendChild(row);
-        });
+        screeningsForMovie.forEach(sm => { createNewScreeningRow(sm, movieRow.dataset.id); });
 
         modalScreeningBox.replaceChildren(allRows);
+
+        document.getElementById("create-screening").addEventListener("click", () => {
+            createNewScreeningRow(null, movieRow.dataset.id);
+            modalScreeningBox.appendChild(allRows);
+        });
 
         modalWindow.hidden = false;
     }
