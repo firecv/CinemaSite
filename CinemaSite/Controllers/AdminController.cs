@@ -43,9 +43,51 @@ namespace CinemaSite.Controllers
             return View(viewModel);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditMovieDB(MovieDTO MovieEdit)
+        public IActionResult AddMovieDB(NewMovieDTO NewMovie, List<string> genreCheckbox)
+        {
+            if (NewMovie == null) return RedirectToAction("RepertuarPanel");
+            if (NewMovie.poster.Length > 10485760) return RedirectToAction("RepertuarPanel");
+            //                           ^10MB
+
+            MovieEntity newMovieEntity = new MovieEntity();
+
+            newMovieEntity.title = NewMovie.title;
+            newMovieEntity.summary = NewMovie.summary;
+            newMovieEntity.trailer_link = NewMovie.trailer_link;
+            newMovieEntity.for_kids = NewMovie.for_kids;
+
+            Random rngesus = new Random();
+            var newImageIndex = rngesus.Next(0, 99999999);
+            var newImageName = "img" + newImageIndex + ".jpg";
+            var newImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Content", newImageName);
+
+            using (var iostream = new FileStream(newImagePath, FileMode.Create)) NewMovie.poster.CopyTo(iostream);
+
+            newMovieEntity.poster_id = newImageIndex;
+
+            _context.Movie.Add(newMovieEntity);
+            _context.SaveChanges();
+
+            for (var i = 0; i < genreCheckbox.Count(); i++)
+            {
+                MovieGenreJoinEntity newMovieGenreJoin = new MovieGenreJoinEntity();
+                newMovieGenreJoin.movie_id = NewMovie.movie_id;
+                newMovieGenreJoin.genre_id = Int32.Parse(genreCheckbox[i]);
+                _context.Add(newMovieGenreJoin);
+            }
+            
+            _context.SaveChanges();
+
+            return RedirectToAction("RepertuarPanel");
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditMovieDB(MovieDTO MovieEdit, List<string> genreCheckbox)
         {
             var movieEntityEdit = _context.Movie.FirstOrDefault(m => m.movie_id == MovieEdit.movie_id);
 
@@ -56,35 +98,19 @@ namespace CinemaSite.Controllers
             if (!MovieEdit.trailer_link.IsNullOrEmpty()) movieEntityEdit.trailer_link = MovieEdit.trailer_link;
             movieEntityEdit.for_kids = MovieEdit.for_kids;
 
-            _context.SaveChanges();
-            return RedirectToAction("RepertuarPanel");
-        }
+            //delete all pre-existing moviegenrejoins for that movie
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult AddMovieDB(NewMovieDTO NewMovie)
-        {
-            if (NewMovie == null) return RedirectToAction("RepertuarPanel");
-            if (NewMovie.poster.Length > 10485760) return RedirectToAction("RepertuarPanel");
-            //                           ^10MB
+            var deleteMovieGenres = _context.MovieGenre.Where(mg => mg.movie_id == MovieEdit.movie_id);
+            _context.MovieGenre.RemoveRange(deleteMovieGenres);
 
-            MovieEntity NewMovieEntity = new MovieEntity();
+            for (var i = 0; i < genreCheckbox.Count(); i++)
+            {
+                MovieGenreJoinEntity newMovieGenreJoin = new MovieGenreJoinEntity();
+                newMovieGenreJoin.movie_id = MovieEdit.movie_id;
+                newMovieGenreJoin.genre_id = Int32.Parse(genreCheckbox[i]);
+                _context.Add(newMovieGenreJoin);
+            }
 
-            NewMovieEntity.title = NewMovie.title;
-            NewMovieEntity.summary = NewMovie.summary;
-            NewMovieEntity.trailer_link = NewMovie.trailer_link;
-            NewMovieEntity.for_kids = NewMovie.for_kids;
-
-            Random rngesus = new Random();
-            var newImageIndex = rngesus.Next(0, 99999999);
-            var newImageName = "img" + newImageIndex + ".jpg";
-            var newImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Content", newImageName);
-
-            using (var iostream = new FileStream(newImagePath, FileMode.Create)) NewMovie.poster.CopyTo(iostream);
-
-            NewMovieEntity.poster_id = newImageIndex;
-
-            _context.Movie.Add(NewMovieEntity);
             _context.SaveChanges();
             return RedirectToAction("RepertuarPanel");
         }

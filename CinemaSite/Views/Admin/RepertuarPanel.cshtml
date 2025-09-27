@@ -70,67 +70,6 @@
     </table>
 </div>
 
-<div id="modal-movie" hidden style="position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 999;
-    background-color: rbga(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);">
-    <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
-    <div id="modal-movie-info" style="background-color: gray;">
-        
-        <h2>Movie Details</h2>
-        <form asp-controller="Admin" asp-action="EditMovieDB" method="post">
-            @Html.AntiForgeryToken()
-
-            <input asp-for="MovieEdit.movie_id" type="hidden" id="edit-id" />
-
-            <div>
-                <label>Tytuł</label>
-                <input asp-for="MovieEdit.title" id="edit-title" />
-            </div>
-            <div>
-                <label>Streszczenie</label>
-                <input asp-for="MovieEdit.summary" id="edit-summary" />
-            </div>
-            <div>
-                <label>Link do zwiastunu (youtube video code)</label> <!--add like a tooltip or something later-->
-                <input asp-for="MovieEdit.trailer_link" id="edit-trailer" />
-            </div>
-
-            <div>
-                <label>Film dla dzieci?</label>
-                <input asp-for="MovieEdit.for_kids" id="edit-kids" type="checkbox" />
-            </div>
-
-            <button type="submit">Save Movie Details</button>
-        </form>
-
-        <h2>Screenings</h2>
-        <form asp-controller="Admin" asp-action="EditScreeningDB" id="screening-form" method="post">
-            @Html.AntiForgeryToken()
-            <div id="screening-form-interior">
-                <!--set in js-->
-            </div>
-            <button type="submit">Save Screening Details</button>
-        </form>
-
-        <button id="xbutton">X</button>
-
-        <!--<p>USER VIEW:</p>
-        <h1 id="modal-title"></h1>
-        <img id="modal-poster" src="" style="max-height: 200px;" alt="" />
-        <p id="modal-summary"></p>
-        <iframe id="modal-trailer" width="420" height="315"
-                src="">
-        </iframe>-->
-
-
-    </div>
-</div>
-
 
 <div id="new-movie-modal" hidden style="position: fixed;
     top: 0;
@@ -170,6 +109,17 @@
                 <input asp-for="NewMovie.for_kids" id="nm-kids" type="checkbox" />
             </div>
 
+            <fieldset>
+                <legend>Żanry</legend>
+                @foreach (var g in Model.Genres)
+                {
+                    <div class="genreBoxNew">
+                        <label>@g.genre_name</label>
+                        <input name="genreCheckbox" type="checkbox" value="@g.genre_id" />
+                    </div>
+                }
+            </fieldset>
+
             <button type="submit">Save Movie Details</button>
         </form>
 
@@ -177,6 +127,76 @@
     </div>
 </div>
 
+<div id="modal-movie" hidden style="position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 999;
+    background-color: rbga(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);">
+    <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
+    <div id="modal-movie-info" style="background-color: gray;">
+        
+        <h2>Movie Details</h2>
+        <form asp-controller="Admin" asp-action="EditMovieDB" method="post">
+            @Html.AntiForgeryToken()
+
+            <input asp-for="MovieEdit.movie_id" type="hidden" id="edit-id" />
+
+            <div>
+                <label>Tytuł</label>
+                <input asp-for="MovieEdit.title" id="edit-title" />
+            </div>
+            <div>
+                <label>Streszczenie</label>
+                <input asp-for="MovieEdit.summary" id="edit-summary" />
+            </div>
+            <div>
+                <label>Link do zwiastunu (youtube video code)</label> <!--add like a tooltip or something later-->
+                <input asp-for="MovieEdit.trailer_link" id="edit-trailer" />
+            </div>
+            <div>
+                <label>Film dla dzieci?</label>
+                <input asp-for="MovieEdit.for_kids" id="edit-kids" type="checkbox" />
+            </div>
+
+            <fieldset>
+                <legend>Żanry</legend>
+                @foreach (var g in Model.Genres)
+                {
+                    <div class="genreBox">
+                        <label>@g.genre_name</label>
+                        <input name="genreCheckbox" type="checkbox" value="@g.genre_id" />
+                    </div>
+                }
+            </fieldset>
+
+            <button type="submit">Save Movie Details</button>
+        </form>
+
+        <h2>Screenings</h2>
+        <form asp-controller="Admin" asp-action="EditScreeningDB" id="screening-form" method="post">
+            @Html.AntiForgeryToken()
+            <div id="screening-form-interior">
+                <!--set in js-->
+            </div>
+            <button type="submit">Save Screening Details</button>
+        </form>
+
+        <button id="xbutton">X</button>
+
+        <!--<p>USER VIEW:</p>
+        <h1 id="modal-title"></h1>
+        <img id="modal-poster" src="" style="max-height: 200px;" alt="" />
+        <p id="modal-summary"></p>
+        <iframe id="modal-trailer" width="420" height="315"
+                src="">
+        </iframe>-->
+
+
+    </div>
+</div>
 
 <template id="screening-template">
     <div>
@@ -226,6 +246,14 @@
             hall_id = sc.hall_id,
             dubbing = sc.dubbing
         }) //as the script it's just the text content - so it can be read w/ getelementbyid later
+    ))
+</script>
+<script type="application/json" id="moviegenres-to-json">
+    @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+        Model.MovieGenreJoins.Select(mg => new {
+            movie_id = mg.movie_id,
+            genre_id = mg.genre_id
+        })
     ))
 </script>
 

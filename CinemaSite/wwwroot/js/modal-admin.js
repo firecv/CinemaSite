@@ -20,6 +20,7 @@
     const screeningRow = document.getElementsByTagName("template")[0];
 
     const screeningJson = JSON.parse(document.getElementById("screenings-to-json").textContent); //parse = node, textContent = data
+    const movieGenreJson = JSON.parse(document.getElementById("moviegenres-to-json").textContent);
 
     function updateModal(movieRow) {
         /*modalTitle.textContent = movieRow.dataset.title;
@@ -39,6 +40,13 @@
             modalKidsEdit.checked = false;
         }
 
+        const allGenreRows = document.querySelectorAll(".genreBox");
+        const genresForMovie = movieGenreJson.filter(mg => mg.movie_id == movieRow.dataset.id);
+
+        allGenreRows.forEach(gr => {
+            const genreCheckbox = gr.querySelector(`input[name=genreCheckbox]`);
+            genreCheckbox.checked = genresForMovie.some(g => g.genre_id == genreCheckbox.value);      
+        });
 
         //from here it's just screening form handling/generating
 
@@ -61,7 +69,7 @@
 
             dubbingValue.value = dubbingCheckbox.checked ? "true" : "false";
 
-            dubbingCheckbox.addEventListener("change", () => {
+            dubbingCheckbox.addEventListener("change", () => { //A COMMENT SO IT'S EASIER TO FIND
                 dubbingValue.value = dubbingCheckbox.checked ? "true" : "false";
             });
 
@@ -87,6 +95,12 @@
     
     function openNewMovieModal() {
         newMovieModal.hidden = false;
+
+        /*const allGenreRows = document.querySelectorAll(".genreBoxNew");
+
+        allGenreRows.forEach(gr => {
+            const genreCheckbox = gr.querySelector(`input[name=genreCheckbox]`);
+        });*/
     }
 
     function closeNewMovieModal() {
