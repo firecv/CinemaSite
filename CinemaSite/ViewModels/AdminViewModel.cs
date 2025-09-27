@@ -21,5 +21,6 @@ namespace CinemaSite.ViewModels
         public MovieDTO MovieEdit { get; set; }
         public ScreeningDTO ScreeningEdit { get; set; }
         public NewMovieDTO NewMovie { get; set; }
+        public ArticleDTO ArticleDTO { get; set; }
     }
 }

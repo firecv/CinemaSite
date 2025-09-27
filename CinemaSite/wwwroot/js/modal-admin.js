@@ -61,16 +61,23 @@
             row.querySelector(`input[name="screeningId"]`).value = sm.screening_id;
             row.querySelector(`input[name="screeningTime"]`).value = sm.screening_time;
             row.querySelector(`select[name="hallId"]`).value = sm.hall_id;
-
+            
             const dubbingCheckbox = row.querySelector(`input[name="dubCheckbox"]`);
             dubbingCheckbox.checked = sm.dubbing;
 
             const dubbingValue = row.querySelector(`input[name=isDubbing]`);
 
+            const delScreening = row.querySelector(`.del-screening`);
+
             dubbingValue.value = dubbingCheckbox.checked ? "true" : "false";
 
             dubbingCheckbox.addEventListener("change", () => { //A COMMENT SO IT'S EASIER TO FIND
                 dubbingValue.value = dubbingCheckbox.checked ? "true" : "false";
+            });
+
+            delScreening.addEventListener("click", () => {
+                row.querySelector(`input[name="screeningTime"]`).value = "1912-12-12T12:12";
+                row.style.display = "hidden";
             });
 
             allRows.appendChild(row);
@@ -163,6 +170,7 @@
         });
     });
 
+    xButtonDelete.addEventListener("click", closeDelModal);
     deleteModal.addEventListener("click", closeDelModal);
     confirmDeleteModal.addEventListener("click", e => { e.stopPropagation(); });
 });

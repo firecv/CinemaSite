@@ -1,7 +1,7 @@
 ﻿@using System.Globalization
 
 @{
-    ViewData["Title"] = "Repertuar";
+    ViewData["Title"] = "Zgloszenia";
     var currentDate = DateTime.Today;
     var translateToPolish = new CultureInfo("pl-PL");
 
@@ -181,7 +181,6 @@
             <div id="screening-form-interior">
                 <!--set in js-->
             </div>
-            <button id="add-screening">+</button>
             <button type="submit">Save Screening Details</button>
         </form>
 
@@ -213,8 +212,6 @@
 
         <input name="isDubbing" type="hidden" />
         <input name="dubCheckbox" type="checkbox" />
-
-        <button type="button" class="del-screening">DELETE</button> <!--for some reason defaults to type=submit-->
     </div>
 </template>
 

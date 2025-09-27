@@ -18,6 +18,8 @@ namespace CinemaSite.Controllers
 
         public IActionResult RepertuarPanel()
         {
+            
+
             var viewModel = new AdminViewModel
             {
                 Movies = _context.Movie.OrderBy(m => m.movie_id).ToList(),
@@ -43,6 +45,29 @@ namespace CinemaSite.Controllers
             return View(viewModel);
         }
 
+        public IActionResult ZgloszeniePanel()
+        {
+            var viewModel = new AdminViewModel
+            {
+                Articles = _context.Article.OrderByDescending(a => a.article_id).ToList()
+            };
+
+            if (HttpContext.Session.GetInt32("ActiveUserID") == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var userAdminCheck = _context.UserAccount
+                .FirstOrDefault(ua => ua.account_id == (int)HttpContext.Session.GetInt32("ActiveUserID")
+                && ua.is_admin);
+
+            if (userAdminCheck == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(viewModel);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -121,20 +146,29 @@ namespace CinemaSite.Controllers
         public IActionResult EditScreeningDB(List<int> movieId, List<int> screeningId, List<DateTime> screeningTime,
             List<int> hallId, List<string> isDubbing)
         {
+            var toBeDeletedFlag = new DateTime(1912, 12, 12, 12, 12, 0);
+
             for (int i = 0; i < screeningId.Count(); i++)
             {
                 var screeningEntityEdit = _context.Screening.FirstOrDefault(sc => sc.screening_id == screeningId[i]);
 
-                if (movieId != null && screeningId != null && screeningEntityEdit != null)
+                if (screeningTime[i] == toBeDeletedFlag)
                 {
-                    screeningEntityEdit.screening_time = screeningTime[i];
-                    screeningEntityEdit.hall_id = hallId[i];
-                    if (isDubbing[i] == "true")
+                    _context.Screening.Remove(screeningEntityEdit);
+                } else
+                {
+                    if (movieId != null && screeningId != null && screeningEntityEdit != null)
                     {
-                        screeningEntityEdit.dubbing = true;
-                    } else
-                    {
-                        screeningEntityEdit.dubbing = false;
+                        screeningEntityEdit.screening_time = screeningTime[i];
+                        screeningEntityEdit.hall_id = hallId[i];
+                        if (isDubbing[i] == "true")
+                        {
+                            screeningEntityEdit.dubbing = true;
+                        }
+                        else
+                        {
+                            screeningEntityEdit.dubbing = false;
+                        }
                     }
                 }
             }
