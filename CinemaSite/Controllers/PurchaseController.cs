@@ -19,8 +19,20 @@ namespace CinemaSite.Controllers
         public PurchaseController(CinemaDbContext context) => _context = context;
 
         [HttpGet("stripe-checkout")]
-        public IActionResult Checkout(int sumTotalCost, int screeningId)
+        public IActionResult Checkout(int sumTotalCost, int screeningId, string ticketIdString)
         {
+            var ticketIds = ticketIdString.Split(',').Select(int.Parse).ToList();
+
+            var ticketsToConfirm = _context.Ticket.Where(t => ticketIds.Contains(t.ticket_id)).ToList();
+
+            foreach (var ticket in ticketsToConfirm)
+            {
+                if (ticket.ticket_status == 0) ticket.ticket_status = 1;
+            }
+
+            _context.SaveChangesAsync();
+            
+            
             try {
                 var stripeOptions = new Stripe.Checkout.SessionCreateOptions
                 {
@@ -30,7 +42,7 @@ namespace CinemaSite.Controllers
                     //CustomerEmail = HttpContext.Session.GetString("ActiveUserEmail"),
 
                     SuccessUrl = "https://localhost:7273/Home/Konto",
-                    CancelUrl = "https://www.youtube.com/watch?v=MYb5TrjMCNU",
+                    CancelUrl = "https://localhost:7273/Home/Repertuar",
                     
                     LineItems = new()
                     {
@@ -47,6 +59,11 @@ namespace CinemaSite.Controllers
                             },
                             Quantity = 1
                         }
+                    },
+
+                    Metadata = new Dictionary<string, string>
+                    {
+                        { "ticket_ids", ticketIdString }
                     }
                 };
 
@@ -54,7 +71,7 @@ namespace CinemaSite.Controllers
                 Session session = stripeSessionService.Create(stripeOptions);
 
                 Response.Headers.Add("Location", session.Url);
-                return new StatusCodeResult(303); //redirect to above url
+                return new StatusCodeResult(303); //immediately redirect to above url
             }
             catch (StripeException ex)
             {

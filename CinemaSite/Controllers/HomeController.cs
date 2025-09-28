@@ -114,19 +114,21 @@ namespace CinemaSite.Controllers
         {
             if (HttpContext.Session.GetInt32("ActiveUserID") == null || screeningIdPost == 0)
             {
-                return View();
+                return RedirectToAction("Repertuar");
             }
 
             Console.WriteLine(screeningIdPost);
 
             var ticketTypesDict = _context.TicketType.ToDictionary(tt => tt.ticket_type_id, tt => tt.price);
             var sumTotalCost = 0;
+            var currentUser = (int)HttpContext.Session.GetInt32("ActiveUserID");
+
             for (int i = 0; i < ticketTypesPost.Count(); i++)
             {
                 TicketEntity newCartTicket = new TicketEntity();
 
                 newCartTicket.screening_id = screeningIdPost;
-                newCartTicket.account_id = (int)HttpContext.Session.GetInt32("ActiveUserID");
+                newCartTicket.account_id = currentUser;
                 newCartTicket.seat_id = seatIdsPost[i];
                 newCartTicket.ticket_type_id = ticketTypesPost[i];
                 newCartTicket.ticket_status = 0;
@@ -146,12 +148,22 @@ namespace CinemaSite.Controllers
 
             _context.SaveChanges();
 
-            //TODO: Lock tickets before going to purchase screen - remember there's that time field, maybe do it in Rezerwacja
+            var ticketsForPurchase = _context.Ticket
+                .OrderByDescending(t => t.ticket_id)
+                .Where(t => t.account_id == currentUser)
+                .Take(ticketTypesPost.Count())
+                .Select(t => t.ticket_id)
+                .ToList();
 
             return RedirectToAction(
                 controllerName: "Purchase",
                 actionName: "Checkout",
-                routeValues: new { sumTotalCost = sumTotalCost, screeningId = screeningIdPost }
+                routeValues: new
+                {
+                    sumTotalCost = sumTotalCost,
+                    screeningId = screeningIdPost,
+                    ticketIdString = string.Join(",", ticketsForPurchase)
+                }
             );
         }
 
