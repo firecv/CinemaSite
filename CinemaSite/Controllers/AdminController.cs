@@ -18,20 +18,13 @@ namespace CinemaSite.Controllers
 
         public void CleanOldData()
         {
-            var oldScreenings = _context.Screening.Where(s => s.screening_time < DateTime.Now).ToList();
-            var unsoldTickets = _context.Ticket.Where(t => t.hold_until < DateTime.Now && t.ticket_status != 2).ToList();
-
-            var osAny = oldScreenings.Any();
-            var utAny = unsoldTickets.Any();
-
-            if (osAny) _context.Screening.RemoveRange(oldScreenings);
-            if (utAny) _context.Ticket.RemoveRange(unsoldTickets);
-            if (osAny || utAny) _context.SaveChanges();
+            _context.Screening.Where(s => s.screening_time < DateTime.Now).ExecuteDelete();
+            _context.Ticket.Where(t => t.hold_until < DateTime.Now && t.ticket_status != 2).ExecuteDelete();
         }
 
         public IActionResult RepertuarPanel()
         {
-            //CleanOldData();
+            CleanOldData();
 
             var viewModel = new AdminViewModel
             {
@@ -60,7 +53,7 @@ namespace CinemaSite.Controllers
 
         public IActionResult ZgloszeniePanel()
         {
-            //CleanOldData();
+            CleanOldData();
 
             var viewModel = new AdminViewModel
             {
