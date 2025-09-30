@@ -24,14 +24,24 @@ namespace CinemaSite.Controllers
         {
             var viewModel = new DatabaseViewModel
             {
-                Articles = _context.Article.OrderBy(a => a.article_id).ToList(),
-                Movies = _context.Movie.OrderBy(m => m.movie_id).Take(10).ToList()
+                Articles = _context.Article.Where(a => a.post_date <= DateTime.Now)
+                .OrderByDescending(a => a.post_date).Take(5).ToList(),
+                Movies = _context.Movie.OrderByDescending(m => m.movie_id).Take(10).ToList()
             };
 
             return View(viewModel);
         }
 
+        public IActionResult Zgloszenia()
+        {
+            var viewModel = new DatabaseViewModel
+            {
+                Articles = _context.Article.Where(a => a.post_date <= DateTime.Now)
+                .OrderByDescending(a => a.post_date).ToList()
+            };
 
+            return View(viewModel);
+        }
 
 
         public IActionResult Repertuar(bool forKids = false)

@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Zgłoszenia";
+}
+
+@model CinemaSite.ViewModels.DatabaseViewModel
+
+<div class="text-center">
+
+    <div class="horizontal-scroll">
+        @if (Model != null)
+        {
+            @foreach (var item in Model.Articles)
+            {
+                var articleImage = $"/Content/img{item.image_id}.jpg";
+
+                <article>
+                    <h3>@item.title</h3>
+                    <img src="@articleImage" alt="Image for @item.title" />
+                    <p>@item.content</p>
+                </article>
+            }
+        }
+    </div>
+
+
+</div>
+

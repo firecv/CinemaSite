@@ -82,7 +82,7 @@
     <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
     <div id="new-movie-modal-info" style="background-color: gray;">
         
-        <h2>Movie Details</h2>
+        <h2>Dane filmu</h2>
         <form asp-controller="Admin" asp-action="AddMovieDB" method="post" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
 
@@ -120,7 +120,7 @@
                 }
             </fieldset>
 
-            <button type="submit">Save Movie Details</button>
+            <button type="submit">Zapisz danych filmu</button>
         </form>
 
         <button id="new-movie-xbutton">X</button>
@@ -214,7 +214,7 @@
         <input name="isDubbing" type="hidden" />
         <input name="dubCheckbox" type="checkbox" />
 
-        <button type="button" class="del-screening">DELETE</button> <!--for some reason defaults to type=submit-->
+        <button type="button" class="del-screening">SKASUJ</button> <!--for some reason defaults to type=submit-->
     </div>
 </template>
 
@@ -233,10 +233,10 @@
             @Html.AntiForgeryToken()
             <input type="hidden" name="id" id="movie-to-delete">
             <label id="confirmation-message"></label>
-            <button type="submit">Confirm</button>
+            <button type="submit">Zatwierdź</button>
         </form>
     </div>
-    <button id="xbutton-delete">Cancel</button>
+    <button id="xbutton-delete">Anuluj</button>
 </div>
 
 <!--don't move to the js, it literally passes data there-->

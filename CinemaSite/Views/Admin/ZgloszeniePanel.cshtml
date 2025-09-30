@@ -14,8 +14,7 @@
     <table id="movie-table">
         <thead>
             <tr>
-                <th>Filmy</th>
-                <th>Seanse</th>
+                <th>Artykuły</th>
             </tr>
         </thead>
         <tbody id="movies-list">
@@ -41,7 +40,7 @@
                                 <button data-id="@article.article_id"
                                         data-title="@article.title"
                                         class="delete-button">
-                                    Delete
+                                    SKASUJ
                                 </button>
                             </div>
                         </div>
@@ -64,7 +63,7 @@
     <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
     <div id="new-movie-modal-info" style="background-color: gray;">
         
-        <h2>Movie Details</h2>
+        <h2>Article Details</h2>
         <form asp-controller="Admin" asp-action="AddArticleDB" method="post" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
 
@@ -75,19 +74,19 @@
                 <input asp-for="ArticleDTO.title" id="nm-title" required />
             </div>
             <div>
-                <label>Plakat (plik musi mieć rozszerzenie .jpg)</label>
+                <label>Zdjęcie (plik musi mieć rozszerzenie .jpg)</label>
                 <input asp-for="ArticleDTO.image" id="nm-title" type="file" accept="image/jpg" required />
             </div>
             <div>
-                <label>Streszczenie</label>
+                <label>Treść</label>
                 <textarea asp-for="ArticleDTO.content" id="nm-summary" required></textarea>
             </div>
             <div>
                 <label>Data/Czas Wydania</label> <!--add like a tooltip or something later-->
-                <input asp-for="ArticleDTO.post_date" id="nm-trailer" type="datetime-local" required />
+                <input asp-for="ArticleDTO.post_date" id="nm-trailer" type="date" required />
             </div>
 
-            <button type="submit">Save Movie Details</button>
+            <button type="submit">Zapisz detale artykułu</button>
         </form>
 
         <button id="new-movie-xbutton">X</button>
@@ -116,15 +115,15 @@
                 <input asp-for="ArticleDTO.title" id="edit-title" />
             </div>
             <div>
-                <label>Streszczenie</label>
+                <label>Treść</label>
                 <textarea asp-for="ArticleDTO.content" id="edit-summary"></textarea>
             </div>
             <div>
                 <label>Data/Czas Wydania</label> <!--add like a tooltip or something later-->
-                <input asp-for="ArticleDTO.post_date" id="edit-trailer" type="datetime-local" required />
+                <input asp-for="ArticleDTO.post_date" id="edit-trailer" type="date" required />
             </div>
 
-            <button type="submit">Save Movie Details</button>
+            <button type="submit">Zapisz detale artykułu</button>
         </form>
 
         <button id="xbutton">X</button>
@@ -146,10 +145,10 @@
             @Html.AntiForgeryToken()
             <input type="hidden" name="id" id="movie-to-delete">
             <label id="confirmation-message"></label>
-            <button type="submit">Confirm</button>
+            <button type="submit">Zatwierdź</button>
         </form>
     </div>
-    <button id="xbutton-delete">Cancel</button>
+    <button id="xbutton-delete">Anuluj</button>
 </div>
 
 @section Scripts {

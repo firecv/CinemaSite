@@ -14,13 +14,25 @@
 
                 <article>
                     <h3>@item.title</h3>
-                    <img src="@articleImage" alt="Image for @item.title" />
+                    <img src="@articleImage" alt="Zdjęcie dla artykułu o tytule: @item.title" />
                     <p>@item.content</p>
                 </article>
             }
         }
     </div>
+    <div class="horizontal-scroll">
+        @if (Model != null)
+        {
+            @foreach (var item in Model.Movies)
+            {
+                var posterImage = $"/Content/img{item.poster_id}.jpg";
 
-
+                <article>
+                    <h3>@item.title</h3>
+                    <img src="@posterImage" alt="Plakat dla @item.title" />
+                </article>
+            }
+        }
+    </div>
 </div>
 
