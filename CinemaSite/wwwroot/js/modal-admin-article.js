@@ -1,33 +1,21 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
 
-    const modalWindow = document.getElementById("modal-movie");
-    const modalInfo = document.getElementById("modal-movie-info");
+    const modalWindow = document.getElementById("modal-article");
+    const modalInfo = document.getElementById("modal-article-info");
     const xButton = document.getElementById("xbutton");
-
-    /*const modalTitle = document.getElementById("modal-title");
-    const modalPoster = document.getElementById("modal-poster");
-    const modalSummary = document.getElementById("modal-summary");
-    const modalTrailer = document.getElementById("modal-trailer");*/
-
     
     const modalIdEditHidden = document.getElementById("edit-id");
     const modalTitleEdit = document.getElementById("edit-title");
-    const modalSummaryEdit = document.getElementById("edit-summary");
-    const modalTrailerEdit = document.getElementById("edit-trailer");
+    const modalContentEdit = document.getElementById("edit-content");
+    const modalPublicationEdit = document.getElementById("edit-publication");
 
     let allRows = document.createDocumentFragment();
 
-    function updateModal(movieRow) {
-        /*modalTitle.textContent = movieRow.dataset.title;
-        modalPoster.src = movieRow.dataset.poster;
-        modalPoster.alt = "Plakat dla " + movieRow.dataset.title;
-        modalSummary.textContent = movieRow.dataset.summary;
-        modalTrailer.src = "https://www.youtube.com/embed/" + movieRow.dataset.trailer;*/
-
-        modalIdEditHidden.value = movieRow.dataset.id;
-        modalTitleEdit.value = movieRow.dataset.title;
-        modalSummaryEdit.value = movieRow.dataset.summary;
-        modalTrailerEdit.value = movieRow.dataset.trailer;
+    function updateModal(articleRow) {
+        modalIdEditHidden.value = articleRow.dataset.id;
+        modalTitleEdit.value = articleRow.dataset.title;
+        modalContentEdit.value = articleRow.dataset.content;
+        modalPublicationEdit.value = articleRow.dataset.publication;
 
         allRows = document.createDocumentFragment();
 
@@ -36,45 +24,39 @@
 
     function closeModal() {
         modalWindow.hidden = true;
-        modalTrailer.src = "";
+        modalPublication.src = "";
     }
 
 
 
-    const newMovieButton = document.getElementById("new-movie-button");
-    const newMovieModal = document.getElementById("new-movie-modal");
-    const newMovieModalInfo = document.getElementById("new-movie-modal-info");
-    const xButtonNM = document.getElementById("new-movie-xbutton");
+    const newArticleButton = document.getElementById("new-article-button");
+    const newArticleModal = document.getElementById("new-article-modal");
+    const newArticleModalInfo = document.getElementById("new-article-modal-info");
+    const xButtonNM = document.getElementById("new-article-xbutton");
     
     function openNewMovieModal() {
-        newMovieModal.hidden = false;
-
-        /*const allGenreRows = document.querySelectorAll(".genreBoxNew");
-
-        allGenreRows.forEach(gr => {
-            const genreCheckbox = gr.querySelector(`input[name=genreCheckbox]`);
-        });*/
+        newArticleModal.hidden = false;
     }
 
     function closeNewMovieModal() {
-        newMovieModal.hidden = true;
+        newArticleModal.hidden = true;
     }
 
-    newMovieButton.addEventListener("click", openNewMovieModal);
+    newArticleButton.addEventListener("click", openNewMovieModal);
     xButtonNM.addEventListener("click", closeNewMovieModal);
-    newMovieModal.addEventListener("click", closeNewMovieModal);
-    newMovieModalInfo.addEventListener("click", e => { e.stopPropagation(); });
+    newArticleModal.addEventListener("click", closeNewMovieModal);
+    newArticleModalInfo.addEventListener("click", e => { e.stopPropagation(); });
 
-    const moviesList = document.getElementById("movies-list");
-    moviesList.addEventListener("click", (e) => {
+    const articlesList = document.getElementById("articles-list");
+    articlesList.addEventListener("click", (e) => {
 
         if (e.target.closest(".control-box")) return;
 
-        const movieSelected = e.target.closest(".movie-row");
+        const articleSelected = e.target.closest(".article-row");
 
-        if (movieSelected == null) return;
+        if (articleSelected == null) return;
           
-        updateModal(movieSelected);
+        updateModal(articleSelected);
     });
 
 
@@ -94,13 +76,13 @@
     const delButton = document.querySelectorAll(".delete-button");
     const deleteModal = document.getElementById("modal-delete");
     const xButtonDelete = document.getElementById("xbutton-delete");
-    const movieToDelete = document.getElementById("movie-to-delete");
+    const articleToDelete = document.getElementById("article-to-delete");
     const confirmationMessage = document.getElementById("confirmation-message");
     const confirmDeleteModal = document.getElementById("modal-delete-confirm");
 
 
     function modalDelPopup(del) {
-        movieToDelete.value = del.dataset.id;
+        articleToDelete.value = del.dataset.id;
         confirmationMessage.textContent = "Are you sure you wish to permanently delete " + del.dataset.title + "?";
         deleteModal.hidden = false;
     }
