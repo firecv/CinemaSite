@@ -21,14 +21,17 @@ namespace CinemaSite.Controllers
             var oldScreenings = _context.Screening.Where(s => s.screening_time < DateTime.Now).ToList();
             var unsoldTickets = _context.Ticket.Where(t => t.hold_until < DateTime.Now && t.ticket_status != 2).ToList();
 
-            _context.Screening.RemoveRange(oldScreenings);
-            _context.Ticket.RemoveRange(unsoldTickets);
-            _context.SaveChanges();
+            var osAny = oldScreenings.Any();
+            var utAny = unsoldTickets.Any();
+
+            if (osAny) _context.Screening.RemoveRange(oldScreenings);
+            if (utAny) _context.Ticket.RemoveRange(unsoldTickets);
+            if (osAny || utAny) _context.SaveChanges();
         }
 
         public IActionResult RepertuarPanel()
         {
-            CleanOldData();
+            //CleanOldData();
 
             var viewModel = new AdminViewModel
             {
@@ -57,7 +60,7 @@ namespace CinemaSite.Controllers
 
         public IActionResult ZgloszeniePanel()
         {
-            CleanOldData();
+            //CleanOldData();
 
             var viewModel = new AdminViewModel
             {
@@ -208,6 +211,73 @@ namespace CinemaSite.Controllers
 
             _context.SaveChanges();
             return RedirectToAction("RepertuarPanel");
+        }
+
+
+
+
+
+
+        //zgloszenie section
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddArticleDB(ArticleDTO articleDTO)
+        {
+            if (articleDTO == null) return RedirectToAction("ZgloszeniePanel");
+            if (articleDTO.image.Length > 10485760) return RedirectToAction("ZgloszeniePanel");
+            //                           ^10MB
+
+            ArticleEntity newArticleEntity = new ArticleEntity();
+
+            newArticleEntity.title = articleDTO.title;
+            newArticleEntity.content = articleDTO.content;
+            newArticleEntity.post_date = articleDTO.post_date;
+
+            Random rngesus = new Random();
+            var newImageIndex = rngesus.Next(0, 99999999);
+            var newImageName = "img" + newImageIndex + ".jpg";
+            var newImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Content", newImageName);
+
+            using (var iostream = new FileStream(newImagePath, FileMode.Create)) articleDTO.image.CopyTo(iostream);
+
+            newArticleEntity.image_id = newImageIndex;
+
+            _context.Article.Add(newArticleEntity);
+            _context.SaveChanges();
+
+            return RedirectToAction("ZgloszeniePanel");
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditArticleDB(ArticleDTO articleDTO)
+        {
+            var articleEntityEdit = _context.Article.FirstOrDefault(a => a.article_id == articleDTO.article_id);
+
+            if (articleEntityEdit == null) return RedirectToAction("ZgloszeniePanel");
+
+            if (!articleDTO.title.IsNullOrEmpty()) articleEntityEdit.title = articleDTO.title;
+            if (!articleDTO.content.IsNullOrEmpty()) articleEntityEdit.content = articleDTO.content;
+            articleEntityEdit.post_date = articleDTO.post_date;
+
+            _context.SaveChanges();
+            return RedirectToAction("ZgloszeniePanel");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteArticle(int id)
+        {
+            var articleEntityEdit = _context.Article.FirstOrDefault(a => a.article_id == id);
+
+            if (articleEntityEdit == null) return RedirectToAction("ZgloszeniePanel");
+
+            _context.Article.Remove(articleEntityEdit);
+
+            _context.SaveChanges();
+            return RedirectToAction("ZgloszeniePanel");
         }
     }
 }

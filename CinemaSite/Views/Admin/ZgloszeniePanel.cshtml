@@ -4,12 +4,6 @@
     ViewData["Title"] = "Zgloszenia";
     var currentDate = DateTime.Today;
     var translateToPolish = new CultureInfo("pl-PL");
-
-    var screeningDictionary = Model.Screenings.GroupBy(s => s.movie_id).ToDictionary(g => g.Key, g => g.OrderBy(i => i.screening_time).ToList());
-
-    var genreDictionary = Model.MovieGenreJoins.GroupBy(mg => mg.movie_id).ToDictionary(g => g.Key, g => g.Select(mg => mg.genre_id).ToList());
-
-    var availableHalls = Model.Halls.Where(h => h.available).ToList();
 }
 
 @model CinemaSite.ViewModels.AdminViewModel
@@ -25,39 +19,27 @@
             </tr>
         </thead>
         <tbody id="movies-list">
-            @foreach (var movie in Model.Movies)
+            @foreach (var article in Model.Articles)
             {
-                var genreIdList = genreDictionary.TryGetValue(movie.movie_id, out var genres) ? genres : new List<int>();
-                var genreIdString = string.Join(",", genreIdList);
-                var genreNameList = Model.Genres.Where(g => genreIdList.Contains(g.genre_id)).Select(g => g.genre_name);
-                var genreNameString = string.Join(", ", genreNameList);
-
-                if (genreIdList == null)
-                {
-                    genreIdString = "";
-                }
-
-                var posterImage = $"/Content/img{movie.poster_id}.jpg";
+                var posterImage = $"/Content/img{article.image_id}.jpg";
+                var postDate = article.post_date.ToString();
 
                 <tr class="movie-row"
-                    data-id="@movie.movie_id"
-                    data-title="@movie.title"
-                    data-forkids="@movie.for_kids"
+                    data-id="@article.article_id"
+                    data-title="@article.title"
                     data-poster="@posterImage"
-                    data-summary="@movie.summary"
-                    data-trailer="@movie.trailer_link"
-                    data-genres="@genreIdString">
+                    data-summary="@article.content"
+                    data-genres="@postDate">
                     <td>
                         <div>
                             <div>
-                                <p>@movie.title</p>
-                                <img src="@posterImage" style="max-height: 100px;" alt="Plakat dla @movie.title" />
-                                <p>@genreNameString</p>
+                                <p>@article.title</p>
+                                <img src="@posterImage" style="max-height: 100px;" alt="Zdjęcie dla artykułu @article.title" />
+                                <p>@postDate</p>
                             </div>
                             <div class="control-box">
-                                <button>Edit Screenings</button>
-                                <button data-id="@movie.movie_id"
-                                        data-title="@movie.title"
+                                <button data-id="@article.article_id"
+                                        data-title="@article.title"
                                         class="delete-button">
                                     Delete
                                 </button>
@@ -83,42 +65,27 @@
     <div id="new-movie-modal-info" style="background-color: gray;">
         
         <h2>Movie Details</h2>
-        <form asp-controller="Admin" asp-action="AddMovieDB" method="post" enctype="multipart/form-data">
+        <form asp-controller="Admin" asp-action="AddArticleDB" method="post" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
 
-            <input asp-for="NewMovie.movie_id" type="hidden" id="nm-id" />
+            <input asp-for="ArticleDTO.article_id" type="hidden" id="nm-id" />
 
             <div>
                 <label>Tytuł</label>
-                <input asp-for="NewMovie.title" id="nm-title" required />
+                <input asp-for="ArticleDTO.title" id="nm-title" required />
             </div>
             <div>
                 <label>Plakat (plik musi mieć rozszerzenie .jpg)</label>
-                <input asp-for="NewMovie.poster" id="nm-title" type="file" accept="image/jpg" required />
+                <input asp-for="ArticleDTO.image" id="nm-title" type="file" accept="image/jpg" required />
             </div>
             <div>
                 <label>Streszczenie</label>
-                <input asp-for="NewMovie.summary" id="nm-summary" required />
+                <textarea asp-for="ArticleDTO.content" id="nm-summary" required></textarea>
             </div>
             <div>
-                <label>Link do zwiastunu (youtube video code)</label> <!--add like a tooltip or something later-->
-                <input asp-for="NewMovie.trailer_link" id="nm-trailer" required />
+                <label>Data/Czas Wydania</label> <!--add like a tooltip or something later-->
+                <input asp-for="ArticleDTO.post_date" id="nm-trailer" type="datetime-local" required />
             </div>
-            <div>
-                <label>Film dla dzieci?</label>
-                <input asp-for="NewMovie.for_kids" id="nm-kids" type="checkbox" />
-            </div>
-
-            <fieldset>
-                <legend>Żanry</legend>
-                @foreach (var g in Model.Genres)
-                {
-                    <div class="genreBoxNew">
-                        <label>@g.genre_name</label>
-                        <input name="genreCheckbox" type="checkbox" value="@g.genre_id" />
-                    </div>
-                }
-            </fieldset>
 
             <button type="submit">Save Movie Details</button>
         </form>
@@ -139,82 +106,31 @@
     <div id="modal-movie-info" style="background-color: gray;">
         
         <h2>Movie Details</h2>
-        <form asp-controller="Admin" asp-action="EditMovieDB" method="post">
+        <form asp-controller="Admin" asp-action="EditArticleDB" method="post">
             @Html.AntiForgeryToken()
 
-            <input asp-for="MovieEdit.movie_id" type="hidden" id="edit-id" />
+            <input asp-for="ArticleDTO.article_id" type="hidden" id="edit-id" />
 
             <div>
                 <label>Tytuł</label>
-                <input asp-for="MovieEdit.title" id="edit-title" />
+                <input asp-for="ArticleDTO.title" id="edit-title" />
             </div>
             <div>
                 <label>Streszczenie</label>
-                <input asp-for="MovieEdit.summary" id="edit-summary" />
+                <textarea asp-for="ArticleDTO.content" id="edit-summary"></textarea>
             </div>
             <div>
-                <label>Link do zwiastunu (youtube video code)</label> <!--add like a tooltip or something later-->
-                <input asp-for="MovieEdit.trailer_link" id="edit-trailer" />
+                <label>Data/Czas Wydania</label> <!--add like a tooltip or something later-->
+                <input asp-for="ArticleDTO.post_date" id="edit-trailer" type="datetime-local" required />
             </div>
-            <div>
-                <label>Film dla dzieci?</label>
-                <input asp-for="MovieEdit.for_kids" id="edit-kids" type="checkbox" />
-            </div>
-
-            <fieldset>
-                <legend>Żanry</legend>
-                @foreach (var g in Model.Genres)
-                {
-                    <div class="genreBox">
-                        <label>@g.genre_name</label>
-                        <input name="genreCheckbox" type="checkbox" value="@g.genre_id" />
-                    </div>
-                }
-            </fieldset>
 
             <button type="submit">Save Movie Details</button>
         </form>
 
-        <h2>Screenings</h2>
-        <form asp-controller="Admin" asp-action="EditScreeningDB" id="screening-form" method="post">
-            @Html.AntiForgeryToken()
-            <div id="screening-form-interior">
-                <!--set in js-->
-            </div>
-            <button type="submit">Save Screening Details</button>
-        </form>
-
         <button id="xbutton">X</button>
-
-        <!--<p>USER VIEW:</p>
-        <h1 id="modal-title"></h1>
-        <img id="modal-poster" src="" style="max-height: 200px;" alt="" />
-        <p id="modal-summary"></p>
-        <iframe id="modal-trailer" width="420" height="315"
-                src="">
-        </iframe>-->
-
 
     </div>
 </div>
-
-<template id="screening-template">
-    <div>
-        <input name="movieId" type="hidden" />
-        <input name="screeningId" type="hidden" />
-        <input name="screeningTime" type="datetime-local" />
-        <select name="hallId">
-            @foreach (var h in availableHalls)
-            {
-                <option value="@h.hall_id">@h.hall_id  -  Seat Count: @((int)(h.rowcount * h.rowsize + 2))</option>
-            }
-        </select>
-
-        <input name="isDubbing" type="hidden" />
-        <input name="dubCheckbox" type="checkbox" />
-    </div>
-</template>
-
 
 <div id="modal-delete" hidden style="position: fixed;
     top: 0;
@@ -226,7 +142,7 @@
     backdrop-filter: blur(10px);">
     <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
     <div id="modal-delete-confirm" style="background-color: gray;">
-        <form asp-controller="Admin" asp-action="DeleteMovie" method="post">
+        <form asp-controller="Admin" asp-action="DeleteArticle" method="post">
             @Html.AntiForgeryToken()
             <input type="hidden" name="id" id="movie-to-delete">
             <label id="confirmation-message"></label>
@@ -236,27 +152,6 @@
     <button id="xbutton-delete">Cancel</button>
 </div>
 
-<!--don't move to the js, it literally passes data there-->
-<script type="application/json" id="screenings-to-json">
-    @Html.Raw(System.Text.Json.JsonSerializer.Serialize( //https://stackoverflow.com/questions/17617263/razor-syntax-error-serializing-asp-net-model-to-json-with-html-raw
-        Model.Screenings.Select(sc => new { // ^ basically just makes a json-interpretable string
-            screening_id = sc.screening_id,
-            movie_id = sc.movie_id,
-            screening_time = sc.screening_time.ToString("yyyy-MM-ddTHH:mm"), //input type=datetime(-local?) requires this format
-            hall_id = sc.hall_id,
-            dubbing = sc.dubbing
-        }) //as the script it's just the text content - so it can be read w/ getelementbyid later
-    ))
-</script>
-<script type="application/json" id="moviegenres-to-json">
-    @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
-        Model.MovieGenreJoins.Select(mg => new {
-            movie_id = mg.movie_id,
-            genre_id = mg.genre_id
-        })
-    ))
-</script>
-
 @section Scripts {
-    <script src="~/js/modal-admin.js" asp-append-version="true" defer></script>
+    <script src="~/js/modal-admin-article.js" asp-append-version="true" defer></script>
 }
