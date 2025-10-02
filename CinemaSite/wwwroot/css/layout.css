@@ -50,9 +50,20 @@ button.accept-policy {
 }
 
 .footer {
-    position: absolute;
-    bottom: 0;
+    position: static;
+    flex-shrink: 0;
     width: 100%;
     white-space: nowrap;
     line-height: 60px;
+    background-color: black;
+    display: flex;
+    padding-left: 5vw;
+}
+
+.nav-link {
+    font-family: "SUSE Mono", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 22px;
 }

@@ -13,7 +13,6 @@ namespace CinemaSite.Data
         public DbSet<SeatEntity> Seat { get; set; }
         public DbSet<UserAccountEntity> UserAccount { get; set; }
         public DbSet<ScreeningEntity> Screening { get; set; }
-        public DbSet<NotificationEntity> Notification { get; set; }
         public DbSet<HallEntity> Hall { get; set; }
         public DbSet<MovieEntity> Movie { get; set; }
         public DbSet<ArticleEntity> Article { get; set; }

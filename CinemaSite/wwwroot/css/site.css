@@ -1,22 +1,107 @@
 html {
-  font-size: 14px;
+    position: relative;
+    min-height: 100%;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 body {
-  margin-bottom: 60px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1 0 auto;
+}
+
+.vertical-flex {
+    display: flex;
+    flex-direction: column;
+}
+
+.horizontal-flex {
+    display: flex;
+    flex-direction: row;
+}
+/*
+.space-even {
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.space-center {
+    justify-content: center;
+    align-items: center;
+}
+*/
+.poster {
+    width: auto;
+    height: 300px;
+}
+
+.announcement {
+    display: grid;
+    grid-template-areas:
+        "title title title"
+        "image content content"
+        "image content content";
+    grid-gap: 5px;
+    width: 80vw;
+    text-align: left;
+}
+.announcement h3 {
+    grid-area: title;
+}
+.announcement img {
+    grid-area: image;
+}
+.announcement p {
+    grid-area: content;
+}
+
+.auto-scroll {
+    overflow: hidden;
+}
+
+.auto-scroll-items {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    will-change: transform;
+    animation: scroll 40s linear infinite;
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-50% - 10px));
+    }
+}
+
+.horizontal-scroll {
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    gap: 20px;
+}
+
+.horizontal-scroll article {
+    flex: 0 0 auto;
 }

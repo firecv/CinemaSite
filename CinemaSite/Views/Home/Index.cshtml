@@ -5,34 +5,44 @@
 @model CinemaSite.ViewModels.DatabaseViewModel
 
 <div class="text-center">
+    <a asp-area="" asp-controller="Home" asp-action="Repertuar">
+        <div class="auto-scroll">
+            <div class="auto-scroll-items">
+                @if (Model != null)
+                {
+                    @foreach (var item in Model.Movies)
+                    {
+                        var posterImage = $"/Content/img{item.poster_id}.jpg";
 
+                        <article>
+                            <img src="@posterImage" alt="Plakat dla @item.title" class="poster" />
+                        </article>
+                    }
+                    @foreach (var item in Model.Movies)
+                    {
+                        var posterImage = $"/Content/img{item.poster_id}.jpg";
+
+                        <article>
+                            <img src="@posterImage" alt="Plakat dla @item.title" class="poster" />
+                        </article>
+                    }
+                }
+            </div>
+        </div>
+    </a>
     <div class="horizontal-scroll">
         @if (Model != null) {
             @foreach (var item in Model.Articles)
             {
                 var articleImage = $"/Content/img{item.image_id}.jpg";
 
-                <article>
+                <article class="announcement">
                     <h3>@item.title</h3>
-                    <img src="@articleImage" alt="Zdjęcie dla artykułu o tytule: @item.title" />
+                    <img src="@articleImage" alt="Zdjęcie dla artykułu o tytule: @item.title" class="poster" />
                     <p>@item.content</p>
                 </article>
             }
         }
     </div>
-    <div class="horizontal-scroll">
-        @if (Model != null)
-        {
-            @foreach (var item in Model.Movies)
-            {
-                var posterImage = $"/Content/img{item.poster_id}.jpg";
-
-                <article>
-                    <h3>@item.title</h3>
-                    <img src="@posterImage" alt="Plakat dla @item.title" />
-                </article>
-            }
-        }
-    </div>
+    <a asp-area="" asp-controller="Home" asp-action="Zgloszenia">Zobacz więcej</a>
 </div>
-

@@ -107,7 +107,7 @@ namespace CinemaSite.Controllers
             for (var i = 0; i < genreCheckbox.Count(); i++)
             {
                 MovieGenreJoinEntity newMovieGenreJoin = new MovieGenreJoinEntity();
-                newMovieGenreJoin.movie_id = NewMovie.movie_id;
+                newMovieGenreJoin.movie_id = newMovieEntity.movie_id;
                 newMovieGenreJoin.genre_id = Int32.Parse(genreCheckbox[i]);
                 _context.Add(newMovieGenreJoin);
             }

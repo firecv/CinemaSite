@@ -12,7 +12,6 @@ namespace CinemaSite.ViewModels
         public List<SeatEntity> Seats { get; set; }
         public List<UserAccountEntity> UserAccounts { get; set; }
         public List<ScreeningEntity> Screenings { get; set; }
-        public List<NotificationEntity> Notifications { get; set; }
         public List<HallEntity> Halls { get; set; }
         public List<MovieEntity> Movies { get; set; }
         public List<ArticleEntity> Articles { get; set; }
