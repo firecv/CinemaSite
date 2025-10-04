@@ -28,9 +28,20 @@
                     <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">Admin2</a>
                     <a class="nav-link whitelink" asp-area="" asp-controller="Home" asp-action="Konto">@(Context.Session.GetString("ActiveUserUsername") ?? "")</a>
                 </div>
+                <button id="hamburger-button">=</button>
             </div>
         </nav>
     </header>
+    <div id="dropdown-hamburger">
+        <button id="hamburger-button2">=</button>
+        <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">ZGŁOSZENIA</a>
+        <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Repertuar">REPERTUAR</a>
+        <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Rejestracja">REJESTRACJA</a>
+        <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Logowanie">LOGOWANIE</a>
+        <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="RepertuarPanel">Admin</a>
+        <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">Admin2</a>
+        <a class="nav-link whitelink" asp-area="" asp-controller="Home" asp-action="Konto">@(Context.Session.GetString("ActiveUserUsername") ?? "")</a>
+    </div>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
