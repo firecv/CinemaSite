@@ -23,6 +23,22 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    background-image: url("/Content/posters.jpg");
+}
+
+/*Photo by <a href="https://unsplash.com/@reganography?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Samuel Regan-Asante</a> on <a href="https://unsplash.com/photos/the-walking-dead-dvd-movie-wMkaMXTJjlQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+      add this somewhere later ^^^ */
+
+.splash {
+    width: 100%;
+    height: 60vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.innerdiv {
+    background-color: #3A3335;
 }
 
 .container {
@@ -105,3 +121,4 @@ body {
 .horizontal-scroll article {
     flex: 0 0 auto;
 }
+

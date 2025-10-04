@@ -5,31 +5,39 @@
 @model CinemaSite.ViewModels.DatabaseViewModel
 
 <div class="text-center">
-    <a asp-area="" asp-controller="Home" asp-action="Repertuar">
-        <div class="auto-scroll">
-            <div class="auto-scroll-items">
-                @if (Model != null)
-                {
-                    @foreach (var item in Model.Movies)
-                    {
-                        var posterImage = $"/Content/img{item.poster_id}.jpg";
+    <div class="splash">
+        <h1>ODKRYJ MAGIĘ FILMU</h1>
+    </div>
 
-                        <article>
-                            <img src="@posterImage" alt="Plakat dla @item.title" class="poster" />
-                        </article>
-                    }
-                    @foreach (var item in Model.Movies)
+    <div class="innerdiv">
+        <h2>Najnowsze hity:</h2>
+        <a asp-area="" asp-controller="Home" asp-action="Repertuar">
+            <div class="auto-scroll">
+                <div class="auto-scroll-items">
+                    @if (Model != null)
                     {
-                        var posterImage = $"/Content/img{item.poster_id}.jpg";
+                        @foreach (var item in Model.Movies)
+                        {
+                            var posterImage = $"/Content/img{item.poster_id}.jpg";
 
-                        <article>
-                            <img src="@posterImage" alt="Plakat dla @item.title" class="poster" />
-                        </article>
+                            <article>
+                                <img src="@posterImage" alt="Plakat dla @item.title" class="poster" />
+                            </article>
+                        }
+                        @foreach (var item in Model.Movies)
+                        {
+                            var posterImage = $"/Content/img{item.poster_id}.jpg";
+
+                            <article>
+                                <img src="@posterImage" alt="Plakat dla @item.title" class="poster" />
+                            </article>
+                        } //doubled so the auto-scrolling doesn't bug out
                     }
-                }
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
+
     <div class="horizontal-scroll">
         @if (Model != null) {
             @foreach (var item in Model.Articles)
