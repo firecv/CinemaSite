@@ -1,3 +1,8 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
 html {
     position: relative;
     min-height: 100%;
@@ -10,11 +15,6 @@ html {
     }
 }
 
-* {
-    margin: 0px;
-    padding: 0px;
-}
-
 a {
     text-decoration: none;
 }
@@ -23,44 +23,26 @@ a {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-body {
-    height: 100%;
+.innerdiv {
+    background-color: #32373B;
+    opacity: 95%;
+    backdrop-filter: blur();
+    border-radius: 50px;
+    padding: 1vw 5vw 2vw 5vw;
+    margin: 1vw 1vw 1vw 1vw;
     display: flex;
     flex-direction: column;
-    background-image: url("/Content/posters.jpg");
+}
+.innerdiv > * {
+    opacity: 100%;
 }
 
-/*Photo by <a href="https://unsplash.com/@reganography?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Samuel Regan-Asante</a> on <a href="https://unsplash.com/photos/the-walking-dead-dvd-movie-wMkaMXTJjlQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
-      add this somewhere later ^^^ */
-
-.splash {
-    width: 100%;
-    height: 60vh;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.splash h1 {
-    margin-top: 10%;
-    font-size: 8vw;
-    color: black;
-    -webkit-text-stroke: 0.157vw white;
-    text-shadow: 8px 8px 8px black;
-}
-
-.splash a {
-    color: #E6164B;
-    -webkit-text-stroke: 0.157vw white;
-    transition: 0.3s ease-in-out;
-}
-.splash a:hover {
+.innerdiv h2 {
     color: white;
-    -webkit-text-stroke: 0.157vw #E6164B;
-}
-
-.innerdiv {
-    background-color: #3A3335;
+    font-family: "Alumni Sans SC", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
 }
 
 .container {
@@ -87,6 +69,24 @@ body {
     align-items: center;
 }
 */
+
+.horizontal-scroll {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    gap: 20px;
+    scroll-snap-type: x mandatory;
+}
+
+.horizontal-scroll article {
+    flex: none;
+}
+
+.horizontal-scroll article img {
+    height: 25vh;
+    width: 25vw;
+}
+
 .poster {
     width: auto;
     height: 300px;
@@ -132,15 +132,3 @@ body {
         transform: translateX(calc(-50% - 10px));
     }
 }
-
-.horizontal-scroll {
-    display: flex;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    gap: 20px;
-}
-
-.horizontal-scroll article {
-    flex: 0 0 auto;
-}
-

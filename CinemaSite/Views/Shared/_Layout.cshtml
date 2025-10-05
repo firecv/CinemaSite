@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/fonts.css" asp-append-version="true" />
+    @RenderSection("Styles", required: false);
 
     <!--importowanie google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,61 +16,60 @@
     <link href="https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&family=Alumni+Sans+SC:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&family=PT+Sans+Narrow:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav id="bigger-navbar" class="custom-navbar">
-            <div class="horizontal-flex align-items-center">
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><img class="nav-logo" src="~/Content/logo-tp-cropped.svg" alt="Cinema Suwalki logo" /></a>
-                <div id="navmenu">
-                    <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">ZGŁOSZENIA</a>
-                    <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Repertuar">REPERTUAR</a>
-                    <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Rejestracja">REJESTRACJA</a>
-                    <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Logowanie">LOGOWANIE</a>
-                    <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="RepertuarPanel">Admin</a>
-                    <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">Admin2</a>
-                    <a class="nav-link whitelink" asp-area="" asp-controller="Home" asp-action="Konto">@(Context.Session.GetString("ActiveUserUsername") ?? "")</a>
-                </div>
-                <button id="hamburger-button">=</button>
+    <header class="custom-navbar">
+        <nav class="horizontal-flex align-items-center">
+            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><img class="nav-logo" src="~/Content/logo-tp-cropped.svg" alt="Cinema Suwalki logo" /></a>
+            <div id="navmenu">
+                <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">ZGŁOSZENIA</a>
+                <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Repertuar">REPERTUAR</a>
+                <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Rejestracja">REJESTRACJA</a>
+                <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Logowanie">LOGOWANIE</a>
+                <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="RepertuarPanel">Admin</a>
+                <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">Admin2</a>
+                <a class="nav-link whitelink" asp-area="" asp-controller="Home" asp-action="Konto">@(Context.Session.GetString("ActiveUserUsername") ?? "")</a>
             </div>
+            <button id="hamburger-button">=</button>
         </nav>
     </header>
-    <div id="dropdown-hamburger">
-        <button id="hamburger-button2">=</button>
-        <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">ZGŁOSZENIA</a>
-        <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Repertuar">REPERTUAR</a>
-        <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Rejestracja">REJESTRACJA</a>
-        <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Logowanie">LOGOWANIE</a>
-        <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="RepertuarPanel">Admin</a>
-        <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">Admin2</a>
-        <a class="nav-link whitelink" asp-area="" asp-controller="Home" asp-action="Konto">@(Context.Session.GetString("ActiveUserUsername") ?? "")</a>
-    </div>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="footer text-muted contact vertical-flex justify-content-evenly">
-        <div class="horizontal-flex justify-content-center">
-            <div style="background-color: lightgray; width: 20vw; height: 20vw;">
+    <div class="vertical-flex">
+        <div id="dropdown-hamburger">
+            <button id="hamburger-button2">=</button>
+            <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">ZGŁOSZENIA</a>
+            <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Repertuar">REPERTUAR</a>
+            <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Rejestracja">REJESTRACJA</a>
+            <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Logowanie">LOGOWANIE</a>
+            <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="RepertuarPanel">Admin</a>
+            <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">Admin2</a>
+            <a class="nav-link whitelink" asp-area="" asp-controller="Home" asp-action="Konto">@(Context.Session.GetString("ActiveUserUsername") ?? "")</a>
+        </div>
+        <div id="main-holder">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+        <footer class="footer text-muted contact vertical-flex justify-content-evenly">
+            <div class="horizontal-flex justify-content-center">
+                <div style="background-color: lightgray; width: 20vw; height: 20vw;">
                 
+                </div>
+                <div>
+                    <h3>KONTAKT</h3>
+                    <ul>
+                        <li>Phone: 123 123 123</li>
+                        <li>Email: emaliela</li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h3>KONTAKT</h3>
-                <ul>
-                    <li>Phone: 123 123 123</li>
-                    <li>Email: emaliela</li>
-                </ul>
+
+            <div class="container">
+                &copy; 2025 - Cinema Suwałki - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
-        </div>
+        </footer>
 
-        <div class="container">
-            &copy; 2025 - Cinema Suwałki - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/navbar-behaviour.js" asp-append-version="true" defer></script>
 
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/navbar-behaviour.js" asp-append-version="true" defer></script>
-
-    @await RenderSectionAsync("Scripts", required: false)
+        @await RenderSectionAsync("Scripts", required: false)
+    </div>
 </body>
 </html>

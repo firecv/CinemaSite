@@ -4,7 +4,11 @@
 
 @model CinemaSite.ViewModels.DatabaseViewModel
 
-<div class="text-center">
+@section Styles {
+    <link rel="stylesheet" href="~/css/index.css" />
+}
+
+<div class="vertical-flex">
     <div class="splash">
         <h1 class="jaro-400">ODKRYJ<br />MAGIĘ <a asp-area="" asp-controller="Home" asp-action="Repertuar">FILMU</a></h1>
     </div>
@@ -38,19 +42,22 @@
         </a>
     </div>
 
-    <div class="horizontal-scroll">
-        @if (Model != null) {
-            @foreach (var item in Model.Articles)
-            {
-                var articleImage = $"/Content/img{item.image_id}.jpg";
+    <div class="innerdiv">
+        <h2>Najnowsze wydarzenia:</h2>
+        <div class="horizontal-scroll">
+            @if (Model != null) {
+                @foreach (var item in Model.Articles)
+                {
+                    var articleImage = $"/Content/img{item.image_id}.jpg";
 
-                <article class="announcement">
-                    <h3>@item.title</h3>
-                    <img src="@articleImage" alt="Zdjęcie dla artykułu o tytule: @item.title" class="poster" />
-                    <p>@item.content</p>
-                </article>
+                    <article class="announcement">
+                        <h3>@item.title</h3>
+                        <img src="@articleImage" alt="Zdjęcie dla artykułu o tytule: @item.title" class="poster" />
+                        <p>@item.content</p>
+                    </article>
+                }
             }
-        }
+        </div>
+        <a asp-area="" class="whitelink alumni-sans-sc-500" asp-controller="Home" asp-action="Zgloszenia">Zobacz więcej</a>
     </div>
-    <a asp-area="" asp-controller="Home" asp-action="Zgloszenia">Zobacz więcej</a>
 </div>
