@@ -1,0 +1,58 @@
+﻿body {
+    background-image: url("/Content/posters.jpg");
+}
+/*Photo by <a href="https://unsplash.com/@reganography?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Samuel Regan-Asante</a> on <a href="https://unsplash.com/photos/the-walking-dead-dvd-movie-wMkaMXTJjlQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+      add this somewhere later ^^^ */
+
+#modal-movie {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 999;
+    background-color: rbga(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+#search-tools {
+    background-color: #EEEEEE;
+    border-radius: 50px;
+    padding: 0 2vw 0 2vw;
+    margin: 1vw 1vw 1vw 1vw;
+    
+    color: black;
+    font-size: 30px;
+    font-family: "Alumni Sans SC", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+}
+
+
+#search-tools option {
+    font-size: 18px;
+}
+
+@media (max-width: 1060px) {
+    #search-tools {
+        flex-direction: column;
+        padding: 3vh 3vh 3vh 3vh;
+    }
+}
+
+.search-container {
+    background-color: #FFFFFF;
+    opacity: 100%;
+    padding: 0 1vw 0 1vw;
+    border-radius: 30px;
+    height: 70px;
+    margin: 1vw 1vw 1vw 1vw;
+    width: 100%;
+}

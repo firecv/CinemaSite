@@ -23,4 +23,11 @@
     <PackageReference Include="Stripe.net" Version="48.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\css\repertuar.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

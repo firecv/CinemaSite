@@ -6,18 +6,20 @@
 
 <div class="text-center">
 
-    <div class="horizontal-scroll">
+    <div class="vertical-flex">
         @if (Model != null)
         {
             @foreach (var item in Model.Articles)
             {
                 var articleImage = $"/Content/img{item.image_id}.jpg";
 
-                <article>
-                    <h3>@item.title</h3>
-                    <img src="@articleImage" alt="Image for @item.title" />
-                    <p>@item.content</p>
-                </article>
+                <div class="innerdiv">
+                    <article class="announcement">
+                        <h3>@item.title</h3>
+                        <img src="@articleImage" alt="Image for @item.title" />
+                        <p>@item.content</p>
+                    </article>
+                </div>
             }
         }
     </div>

@@ -51,6 +51,7 @@ button.accept-policy {
     position: static;
     flex-shrink: 0;
     width: 100%;
+    height: 500px;
     white-space: nowrap;
     line-height: 60px;
     background-color: black;
@@ -147,6 +148,7 @@ button.accept-policy {
 }
 
 body {
+    position: relative;
     height: 100%;
     width: 100%;
     padding-top: 100px;
@@ -154,6 +156,7 @@ body {
 
 #main-holder {
     width: 100%;
+    min-height: calc(100vh - 600px);
     display: flex;
     flex-direction: column;
     align-items: center;

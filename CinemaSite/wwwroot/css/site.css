@@ -19,6 +19,49 @@ a {
     text-decoration: none;
 }
 
+/*custom checkbox stuff - https://www.w3schools.com/howto/howto_css_custom_checkbox.asp*/
+.checkbox-container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    font-style: normal;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.checkbox-container input {
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.custom-checkbox {
+    aspect-ratio: 1 / 1;
+    width: calc(17px + 4%);
+    background-color: white;
+    border: black 2px solid;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+
+.checkbox-container:hover input ~ .custom-checkbox {
+    border: #E6164B 2px solid;
+}
+
+.checkbox-container input:checked ~ .custom-checkbox {
+    background-color: #E6164B;
+    border: white 2px solid;
+    transform: rotate(135deg);
+}
+
+
+
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -30,11 +73,7 @@ a {
     border-radius: 50px;
     padding: 1vw 5vw 2vw 5vw;
     margin: 1vw 1vw 1vw 1vw;
-    display: flex;
-    flex-direction: column;
-}
-.innerdiv > * {
-    opacity: 100%;
+    color: white;
 }
 
 .innerdiv h2 {
@@ -70,26 +109,17 @@ a {
 }
 */
 
+.poster {
+    width: auto;
+    height: 300px;
+}
+
 .horizontal-scroll {
     display: flex;
     overflow-y: hidden;
     overflow-x: scroll;
     gap: 20px;
     scroll-snap-type: x mandatory;
-}
-
-.horizontal-scroll article {
-    flex: none;
-}
-
-.horizontal-scroll article img {
-    height: 25vh;
-    width: 25vw;
-}
-
-.poster {
-    width: auto;
-    height: 300px;
 }
 
 .announcement {
@@ -101,13 +131,17 @@ a {
     grid-gap: 5px;
     width: 80vw;
     text-align: left;
+    flex: none;
 }
 .announcement h3 {
     grid-area: title;
 }
 .announcement img {
     grid-area: image;
+    height: 25vh;
+    width: 25vw;
 }
+
 .announcement p {
     grid-area: content;
 }

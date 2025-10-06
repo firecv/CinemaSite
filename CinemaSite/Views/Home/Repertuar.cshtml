@@ -12,33 +12,38 @@
 
 @model CinemaSite.ViewModels.DatabaseViewModel
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/repertuar.css" />
+}
+
 <!--Screenings = upcomingScreenings,
     Movies = upcomingMovies,
     Genres = _context.Genre.ToList(),
     MovieGenreJoins = neededMovieGenreJoins-->
 
-<div id="body" style="margin-bottom:5000px">
-    <label for="forKids">Filmy dla dzieci</label>
-    <input id="kid-filter" name="forKids" type="checkbox" />
-    <input id="title-search" name="titleSearch" type="text" placeholder="🔍︎Szukaj filmu..." autocomplete="off" />
-    <select id="genre-filter">
-        <option value="">Wszystkie</option>
-        @foreach (var g in Model.Genres)
-        {
-            <option value="@g.genre_id">@g.genre_name</option>
-        }
-    </select>
+<div id="body">
+    <div id="search-tools">
+        <label class="checkbox-container horizontal-flex search-container" for="kid-filter">
+            Filmy dla dzieci
+            <input id="kid-filter" name="forKids" type="checkbox" />
+            <span class="custom-checkbox"></span>
+        </label>
+        
+        <input id="title-search" class="search-container" name="titleSearch" type="text" 
+            placeholder="🔍︎Szukaj filmu..." autocomplete="off" />
+        
+        <select id="genre-filter" class="search-container">
+            <option value="">Wszystkie</option>
+            @foreach (var g in Model.Genres)
+            {
+                <option value="@g.genre_id">@g.genre_name</option>
+            }
+        </select>
+    </div>
 
 
-
-    <table id="movie-table">
-        <thead>
-            <tr>
-                <th>Filmy</th>
-                <th>Seanse</th>
-            </tr>
-        </thead>
-        <tbody id="movies-list">
+    <div id="movie-table">
+        <div id="movies-list">
             @foreach (var movie in Model.Movies)
             {
                 var genreIdList = genreDictionary.TryGetValue(movie.movie_id, out var genres) ? genres : new List<int>();
@@ -50,69 +55,59 @@
 
                 var posterImage = $"/Content/img{movie.poster_id}.jpg";
 
-                <tr class="movie-row"
+                <div class="movie-row innerdiv horizontal-flex"
                     data-title="@movie.title"
                     data-forkids="@movie.for_kids"
                     data-poster="@posterImage"
                     data-summary="@movie.summary"
                     data-trailer="@movie.trailer_link"
                     data-genres="@genreIdString">
-                    <td>
-                        <div>
-                            <div>
-                                <p>@movie.title</p>
-                                <img src="@posterImage" style="max-height: 100px;" alt="Plakat dla @movie.title" />
-                            </div>
-                            <div class="screening-box">
-                                <button class="backward">←</button>
-                                <button class="forward">→</button>
+                   
+                    <div>
+                        <h2>@movie.title</h2>
+                        <img src="@posterImage" style="max-height: 100px;" alt="Plakat dla @movie.title" />
+                    </div>
+                    <div class="screening-box">
+                        <button class="backward">←</button>
+                        <button class="forward">→</button>
 
-                                @for (var i = 0; i < 14; i++) //all are created, visibility is just toggled in js
-                                {
-                                    var today = currentDate.AddDays(i);
+                        @for (var i = 0; i < 14; i++) //all are created, visibility is just toggled in js
+                        {
+                            var today = currentDate.AddDays(i);
 
-                                    var screeningsThatDay = Model.Screenings
-                                    .Where(s => s.movie_id == movie.movie_id && s.screening_time.Date == today.Date).ToList();
+                            var screeningsThatDay = Model.Screenings
+                            .Where(s => s.movie_id == movie.movie_id && s.screening_time.Date == today.Date).ToList();
                                     
-                                    <div data-index="@i">
-                                        <p>@today.ToString("ddd dd MMM")</p>
+                            <div data-index="@i">
+                                <p>@today.ToString("ddd dd MMM")</p>
    
-                                        @foreach (var screening in screeningsThatDay)
+                                @foreach (var screening in screeningsThatDay)
+                                {
+                                    <a class="screening-box"
+                                        asp-action="Rezerwacja"
+                                        asp-route-movieId="@movie.movie_id"
+                                        asp-route-screeningId="@screening.screening_id">
+                                        <p>@screening.screening_time.ToString("HH:mm"))</p>
+                                        @if (screening.dubbing)
                                         {
-                                            <a class="screening-box"
-                                                asp-action="Rezerwacja"
-                                                asp-route-movieId="@movie.movie_id"
-                                                asp-route-screeningId="@screening.screening_id">
-                                                <p>@screening.screening_time.ToString("HH:mm"))</p>
-                                                @if (screening.dubbing)
-                                                {
-                                                    <p><i>dubbing</i></p>
-                                                } else
-                                                {
-                                                    <p><i>napisy</i></p>
-                                                }
-                                            </a>
+                                            <p><i>dubbing</i></p>
+                                        } else
+                                        {
+                                            <p><i>napisy</i></p>
                                         }
-                                    </div>
+                                    </a>
                                 }
                             </div>
-                        </div>
-                    </td>
-                </tr>
+                        }
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
+        </div>
+    </div>
 </div>
 
 
-<div id="modal-movie" hidden style="position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 999;
-    background-color: rbga(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);"> <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
+<div id="modal-movie" hidden>
     <div id="modal-movie-info" style="background-color: gray;">
         <button id="xbutton">X</button>
         <h1 id="modal-title"></h1>
