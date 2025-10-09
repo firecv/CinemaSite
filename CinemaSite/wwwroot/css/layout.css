@@ -110,9 +110,82 @@ button.accept-policy {
 }
 
 #hamburger-button {
-    width: 30px;
-    height: 30px;
     display: none;
+    margin-right: 10vw;
+}
+
+#hamburger-button img {
+    width: 50px;
+    height: auto;
+}
+
+#hamburger-button img:hover {
+    animation: wiggleUD 1s ease-in-out;
+}
+
+#hamburger-button2 {
+    margin: 30px 0 10px 8vw;
+}
+
+#hamburger-button2 img {
+    width: 50px;
+    height: 50px;
+}
+
+#hamburger-button2 img:hover {
+    animation: wiggleLR 1s ease-in-out;
+}
+
+@keyframes wiggleLR {
+    0% {
+        transform: translateX(5px);
+    }
+
+    20% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(10px);
+    }
+
+    60% {
+        transform: translateX(-10px);
+    }
+
+    80% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes wiggleUD {
+    0% {
+        transform: translateY(5px);
+    }
+
+    20% {
+        transform: translateY(-10px);
+    }
+
+    40% {
+        transform: translateY(10px);
+    }
+
+    60% {
+        transform: translateY(-10px);
+    }
+
+    80% {
+        transform: translateY(5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 #dropdown-hamburger {
@@ -128,6 +201,13 @@ button.accept-policy {
     display: none;
 }
 
+.navflex {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
 @media (max-width: 1200px) {
     #navmenu {
         display: none;
@@ -140,6 +220,10 @@ button.accept-policy {
     #dropdown-hamburger {
         display: flex;
         flex-direction: column;
+    }
+
+    .navflex {
+        justify-content: space-between;
     }
 }
 

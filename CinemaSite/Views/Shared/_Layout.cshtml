@@ -17,23 +17,25 @@
 </head>
 <body>
     <header class="custom-navbar">
-        <nav class="horizontal-flex align-items-center">
+        <nav class="align-items-center navflex">
             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><img class="nav-logo" src="~/Content/logo-tp-cropped.svg" alt="Cinema Suwalki logo" /></a>
             <div id="navmenu">
                 <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">ZGŁOSZENIA</a>
                 <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Repertuar">REPERTUAR</a>
                 <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Rejestracja">REJESTRACJA</a>
                 <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Logowanie">LOGOWANIE</a>
-                <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="RepertuarPanel">Admin</a>
-                <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">Admin2</a>
                 <a class="nav-link whitelink" asp-area="" asp-controller="Home" asp-action="Konto">@(Context.Session.GetString("ActiveUserUsername") ?? "")</a>
             </div>
-            <button id="hamburger-button">=</button>
+            <a href="#" id="hamburger-button">
+                <img src="/Content/hamburger.svg" alt="Otwórz nawigację" />
+            </a>
         </nav>
     </header>
     <div class="vertical-flex">
         <div id="dropdown-hamburger">
-            <button id="hamburger-button2">=</button>
+            <a href="#" id="hamburger-button2">
+                <img src="/Content/close-arrow.svg" alt="Zamknij nawigację" />
+            </a>
             <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">ZGŁOSZENIA</a>
             <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Repertuar">REPERTUAR</a>
             <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Rejestracja">REJESTRACJA</a>
@@ -63,6 +65,8 @@
 
             <div class="container">
                 &copy; 2025 - Cinema Suwałki - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                <a asp-area="" asp-controller="Admin" asp-action="RepertuarPanel">Admin</a>
+                <a asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">Admin2</a>
             </div>
         </footer>
 

@@ -67,9 +67,7 @@ a {
 }
 
 .innerdiv {
-    background-color: #32373B;
-    opacity: 95%;
-    backdrop-filter: blur();
+    background-color: rgba(50, 55, 59, 0.95);
     border-radius: 50px;
     padding: 1vw 5vw 2vw 5vw;
     margin: 1vw 1vw 1vw 1vw;
