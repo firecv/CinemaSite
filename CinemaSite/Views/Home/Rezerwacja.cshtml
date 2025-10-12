@@ -3,7 +3,7 @@
 
     var rowCount = Model.Hall.rowcount;
     var columnCount = Model.Hall.rowsize; //last row is 2 wider
-    var columnCountForGrid = columnCount + 3; //for that ^
+    var columnCountForGrid = columnCount + 3; //for that ^ + the labels on the left
 
     var seatsWithTickets = Model.Tickets.Select(t => t.seat_id).ToHashSet();
 

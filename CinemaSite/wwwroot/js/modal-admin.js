@@ -16,6 +16,7 @@
     const modalTrailerEdit = document.getElementById("edit-trailer");
     const modalKidsEdit = document.getElementById("edit-kids");
 
+    const modalScreeningForm = document.getElementById("screening-form");
     const modalScreeningBox = document.getElementById("screening-form-interior");
     const screeningRow = document.getElementsByTagName("template")[0];
 
@@ -92,7 +93,11 @@
 
         modalScreeningBox.replaceChildren(allRows);
 
-        document.getElementById("create-screening").addEventListener("click", () => {
+        var oldButton = document.querySelector(".create-screening");
+        var newButton = oldButton.cloneNode(true);
+        modalScreeningForm.replaceChild(newButton, oldButton);
+
+        newButton.addEventListener("click", () => {
             createNewScreeningRow(null, movieRow.dataset.id);
             modalScreeningBox.appendChild(allRows);
         });
