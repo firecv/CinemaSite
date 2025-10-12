@@ -25,6 +25,13 @@
 
     let allRows = document.createDocumentFragment();
 
+    const currentdate = new Date(); //https://stackoverflow.com/questions/10211145/getting-current-date-and-time-in-javascript
+    const timeStr = currentdate.getFullYear() + "-" + String(currentdate.getMonth() + 1).padStart(2, "0") + "-"
+        + String(currentdate.getDate()).padStart(2, "0") + "T" + String(currentdate.getHours()).padStart(2, "0")
+        + ":" + String(currentdate.getMinutes()).padStart(2, "0");
+
+    alert(timeStr);
+
     function createNewScreeningRow(sm, movieRowDatasetId) {
         const row = screeningRow.content.firstElementChild.cloneNode(true);
 
@@ -35,7 +42,7 @@
         row.querySelector(`input[name="movieId"]`).value = movieRowDatasetId;
         if (sm == null) {
             row.querySelector(`input[name="screeningId"]`).value = 0; //item creation flag
-            row.querySelector(`input[name="screeningTime"]`).value = "1912-12-12T12:12";
+            row.querySelector(`input[name="screeningTime"]`).value = timeStr;
             row.querySelector(`select[name="hallId"]`).value = 1;
         } else {
             row.querySelector(`input[name="screeningId"]`).value = sm.screening_id;
