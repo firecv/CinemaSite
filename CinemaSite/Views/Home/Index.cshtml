@@ -44,20 +44,30 @@
 
     <div class="innerdiv vertical-flex">
         <h2>Najnowsze wydarzenia:</h2>
-        <div class="horizontal-scroll">
-            @if (Model != null) {
-                @foreach (var item in Model.Articles)
-                {
-                    var articleImage = $"/Content/img{item.image_id}.jpg";
+        <div class="glider-container">
+            <div class="glider">
+                @if (Model != null) {
+                    @foreach (var item in Model.Articles)
+                    {
+                        var articleImage = $"/Content/img{item.image_id}.jpg";
 
-                    <article class="announcement">
-                        <h3>@item.title</h3>
-                        <img src="@articleImage" alt="Zdjęcie dla artykułu o tytule: @item.title" class="poster" />
-                        <p>@item.content</p>
-                    </article>
+                        <article class="announcement">
+                            <h3>@item.title</h3>
+                            <img src="@articleImage" alt="Zdjęcie dla artykułu o tytule: @item.title" class="poster" />
+                            <div>
+                                <p>@item.content</p>
+                            </div>
+                        </article>
+                    }
                 }
-            }
+            </div>
+            <button class="glider-prev">+--</button>
+            <button class="glider-next">--+</button>
         </div>
-        <a asp-area="" class="whitelink alumni-sans-sc-500" asp-controller="Home" asp-action="Zgloszenia">Zobacz więcej</a>
+        <!--<a asp-area="" class="whitelink alumni-sans-sc-500" asp-controller="Home" asp-action="Zgloszenia">Zobacz więcej</a>-->
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/glider-settings.js" asp-append-version="true" defer></script>
+}

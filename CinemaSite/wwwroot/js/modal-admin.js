@@ -30,8 +30,6 @@
         + String(currentdate.getDate()).padStart(2, "0") + "T" + String(currentdate.getHours()).padStart(2, "0")
         + ":" + String(currentdate.getMinutes()).padStart(2, "0");
 
-    alert(timeStr);
-
     function createNewScreeningRow(sm, movieRowDatasetId) {
         const row = screeningRow.content.firstElementChild.cloneNode(true);
 

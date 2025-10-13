@@ -55,7 +55,7 @@
 
                 var posterImage = $"/Content/img{movie.poster_id}.jpg";
 
-                <div class="movie-row innerdiv horizontal-flex"
+                <div class="movie-row innerdiv"
                     data-title="@movie.title"
                     data-forkids="@movie.for_kids"
                     data-poster="@posterImage"
@@ -65,40 +65,44 @@
                    
                     <div>
                         <h2>@movie.title</h2>
-                        <img src="@posterImage" style="max-height: 100px;" alt="Plakat dla @movie.title" />
+                        <img src="@posterImage" alt="Plakat dla @movie.title" />
                     </div>
                     <div class="screening-box">
-                        <button class="backward">←</button>
-                        <button class="forward">→</button>
+                        <button class="backward">Poprzednie seanse ←</button>
+                        <button class="forward">→ Następne seanse</button>
 
-                        @for (var i = 0; i < 14; i++) //all are created, visibility is just toggled in js
-                        {
-                            var today = currentDate.AddDays(i);
+                        <div class="screening-items">
+                            @for (var i = 0; i < 14; i++) //all are created, visibility is just toggled in js
+                            {
+                                var today = currentDate.AddDays(i);
 
-                            var screeningsThatDay = Model.Screenings
-                            .Where(s => s.movie_id == movie.movie_id && s.screening_time.Date == today.Date).ToList();
+                                var screeningsThatDay = Model.Screenings
+                                .Where(s => s.movie_id == movie.movie_id && s.screening_time.Date == today.Date).ToList();
                                     
-                            <div data-index="@i">
-                                <p>@today.ToString("ddd dd MMM")</p>
+                                <div data-index="@i">
+                                    <p>@today.ToString("ddd dd MMM")</p>
    
-                                @foreach (var screening in screeningsThatDay)
-                                {
-                                    <a class="screening-box"
-                                        asp-action="Rezerwacja"
-                                        asp-route-movieId="@movie.movie_id"
-                                        asp-route-screeningId="@screening.screening_id">
-                                        <p>@screening.screening_time.ToString("HH:mm"))</p>
-                                        @if (screening.dubbing)
-                                        {
-                                            <p><i>dubbing</i></p>
-                                        } else
-                                        {
-                                            <p><i>napisy</i></p>
-                                        }
-                                    </a>
-                                }
-                            </div>
-                        }
+                                    @foreach (var screening in screeningsThatDay)
+                                    {
+                                        <div class="screening-item">
+                                            <a
+                                                asp-action="Rezerwacja"
+                                                asp-route-movieId="@movie.movie_id"
+                                                asp-route-screeningId="@screening.screening_id">
+                                                <p>@screening.screening_time.ToString("HH:mm")</p>
+                                                @if (screening.dubbing)
+                                                {
+                                                    <p><i>dubbing</i></p>
+                                                } else
+                                                {
+                                                    <p><i>napisy</i></p>
+                                                }
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
             }

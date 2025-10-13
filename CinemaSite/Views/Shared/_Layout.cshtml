@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="~/css/fonts.css" asp-append-version="true" />
     @RenderSection("Styles", required: false);
 
+    <!--glider.js-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css" />
+
     <!--importowanie google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,6 +75,7 @@
 
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/navbar-behaviour.js" asp-append-version="true" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
 
         @await RenderSectionAsync("Scripts", required: false)
     </div>
