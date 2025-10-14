@@ -19,7 +19,7 @@ a {
     text-decoration: none;
 }
 
-button {
+.custom-button {
     background-color: rgb(0, 0, 0, 0.00);
     color: white;
     font-size: 20px;
@@ -32,11 +32,11 @@ button {
     transition: 0.5s;
 }
 
-button:hover {
+.custom-button:hover {
     background-color: #E6164B;
 }
 
-button:active {
+.custom-button:active {
     border: white 2px groove;
     transition: 0s;
 }
@@ -204,8 +204,4 @@ button:active {
     to {
         transform: translateX(calc(-50% - 10px));
     }
-}
-
-.glider-prev, .glider-next {
-    display: block;
 }
