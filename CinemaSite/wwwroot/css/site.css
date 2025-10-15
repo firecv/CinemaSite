@@ -9,6 +9,10 @@ html {
     font-size: 14px;
 }
 
+body {
+    background-image: url("/Content/posters.jpg");
+}
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -151,10 +155,12 @@ a {
         "image content content";
     grid-template-columns: 1fr 2fr;
     grid-gap: 1px;
-    width: 100%;
+    width: 95%;
     flex: none;
     padding: 6px 2vw 0 0;
+    margin-bottom: 25px;
 }
+
 .announcement h3 {
     grid-area: title;
     font-family: "Oswald", sans-serif;
@@ -167,6 +173,7 @@ a {
     grid-area: image;
     max-height: 15vw;
     width: 25vw;
+    border-radius: 20px;
 }
 
 .announcement div {
@@ -184,6 +191,55 @@ a {
     font-style: normal;
     text-align: left;
 }
+
+.article-container {
+    scroll-snap-type: x mandatory;
+    margin: 1vw 0vw 1vw 0vw !important;
+}
+
+@media (max-width: 1200px) {
+    .article-container {
+        padding: 1vw calc(5vw + 30px) 2vw calc(5vw + 30px) !important;
+    }
+
+    .announcement {
+        display: flex;
+        flex-direction: column;
+        padding: 6px 0 0 0;
+        justify-content: start;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .announcement h3 {
+        justify-self: center;
+        align-self: center;
+    }
+
+    .announcement img {
+        aspect-ratio: 25 / 15;
+        width: 100%;
+        height: auto;
+        max-height: initial;
+        max-width: 450px !important;
+        border-radius: 25px;    
+    }
+
+    .announcement div {
+        margin-top: 15px;
+        height: 30vh;
+        width: 95%;
+        overflow-y: scroll;
+        margin-left: 2vw;
+    }
+
+    .announcement p {
+        width: 100%;
+        text-align: left;
+        font-size: 18px;
+    }
+}
+
 
 .auto-scroll {
     overflow: hidden;

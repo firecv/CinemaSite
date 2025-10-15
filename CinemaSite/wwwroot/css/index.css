@@ -1,28 +1,27 @@
-﻿body {
-    background-image: url("/Content/posters.jpg");
-}
-/*Photo by <a href="https://unsplash.com/@reganography?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Samuel Regan-Asante</a> on <a href="https://unsplash.com/photos/the-walking-dead-dvd-movie-wMkaMXTJjlQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+﻿/*Photo by <a href="https://unsplash.com/@reganography?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Samuel Regan-Asante</a> on <a href="https://unsplash.com/photos/the-walking-dead-dvd-movie-wMkaMXTJjlQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
       add this somewhere later ^^^ */
 
 .splash {
     display: flex;
     width: 100%;
-    height: 60vh;
+    height: 50vh;
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin: 5vw 0 5vw 0;
 }
 
 .splash h1 {
-    font-size: 8vw;
+    font-size: calc(83px + 3vw);
     color: black;
-    -webkit-text-stroke: 0.157vw white;
+    -webkit-text-stroke: 3px white;
     text-shadow: 8px 8px 8px black;
+    line-height: 130px;
 }
 
 .splash a {
     color: #E6164B;
-    -webkit-text-stroke: 0.157vw white;
+    -webkit-text-stroke: 3px white;
     transition: 0.3s ease-in-out;
 }
 
@@ -31,12 +30,21 @@
     -webkit-text-stroke: 0.157vw #E6164B;
 }
 
+.glider::-webkit-scrollbar {
+    display: none;
+}
+
+.glider {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 .glider-prev {
-    transform: translate(-2vw, 50px) !important;
+    transform: translate(-2.5vw, 2vw) !important;
 }
 
 .glider-next {
-    transform: translate(2vw, 50px) !important;
+    transform: translate(2.5vw, 2vw) !important;
 }
 
 .glider-container {
@@ -63,4 +71,31 @@
 
 .glider-button:hover {
     background-color: #E6164B !important;
+}
+
+@media (max-width: 1200px) {
+    .glider-prev {
+        transform: translate(-6vw, -6vh) !important;
+    }
+
+    .glider-next {
+        transform: translate(6vw, -6vh) !important;
+    }
+}
+
+@media (pointer:none), (pointer:coarse) {
+    .glider-button {
+        display: none;
+    }
+}
+
+.glider-dot {
+    background-color: white !important;
+    transition: 0.4s;
+    transform: scale(0.8);
+}
+
+.glider-dot.active {
+    background-color: #E6164B !important;
+    transform: scale(1.2);
 }
