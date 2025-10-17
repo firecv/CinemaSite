@@ -197,7 +197,7 @@ a {
     margin: 1vw 0vw 1vw 0vw !important;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1200px) and (min-height: 800px) {
     .article-container {
         padding: 1vw calc(5vw + 30px) 2vw calc(5vw + 30px) !important;
     }

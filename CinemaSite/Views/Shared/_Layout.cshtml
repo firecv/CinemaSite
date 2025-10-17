@@ -43,8 +43,6 @@
             <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Repertuar">REPERTUAR</a>
             <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Rejestracja">REJESTRACJA</a>
             <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Logowanie">LOGOWANIE</a>
-            <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="RepertuarPanel">Admin</a>
-            <a class="nav-link blacklink" asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">Admin2</a>
             <a class="nav-link whitelink" asp-area="" asp-controller="Home" asp-action="Konto">@(Context.Session.GetString("ActiveUserUsername") ?? "")</a>
         </div>
         <div id="main-holder">
