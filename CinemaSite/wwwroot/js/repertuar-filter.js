@@ -28,7 +28,7 @@
             const matchTitleSubstring = searchValue == "" || movieTitle.includes(searchValue);
             const matchKidFilter = !kidFilterOn || kidFriendly;
             const matchGenreFilter = genreSelect == "" || movieRowGenres.includes(genreSelect);
-            // event listeners at the bottom, don't forget again
+            //event listeners at the bottom, don't forget again
 
             if (matchTitleSubstring && matchKidFilter && matchGenreFilter) {
                 m.style.display = "";
@@ -50,20 +50,7 @@
     filter();
 
 
-    /// PRZELACZENIE MIEDZY TYDZIEN TEN A NASTEPNY
-
-    const screeningBox = document.querySelectorAll(".screening-box");
-
-    function scrollWindow(firstDay, dayCount) {
-        columns.forEach(column => {
-            const index = parseInt(column.dataset.index, 10);
-            if (index >= firstDay && index < firstDay + dayCount) {
-                column.style.display = "";
-            } else {
-                column.style.display = "none";
-            }
-        });
-    }
+    /// PRZELACZENIE MIEDZY DNIAMI
 
     document.querySelectorAll(".movie-row").forEach(movie => {
         const columns = movie.querySelectorAll("[data-index]");

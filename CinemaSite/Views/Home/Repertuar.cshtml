@@ -71,9 +71,11 @@
                         <img src="@posterImage" alt="Plakat dla @movie.title" />
                     </div>
                     <div class="screening-box">
-                        <button class="backward custom-button">Poprzednie seanse ←</button>
-                        <button class="forward custom-button">→ Następne seanse</button>
-
+                        <div class="control-div">
+                            <button class="backward custom-button">Poprzednie seanse ←</button>
+                            <button class="forward custom-button">→ Następne seanse</button>
+                        </div>
+                        
                         <div class="screening-items">
                             @for (var i = 0; i < 14; i++) //all are created, visibility is just toggled in js
                             {
@@ -83,7 +85,7 @@
                                 .Where(s => s.movie_id == movie.movie_id && s.screening_time.Date == today.Date).ToList();
                                     
                                 <div data-index="@i">
-                                    <p>@today.ToString("ddd dd MMM")</p>
+                                    <p class="day-header">@today.ToString("ddd dd MMM")</p>
    
                                     @foreach (var screening in screeningsThatDay)
                                     {
@@ -92,13 +94,12 @@
                                                 asp-action="Rezerwacja"
                                                 asp-route-movieId="@movie.movie_id"
                                                 asp-route-screeningId="@screening.screening_id">
-                                                <p>@screening.screening_time.ToString("HH:mm")</p>
                                                 @if (screening.dubbing)
                                                 {
-                                                    <p><i>dubbing</i></p>
+                                                    <p>@screening.screening_time.ToString("HH:mm")<br /><i>dubbing</i></p>
                                                 } else
                                                 {
-                                                    <p><i>napisy</i></p>
+                                                    <p>@screening.screening_time.ToString("HH:mm")<br /><i>napisy</i></p>
                                                 }
                                             </a>
                                         </div>
