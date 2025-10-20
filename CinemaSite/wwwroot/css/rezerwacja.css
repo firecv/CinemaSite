@@ -1,0 +1,76 @@
+﻿.rez-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#seat-grid {
+    display: grid;
+    gap: 10px;
+    justify-content: center;
+    align-content: center;
+}
+
+.row-label {
+    width: 25px;
+    height: 25px;
+    color: white;
+}
+
+.seat-square {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border: white 2px solid;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    transition: 0.3s;
+}
+
+.seat-square:hover {
+    border: #E6164B 2px solid;
+}
+
+.seat-square.open {
+    background: #000000;
+}
+
+.seat-square.taken {
+    background: #646464;
+    border: #646464 2px solid;
+    cursor: not-allowed;
+    color: black;
+}
+
+.seat-square.selected {
+    background: #E6164B;
+}
+
+#cart-container {
+    background-color: #FFFFFF;
+    opacity: 100%;
+    padding: 0 1vw 0 1vw;
+    border-radius: 30px;
+    height: auto;
+    width: 50%;
+    margin-bottom: 40px;
+}
+
+/*added in js: */
+
+.item-seatNumText {
+
+}
+
+.item-seatTypeText {
+
+}
+
+.item-ttDropdown {
+
+}
+
+.item-xButton {
+
+}

@@ -30,19 +30,23 @@
 
                 const seatNumText = document.createElement("span");
                 seatNumText.textContent = `Miejsce ${item.fixedSeatRow}${item.seatCol}`; //doesn't work with " ", do not change
+                seatNumText.classList.add("item-seatNumText");
 
                 const seatTypeText = document.createElement("span");
                 seatTypeText.textContent = `Siedzenie ${item.seatTypeName}`;
+                seatTypeText.classList.add("item-seatTypeText");
 
                 const ttDropdown = document.getElementsByTagName("template")[0].content.firstElementChild.cloneNode(true);
                 ttDropdown.dataset.seatId = String(item.seatId); //template *with ticket type data* is in the cshtml file, but id is added here
                 ttDropdown.addEventListener("change", sumCartItems);
+                ttDropdown.classList.add("item-ttDropdown");
 
                 const xButton = document.createElement("button");
                 xButton.type = "button";
                 xButton.className = "unselect";
                 xButton.dataset.seatId = String(item.seatId);
                 xButton.textContent = "X";
+                xButton.classList.add("item-xButton");
 
                 const hiddenSeatIdPasser = document.createElement("input");
                 hiddenSeatIdPasser.type = "hidden";

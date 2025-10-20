@@ -78,13 +78,15 @@ a {
     }
 
     .nav-logo {
-        height: 40px;
+        height: 45px;
         width: auto;
+        margin-bottom: 10px;
     }
 
     #hamburger-button img {
         width: 25px;
         height: auto;
+        margin-bottom: 8px;
     }
 }
 
