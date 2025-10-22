@@ -22,9 +22,8 @@
 
         for (const m of movieRows) {
             const movieTitle = normalizeText(m.dataset.title);
-            const kidFriendly = m.dataset.forKids == "true";
+            const kidFriendly = m.dataset.forkids == "true";
             const movieRowGenres = m.dataset.genres.split(",");
-
             const matchTitleSubstring = searchValue == "" || movieTitle.includes(searchValue);
             const matchKidFilter = !kidFilterOn || kidFriendly;
             const matchGenreFilter = genreSelect == "" || movieRowGenres.includes(genreSelect);

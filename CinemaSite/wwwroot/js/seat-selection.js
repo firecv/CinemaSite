@@ -16,7 +16,7 @@
         }
 
         totalPriceDisplay.style.display = "";
-        totalPriceDisplay.textContent = `Razem: ${(sumPrice / 100).toFixed(2)}zł`;
+        totalPriceDisplay.innerHTML = `Razem: <span>${(sumPrice / 100).toFixed(2)}zł</span>`;
     }
 
     function renderCart() {

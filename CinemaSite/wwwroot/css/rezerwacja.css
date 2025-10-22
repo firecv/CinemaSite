@@ -61,6 +61,7 @@
     height: auto;
     width: 80vw;
     max-width: 780px;
+    margin-top: 20px;
     margin-bottom: 40px;
 }
 
@@ -152,7 +153,19 @@ td {
 }
 
 #total {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 20px;
+}
 
+#total span {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 750;
+    font-style: normal;
+    font-size: 28px;
 }
 
 @media (max-width: 700px) {

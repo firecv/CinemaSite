@@ -60,7 +60,7 @@
 
                 <div class="movie-row innerdiv"
                     data-title="@movie.title"
-                    data-forkids="@movie.for_kids"
+                    data-forkids="@(movie.for_kids ? "true" : "false")"
                     data-poster="@posterImage"
                     data-summary="@movie.summary"
                     data-trailer="@movie.trailer_link"

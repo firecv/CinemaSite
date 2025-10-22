@@ -44,10 +44,8 @@ namespace CinemaSite.Controllers
         }
 
 
-        public IActionResult Repertuar(bool forKids = false)
+        public IActionResult Repertuar()
         {
-            Console.WriteLine($"[DEBUG] forKids from query: {forKids}");
-
             var upcomingScreenings = _context.Screening
                 .Where(s => s.screening_time >= DateTime.Now && s.screening_time <= DateTime.Now.AddDays(14))
                 .OrderBy(s => s.screening_time)
@@ -62,11 +60,6 @@ namespace CinemaSite.Controllers
                 .Where(m => upcomingMovieIds.Contains(m.movie_id))
                 .OrderBy(m => m.movie_id)
                 .AsNoTracking().ToList();
-
-            if (forKids)
-            {
-                upcomingMovies = upcomingMovies.Where(m => m.for_kids).ToList();
-            }
 
             var neededMovieGenreJoins = _context.MovieGenre
                 .Where(mg => upcomingMovieIds.Contains(mg.movie_id))
