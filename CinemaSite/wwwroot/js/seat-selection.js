@@ -16,7 +16,7 @@
         }
 
         totalPriceDisplay.style.display = "";
-        totalPriceDisplay.textContent = `${(sumPrice / 100).toFixed(2)}zł`;
+        totalPriceDisplay.textContent = `Razem: ${(sumPrice / 100).toFixed(2)}zł`;
     }
 
     function renderCart() {
@@ -26,14 +26,17 @@
             const cartRows = document.createDocumentFragment();
             for (const item of cart.values()) {
                 const tr = document.createElement("tr");
-                const td = document.createElement("td");
+                const td1 = document.createElement("td");
+                const td2 = document.createElement("td");
+                const td3 = document.createElement("td");
+                const td4 = document.createElement("td");
 
                 const seatNumText = document.createElement("span");
-                seatNumText.textContent = `Miejsce ${item.fixedSeatRow}${item.seatCol}`; //doesn't work with " ", do not change
+                seatNumText.textContent = `${item.fixedSeatRow}${item.seatCol}`; //doesn't work with " ", do not change
                 seatNumText.classList.add("item-seatNumText");
 
                 const seatTypeText = document.createElement("span");
-                seatTypeText.textContent = `Siedzenie ${item.seatTypeName}`;
+                seatTypeText.textContent = `${item.seatTypeName}`;
                 seatTypeText.classList.add("item-seatTypeText");
 
                 const ttDropdown = document.getElementsByTagName("template")[0].content.firstElementChild.cloneNode(true);
@@ -47,14 +50,18 @@
                 xButton.dataset.seatId = String(item.seatId);
                 xButton.textContent = "X";
                 xButton.classList.add("item-xButton");
+                xButton.classList.add("form-button");
 
                 const hiddenSeatIdPasser = document.createElement("input");
                 hiddenSeatIdPasser.type = "hidden";
                 hiddenSeatIdPasser.name = "seatIdsPost";
                 hiddenSeatIdPasser.value = String(item.seatId); //string temporarily, html restriction
 
-                td.append(seatNumText, seatTypeText, ttDropdown, xButton, hiddenSeatIdPasser);
-                tr.appendChild(td);
+                td1.append(seatNumText, hiddenSeatIdPasser);
+                td2.appendChild(seatTypeText);
+                td3.appendChild(ttDropdown);
+                td4.appendChild(xButton);
+                tr.append(td1, td2, td3, td4);
                 cartRows.appendChild(tr);
             }
 

@@ -32,7 +32,6 @@ a {
     padding: 0 10px 5px 10px;
     border: white 2px solid;
     border-radius: 5px;
-    width: 250px;
     transition: 0.5s;
 }
 
@@ -98,6 +97,7 @@ a {
     padding: 1vw 5vw 2vw 5vw;
     margin: 1vw 1vw 1vw 1vw;
     color: white;
+    backdrop-filter: blur(5px);
 }
 
 .innerdiv h2 {

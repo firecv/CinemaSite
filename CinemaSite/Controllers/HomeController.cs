@@ -124,7 +124,7 @@ namespace CinemaSite.Controllers
         {
             if (HttpContext.Session.GetInt32("ActiveUserID") == null || screeningIdPost == 0)
             {
-                return RedirectToAction("Repertuar");
+                return RedirectToAction(controllerName: "Account", actionName: "Logowanie");
             }
 
             Console.WriteLine(screeningIdPost);

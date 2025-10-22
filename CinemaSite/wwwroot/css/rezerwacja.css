@@ -21,7 +21,7 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
-    border: white 2px solid;
+    border: black 2px solid;
     border-radius: 5px;
     text-align: center;
     color: white;
@@ -45,19 +45,56 @@
 
 .seat-square.selected {
     background: #E6164B;
+    border: #E6164B 2px solid;
+}
+
+.seat-square.selected:hover {
+    background: #E6164B;
+    border: white 2px solid;
 }
 
 #cart-container {
     background-color: #FFFFFF;
     opacity: 100%;
-    padding: 0 1vw 0 1vw;
+    padding: 0 1vw 20px 1vw;
     border-radius: 30px;
     height: auto;
-    width: 50%;
+    width: 80vw;
+    max-width: 780px;
     margin-bottom: 40px;
 }
 
+#pseudo-cart {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#pseudo-cart table {
+    width: 100%;
+}
+
 /*added in js: */
+
+#cart-items {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 650;
+    font-style: normal;
+    font-size: 16px;
+}
+
+th {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+}
+
+td {
+    padding: 10px 0 0 0;
+}
 
 .item-seatNumText {
 
@@ -68,9 +105,84 @@
 }
 
 .item-ttDropdown {
+    background-color: #FFFFFF;
+    opacity: 100%;
+    padding-left: 1vw;
+    border: 2px black solid;
+    transition: 0.3s;
+    border-radius: 30px;
+    height: 40px;
+    margin: 1vw 1vw 1vw 1vw;
+    width: 70%;
+    min-width: 160px;
+}
 
+.item-ttDropdown:hover {
+    border: 2px #E6164B solid;
+}
+
+.form-button {
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    padding: 5px 13px 5px 13px;
+    border: black 2px solid;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.form-button:hover {
+    background-color: #E6164B;
+    color: white;
+    border: #E6164B 2px solid;
 }
 
 .item-xButton {
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    padding: 5px 13px 5px 13px;
+    border: black 2px solid;
+    border-radius: 10px;
+    transition: 0.5s;
+}
 
+#total {
+
+}
+
+@media (max-width: 700px) {
+    #seat-grid {
+        gap: 5px;
+    }
+
+    .seat-square {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media (max-width: 600px) {
+    .rez-flex {
+        transform: scale(85%);
+    }
+
+    #seat-grid {
+        gap: 0px;
+    }
+
+    .seat-square {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 410px) {
+    .rez-flex {
+        transform: scale(70%);
+    }
 }
