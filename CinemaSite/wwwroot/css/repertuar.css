@@ -4,17 +4,6 @@
 /*Photo by <a href="https://unsplash.com/@reganography?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Samuel Regan-Asante</a> on <a href="https://unsplash.com/photos/the-walking-dead-dvd-movie-wMkaMXTJjlQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
       add this somewhere later ^^^ */
 
-#modal-movie {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 999;
-    background-color: rbga(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-}
-
 #search-tools {
     background-color: #EEEEEE;
     border-radius: 50px;
@@ -123,11 +112,16 @@
 
 .screening-items {
     width: 100%;
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     overflow-x: hidden;
     overflow-y: scroll;
     text-align: center;
+
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    color: white;
 }
 
 .day-header {
@@ -179,4 +173,13 @@
     font-weight: 500;
     font-style: normal;
     font-size: 16px;
+}
+
+.innerdiv {
+    transition: 0.3s ease-in-out;
+}
+
+.innerdiv:hover {
+    box-shadow: rgba(0, 0, 0, 0.4) 7px 7px;
+    transform: translate(-3px, -3px);
 }

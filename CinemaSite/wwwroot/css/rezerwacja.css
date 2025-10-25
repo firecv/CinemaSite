@@ -97,14 +97,6 @@ td {
     padding: 10px 0 0 0;
 }
 
-.item-seatNumText {
-
-}
-
-.item-seatTypeText {
-
-}
-
 .item-ttDropdown {
     background-color: #FFFFFF;
     opacity: 100%;
@@ -120,36 +112,6 @@ td {
 
 .item-ttDropdown:hover {
     border: 2px #E6164B solid;
-}
-
-.form-button {
-    background-color: white;
-    color: black;
-    font-size: 20px;
-    font-weight: 500;
-    text-align: center;
-    padding: 5px 13px 5px 13px;
-    border: black 2px solid;
-    border-radius: 10px;
-    transition: 0.5s;
-}
-
-.form-button:hover {
-    background-color: #E6164B;
-    color: white;
-    border: #E6164B 2px solid;
-}
-
-.item-xButton {
-    background-color: white;
-    color: black;
-    font-size: 20px;
-    font-weight: 500;
-    text-align: center;
-    padding: 5px 13px 5px 13px;
-    border: black 2px solid;
-    border-radius: 10px;
-    transition: 0.5s;
 }
 
 #total {

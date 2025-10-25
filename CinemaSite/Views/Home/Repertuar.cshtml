@@ -115,15 +115,17 @@
 </div>
 
 
-<div id="modal-movie" hidden>
-    <div id="modal-movie-info" style="background-color: gray;">
-        <button id="xbutton">X</button>
-        <h1 id="modal-title"></h1>
-        <img id="modal-poster" src="" style="max-height: 200px;" alt="" />
-        <p id="modal-summary"></p>
-        <iframe id="modal-trailer" width="420" height="315"
-                src="">
-        </iframe>
+<div id="modal-movie" class="modal-bg-blur" hidden>
+    <div id="modal-movie-info" class="modal-window">
+        <div class="modal-header-container">
+            <h1 id="modal-title" class="modal-header"></h1>
+            <button id="xbutton" class="form-button">X</button>
+        </div>
+        <div class="modal-important">
+            <img id="modal-poster" class="modal-poster" src="" alt="" />
+            <p id="modal-summary" class="modal-text"></p>
+            <iframe id="modal-trailer" class="modal-video" src=""></iframe>
+        </div>
     </div>
 </div>
 
