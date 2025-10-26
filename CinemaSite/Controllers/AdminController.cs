@@ -200,6 +200,19 @@ namespace CinemaSite.Controllers
 
             if (movieEntityEdit == null) return RedirectToAction("RepertuarPanel");
 
+            var relatedScreeningIds = _context.Screening.Where(s => s.movie_id == id).Select(s => s.screening_id).ToList();
+
+            foreach (int i in relatedScreeningIds)
+            {
+                var relatedTickets = _context.Ticket.Where(t => t.screening_id == i);
+                _context.Ticket.RemoveRange(relatedTickets);
+                _context.SaveChanges();
+
+                var screeningInQuestion = _context.Screening.Where(sc => sc.screening_id == i).ToList();
+                _context.Screening.RemoveRange(screeningInQuestion); //there's just 1 but otherwise it's an IQueryable and it can't convert it
+                _context.SaveChanges();
+            }
+
             _context.Movie.Remove(movieEntityEdit);
 
             _context.SaveChanges();

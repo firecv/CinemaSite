@@ -57,8 +57,8 @@
         const backwardBtn = movie.querySelector(".backward");
 
         let firstDay = 0;
-        const dayCount = 7; //amount onscreen  TODO: change with screen resize; probably after css is done 
-        const maxScroll = 14 - dayCount;
+        let dayCount = 7;
+        let maxScroll = 14 - dayCount;
 
         function scrollWindow() {
             columns.forEach(column => {
@@ -80,7 +80,32 @@
             if (firstDay > 0) {
                 firstDay--;
                 scrollWindow();
-            } });
+            }
+        });
+
+
+        window.addEventListener("resize", () => {
+            winWidth = window.innerWidth;
+            if (winWidth <= 600) {
+                dayCount = 3;
+            } else if (winWidth <= 800) {
+                dayCount = 5;
+            } else if (winWidth <= 900) {
+                dayCount = 6;
+            } else if (winWidth <= 1000) {
+                dayCount = 7;
+            } else if (winWidth <= 1100) {
+                dayCount = 4;
+            } else if (winWidth <= 1200) {
+                dayCount = 5;
+            } else if (winWidth <= 1400) {
+                dayCount = 6;
+            } else {
+                dayCount = 7;
+            }
+            maxScroll = 14 - dayCount;
+            scrollWindow();
+        });
 
         scrollWindow();
     });

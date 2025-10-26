@@ -76,12 +76,20 @@
 }
 
 .movie-row {
-    height: 500px;
+    min-height: 500px;
     display: grid;
     grid-template-columns: 1fr 3fr;
     grid-template-rows: 1fr;
     overflow-x: hidden;
     overflow-y: hidden;
+}
+
+@media (max-width: 1000px) {
+    .movie-row {
+        justify-content: center;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
 }
 
 .movie-row img {
@@ -113,6 +121,8 @@
 .screening-items {
     width: 100%;
     height: 100%;
+    max-height: 400px;
+    margin: 20px 0 0 0;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     overflow-x: hidden;
@@ -124,12 +134,58 @@
     color: white;
 }
 
+@media (max-width: 1400px) {
+    .screening-items {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+@media (max-width: 1200px) {
+    .screening-items {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+@media (max-width: 1100px) {
+    .screening-items {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+@media (max-width: 1000px) {
+    .screening-items {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+@media (max-width: 900px) {
+    .screening-items {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+@media (max-width: 800px) {
+    .screening-items {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+@media (max-width: 600px) {
+    .screening-items {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
 .day-header {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
     font-size: 15px;
+}
+
+@media (max-width: 1040px) {
+    .control-div button {
+        font-size: 14px;
+    }
+
+    .day-header {
+        font-size: 13px;
+    }
 }
 
 .screening-item {
@@ -179,7 +235,9 @@
     transition: 0.3s ease-in-out;
 }
 
-.innerdiv:hover {
-    box-shadow: rgba(0, 0, 0, 0.4) 7px 7px;
-    transform: translate(-3px, -3px);
+@media (min-width: 1000px) {
+    .innerdiv:hover {
+        box-shadow: rgba(0, 0, 0, 0.4) 7px 7px;
+        transform: translate(-3px, -3px);
+    }
 }
