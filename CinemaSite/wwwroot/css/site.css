@@ -9,14 +9,15 @@ html {
     font-size: 14px;
 }
 
-body {
-    background-image: url("/Content/posters.jpg");
-}
-
 @media (min-width: 768px) {
     html {
         font-size: 16px;
     }
+}
+
+.stop-anim * {
+    transition: none !important;
+    -webkit-transition: none !important;
 }
 
 a {

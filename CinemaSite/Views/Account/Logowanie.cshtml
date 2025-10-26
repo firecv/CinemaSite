@@ -4,10 +4,14 @@
 
 @model CinemaSite.ViewModels.AccountViewModel
 
-<div style="display:flex; flex-direction:column;">
-    <form asp-action="KontoLogowanie" method="post">
-        <input asp-for="email" id="email" placeholder="Adres e-mail" />
-        <input asp-for="password_unhashed" id="password" type="password" placeholder="Hasło" />
-        <button id="submit-button" type="submit">Login</button>
+@section Styles {
+    <link rel="stylesheet" href="~/css/login.css" />
+}
+
+<div class="form-container">
+    <form class="user-form" asp-action="KontoLogowanie" method="post">
+        <input class="form-field" asp-for="email" id="email" placeholder="Adres e-mail" />
+        <input class="form-field" asp-for="password_unhashed" id="password" type="password" placeholder="Hasło" />
+        <button class="form-button" id="submit-button" type="submit">Login</button>
     </form>
 </div>

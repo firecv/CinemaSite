@@ -72,24 +72,6 @@ a {
     margin-left: 3vw;
 }
 
-@media (max-width: 1200px) and (max-height: 800px) {
-    .custom-navbar {
-        height: 60px;
-    }
-
-    .nav-logo {
-        height: 45px;
-        width: auto;
-        margin-bottom: 10px;
-    }
-
-    #hamburger-button img {
-        width: 25px;
-        height: auto;
-        margin-bottom: 8px;
-    }
-}
-
 .blacklink {
     color: black;
     transition: 0.2s ease-in-out;
@@ -188,6 +170,7 @@ a {
 }
 
 body {
+    background-image: url("/Content/posters.jpg");
     position: relative;
     height: 100%;
     width: 100%;
@@ -204,4 +187,27 @@ body {
 
 main {
     width: 80%;
+}
+
+
+@media (max-width: 1200px) and (max-height: 800px) {
+    .custom-navbar {
+        height: 60px;
+    }
+
+    .nav-logo {
+        height: 45px;
+        width: auto;
+        margin-bottom: 10px;
+    }
+
+    #hamburger-button img {
+        width: 25px;
+        height: auto;
+        margin-bottom: 8px;
+    }
+
+    body {
+        padding-top: 60px;
+    }
 }

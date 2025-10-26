@@ -10,3 +10,8 @@
         burgerMenu.classList.toggle("popout");
     });
 });
+
+window.addEventListener("resize", () => {
+    document.body.classList.add("stop-anim");
+    setTimeout(() => { document.body.classList.remove("stop-anim"); }, 500); //https://css-tricks.com/stop-animations-during-window-resizing/
+});
