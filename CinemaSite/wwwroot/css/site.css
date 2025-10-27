@@ -191,6 +191,7 @@ a {
     font-weight: 500;
     font-style: normal;
     text-align: left;
+    white-space: pre-line;
 }
 
 .article-container {

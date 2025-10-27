@@ -311,6 +311,7 @@
     text-align: left;
     text-wrap: wrap;
     word-wrap: anywhere;
+    white-space: pre-line;
 }
 
 .modal-video {

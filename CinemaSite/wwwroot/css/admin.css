@@ -1,0 +1,72 @@
+﻿.admin-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #EEEEEE;
+    border-radius: 50px;
+    padding: 3vh 3vw 3vh 3vw;
+    margin: 1vw 1vw 1vw 1vw;
+}
+
+.admin-modal {
+    position: fixed;
+    background-color: rbga(255, 255, 255, 0.1);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 999;
+    backdrop-filter: blur(10px);
+}
+
+.admin-modal-info {
+    padding: 2vw;
+    max-height: 80vh;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: row;
+    gap: 2vw;
+}
+
+.form-xbutton {
+    height: 40px;
+    width: 40px;
+}
+
+#movie-table {
+    margin-top: 20px;
+}
+
+.movie-row {
+    border: #777777 2px solid;
+}
+
+.movie-row td {
+    padding: 10px;
+}
+
+.detaildiv {
+    display: flex;
+    flex-direction: row;
+    gap: 5vw;
+}
+
+.detaildiv img {
+    width: 4vw;
+    height: auto;
+}
+
+.detaildiv p {
+    width: 6vw;
+}
+
+textarea {
+    width: 30vw;
+    height: 30vh;
+}
+
+.genrebox {
+    display: flex;
+    flex-direction: row;
+    width: 100px;
+    justify-content: right;
+}

@@ -14,14 +14,17 @@
 
 @model CinemaSite.ViewModels.AdminViewModel
 
-<div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/admin.css" />
+}
+
+<div class="admin-form">
     <button id="new-movie-button">Dodaj nowy film</button>
 
     <table id="movie-table">
         <thead>
             <tr>
                 <th>Filmy</th>
-                <th>Seanse</th>
             </tr>
         </thead>
         <tbody id="movies-list">
@@ -50,16 +53,19 @@
                     <td>
                         <div>
                             <div>
-                                <p>@movie.title</p>
-                                <img src="@posterImage" style="max-height: 100px;" alt="Plakat dla @movie.title" />
-                                <p>@genreNameString</p>
+                                <p><strong>@movie.title</strong></p>
                             </div>
-                            <div class="control-box">
-                                <button data-id="@movie.movie_id"
-                                        data-title="@movie.title"
-                                        class="delete-button">
-                                    Delete
-                                </button>
+                            <div class="detaildiv">
+                                <img src="@posterImage" alt="Plakat dla @movie.title" />
+                                <p>@genreNameString</p>
+                                <a href="https://www.youtube.com/watch?v=@Uri.EscapeDataString(movie.trailer_link)" target="_blank">Zwiastun</a>
+                                <div class="control-box">
+                                    <button data-id="@movie.movie_id"
+                                            data-title="@movie.title"
+                                            class="delete-button">
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </td>
@@ -79,7 +85,9 @@
     background-color: rbga(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);">
     <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
-    <div id="new-movie-modal-info" style="background-color: gray;">
+    <div id="new-movie-modal-info" class="admin-modal-info" style="background-color: gray;">
+
+        <button id="new-movie-xbutton" class="form-xbutton">X</button>
         
         <h2>Dane filmu</h2>
         <form asp-controller="Admin" asp-action="AddMovieDB" method="post" enctype="multipart/form-data">
@@ -121,12 +129,10 @@
 
             <button type="submit">Zapisz danych filmu</button>
         </form>
-
-        <button id="new-movie-xbutton">X</button>
     </div>
 </div>
 
-<div id="modal-movie" hidden style="position: fixed;
+<div id="modal-movie" class="admin-modal" hidden style="position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -134,67 +140,60 @@
     z-index: 999;
     background-color: rbga(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);">
-    <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
-    <div id="modal-movie-info" style="background-color: gray;">
+    <div id="modal-movie-info" class="admin-modal-info" style="background-color: gray;">
         
-        <h2>Movie Details</h2>
-        <form asp-controller="Admin" asp-action="EditMovieDB" method="post">
-            @Html.AntiForgeryToken()
+        <button id="xbutton" class="form-xbutton">X</button>
 
-            <input asp-for="MovieEdit.movie_id" type="hidden" id="edit-id" />
+        <div>
+            <h2>Dane filmu</h2>
+            <form asp-controller="Admin" asp-action="EditMovieDB" method="post">
+                @Html.AntiForgeryToken()
 
-            <div>
-                <label>Tytuł</label>
-                <input asp-for="MovieEdit.title" id="edit-title" />
-            </div>
-            <div>
-                <label>Streszczenie</label>
-                <textarea asp-for="MovieEdit.summary" id="edit-summary"></textarea>
-            </div>
-            <div>
-                <label>Link do zwiastunu (youtube video code)</label> <!--add like a tooltip or something later-->
-                <input asp-for="MovieEdit.trailer_link" id="edit-trailer" />
-            </div>
-            <div>
-                <label>Film dla dzieci?</label>
-                <input asp-for="MovieEdit.for_kids" id="edit-kids" type="checkbox" />
-            </div>
+                <input asp-for="MovieEdit.movie_id" type="hidden" id="edit-id" />
 
-            <fieldset>
-                <legend>Żanry</legend>
-                @foreach (var g in Model.Genres)
-                {
-                    <div class="genreBox">
-                        <label>@g.genre_name</label>
-                        <input name="genreCheckbox" type="checkbox" value="@g.genre_id" />
-                    </div>
-                }
-            </fieldset>
+                <div>
+                    <label>Tytuł</label>
+                    <input asp-for="MovieEdit.title" id="edit-title" />
+                </div>
+                <div>
+                    <label>Streszczenie</label>
+                    <textarea asp-for="MovieEdit.summary" id="edit-summary"></textarea>
+                </div>
+                <div>
+                    <label>Link do zwiastunu (youtube video code)</label> <!--add like a tooltip or something later-->
+                    <input asp-for="MovieEdit.trailer_link" id="edit-trailer" />
+                </div>
+                <div>
+                    <label>Film dla dzieci?</label>
+                    <input asp-for="MovieEdit.for_kids" id="edit-kids" type="checkbox" />
+                </div>
 
-            <button type="submit">Save Movie Details</button>
-        </form>
+                <fieldset>
+                    <legend>Żanry</legend>
+                    @foreach (var g in Model.Genres)
+                    {
+                        <div class="genreBox">
+                            <label>@g.genre_name</label>
+                            <input name="genreCheckbox" type="checkbox" value="@g.genre_id" />
+                        </div>
+                    }
+                </fieldset>
 
-        <h2>Screenings</h2>
-        <form asp-controller="Admin" asp-action="EditScreeningDB" id="screening-form" method="post">
-            @Html.AntiForgeryToken()
-            <div id="screening-form-interior">
-                <!--set in js-->
-            </div>
-            <button type="button" class="create-screening">+</button>
-            <button type="submit">Save Screening Details</button>
-        </form>
+                <button type="submit">Save Movie Details</button>
+            </form>
+        </div>
 
-        <button id="xbutton">X</button>
-
-        <!--<p>USER VIEW:</p>
-        <h1 id="modal-title"></h1>
-        <img id="modal-poster" src="" style="max-height: 200px;" alt="" />
-        <p id="modal-summary"></p>
-        <iframe id="modal-trailer" width="420" height="315"
-                src="">
-        </iframe>-->
-
-
+        <div>
+            <h2>Screenings</h2>
+            <form asp-controller="Admin" asp-action="EditScreeningDB" id="screening-form" method="post">
+                @Html.AntiForgeryToken()
+                <div id="screening-form-interior">
+                    <!--set in js-->
+                </div>
+                <button type="button" class="create-screening">+</button>
+                <button type="submit">Save Screening Details</button>
+            </form>
+        </div>
     </div>
 </div>
 
