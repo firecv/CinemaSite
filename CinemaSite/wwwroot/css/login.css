@@ -16,3 +16,93 @@
     margin: 1vw 1vw 1vw 1vw;
     width: 100%;
 }
+
+.user-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.user-info {
+    font-size: 32px;
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.user-tickets-title {
+    font-size: 22px;
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.user-ticket-table th {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+}
+
+.user-ticket {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+}
+
+@media (max-width: 1200px) {
+    .user-info {
+        font-size: 24px;
+    }
+
+    .user-tickets-title {
+        font-size: 20px;
+    }
+
+    .user-ticket-table th {
+        font-size: 14px;
+    }
+
+    .user-ticket {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 800px) {
+    .user-info {
+        font-size: 20px;
+    }
+
+    .user-tickets-title {
+        font-size: 16px;
+    }
+
+    .user-ticket-table th {
+        font-size: 12px;
+    }
+
+    .user-ticket {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .user-info {
+        font-size: 16px;
+    }
+
+    .user-tickets-title {
+        font-size: 16px;
+    }
+
+    .user-ticket-table th {
+        font-size: 11px;
+    }
+
+    .user-ticket {
+        font-size: 10px;
+    }
+}

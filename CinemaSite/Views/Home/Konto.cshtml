@@ -5,15 +5,20 @@
 
 @model List<UserTicket>
 
-<div style="display:flex; flex-direction:column;">
-    <p>@(Context.Session.GetString("ActiveUserUsername"))</p>
-    <p>@(Context.Session.GetString("ActiveUserEmail"))</p>
+@section Styles {
+    <link rel="stylesheet" href="~/css/login.css" />
+}
+
+<div class="form-container">
+    <div class="user-details">
+        <p class="user-info">@(Context.Session.GetString("ActiveUserUsername"))</p>
+        <p class="user-info">@(Context.Session.GetString("ActiveUserEmail"))</p>
+    </div>
     
-    <p>Your Tickets:</p>
-    <table>
+    <p class="user-tickets-title">Your Tickets:</p>
+    <table class="user-ticket-table">
         <thead>
             <tr>
-                <th>#</th>
                 <th>Film</th>
                 <th>Data/Godzina</th>
                 <th>Sala</th>
@@ -24,8 +29,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.ticket_id</td>
+                <tr class="user-ticket">
                     <td>@item.title</td>
                     <td>@item.datetime</td>
                     <td>@item.hall_id</td>
