@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="~/css/admin.css" />
 }
 
-<div>
+<div class="admin-form">
     <button id="new-article-button">Dodaj nowy film</button>
 
     <table id="article-table">
@@ -56,7 +56,7 @@
 </div>
 
 
-<div id="new-article-modal" hidden style="position: fixed;
+<div id="new-article-modal" class="admin-modal" hidden style="position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -65,10 +65,12 @@
     background-color: rbga(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);">
     <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
-    <div id="new-article-modal-info" style="background-color: gray;">
-        
+    <div id="new-article-modal-info" class="admin-modal-info" style="background-color: gray;">
+
+        <button class="form-xbutton" id="new-article-xbutton">X</button>
+
         <h2>Dane Artykułu</h2>
-        <form asp-controller="Admin" asp-action="AddArticleDB" method="post" enctype="multipart/form-data">
+        <form class="movie-details-form" asp-controller="Admin" asp-action="AddArticleDB" method="post" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
 
             <input asp-for="ArticleDTO.article_id" type="hidden" id="na-id" />
@@ -92,12 +94,10 @@
 
             <button type="submit">Zapisz detale artykułu</button>
         </form>
-
-        <button id="new-article-xbutton">X</button>
     </div>
 </div>
 
-<div id="modal-article" hidden style="position: fixed;
+<div id="modal-article" class="admin-modal" hidden style="position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -106,10 +106,12 @@
     background-color: rbga(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);">
     <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
-    <div id="modal-article-info" style="background-color: gray;">
+    <div id="modal-article-info" class="admin-modal-info" style="background-color: gray;">
+
+        <button class="form-xbutton" id="xbutton">X</button>
         
         <h2>Dane artykułu</h2>
-        <form asp-controller="Admin" asp-action="EditArticleDB" method="post">
+        <form class="movie-details-form" asp-controller="Admin" asp-action="EditArticleDB" method="post">
             @Html.AntiForgeryToken()
 
             <input asp-for="ArticleDTO.article_id" type="hidden" id="edit-id" />
@@ -129,9 +131,6 @@
 
             <button type="submit">Zapisz detale artykułu</button>
         </form>
-
-        <button id="xbutton">X</button>
-
     </div>
 </div>
 

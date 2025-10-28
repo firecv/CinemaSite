@@ -158,10 +158,18 @@ td {
         width: 20px;
         height: 20px;
     }
+
+    #cart-items {
+        word-wrap: anywhere;
+    }
 }
 
 @media (max-width: 410px) {
     .rez-flex {
         transform: scale(70%);
+    }
+
+    .seat-square {
+        padding: 0 0 5px 0;
     }
 }

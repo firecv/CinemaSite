@@ -273,10 +273,10 @@
     justify-content: space-between;
 }
 
-    .modal-header-container button {
-        height: 50px;
-        width: 48px;
-    }
+.modal-header-container button {
+    height: 50px;
+    width: 48px;
+}
 
 .modal-header {
     width: 70vw;

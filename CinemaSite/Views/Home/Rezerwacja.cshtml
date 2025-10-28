@@ -62,7 +62,13 @@
                             data-seat-type="@thisSeat.seat_type_id"
                             data-seat-name="@seatTypeDictionary[thisSeat.seat_type_id]"
                             title="@j">
-                        <p>@j</p>
+                        @if (thisSeat.seat_type_id == 1)
+                        {
+                            <p>@j</p>
+                        } else
+                        {
+                            <p>♿</p>
+                        }
                     </div>
                 }
 

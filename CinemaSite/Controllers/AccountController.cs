@@ -54,7 +54,7 @@ namespace CinemaSite.Controllers
                 _context.UserAccount.Add(userAccount);
                 _context.SaveChanges();
 
-                return RedirectToAction("Rejestracja");
+                return RedirectToAction(controllerName: "Account", actionName: "Logowanie");
             }
 
             return RedirectToAction("Rejestracja"); //add error message to say that account already exists
@@ -75,7 +75,7 @@ namespace CinemaSite.Controllers
                 HttpContext.Session.SetString("ActiveUserEmail", currentUser.email);
             }
 
-            return RedirectToAction("Logowanie");
+            return RedirectToAction(controllerName: "Home", actionName: "Konto");
         }
     }
 }

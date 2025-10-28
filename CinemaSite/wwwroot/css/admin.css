@@ -20,7 +20,7 @@
 
 .admin-modal-info {
     padding: 2vw;
-    max-height: 80vh;
+    max-height: 83vh;
     overflow-y: scroll;
     display: flex;
     flex-direction: row;
@@ -32,16 +32,22 @@
     width: 40px;
 }
 
-#movie-table {
+#movie-table, #article-table {
     margin-top: 20px;
 }
 
-.movie-row {
+.movie-row, .article-row {
     border: #777777 2px solid;
 }
 
-.movie-row td {
+.movie-row td, .article-row td {
     padding: 10px;
+}
+
+.movie-details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .detaildiv {
@@ -60,13 +66,51 @@
 }
 
 textarea {
-    width: 30vw;
-    height: 30vh;
+    width: 600px;
+    height: 250px;
 }
 
-.genrebox {
+fieldset {
+    margin-top: 2vh;
+}
+
+.movie-details-form div {
     display: flex;
-    flex-direction: row;
-    width: 100px;
-    justify-content: right;
+    align-items: center;
+}
+
+.checkbox-input {
+    width: 20px;
+    height: 20px;
+}
+
+#screening-form-interior {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.create-screening {
+    margin-top: 10px;
+    width: 600px;
+}
+
+.genreBox {
+    justify-content: end;
+    margin-right: 50vw;
+}
+
+
+@media (max-width: 1400px) {
+    .admin-modal-info {
+        flex-direction: column;
+    }
+
+    .genreBox {
+        margin-right: 80vw;
+    }
+}
+
+label {
+    margin-right: 10px;
 }

@@ -84,14 +84,14 @@
     z-index: 999;
     background-color: rbga(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);">
-    <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
+    <!--Breaks when I move it to the css file, to be fixed later-->
     <div id="new-movie-modal-info" class="admin-modal-info" style="background-color: gray;">
 
         <button id="new-movie-xbutton" class="form-xbutton">X</button>
         
-        <h2>Dane filmu</h2>
-        <form asp-controller="Admin" asp-action="AddMovieDB" method="post" enctype="multipart/form-data">
+        <form class="movie-details-form" asp-controller="Admin" asp-action="AddMovieDB" method="post" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
+            <h2>Dane filmu</h2>
 
             <input asp-for="NewMovie.movie_id" type="hidden" id="nm-id" />
 
@@ -146,7 +146,7 @@
 
         <div>
             <h2>Dane filmu</h2>
-            <form asp-controller="Admin" asp-action="EditMovieDB" method="post">
+            <form class="movie-details-form" asp-controller="Admin" asp-action="EditMovieDB" method="post">
                 @Html.AntiForgeryToken()
 
                 <input asp-for="MovieEdit.movie_id" type="hidden" id="edit-id" />
@@ -165,7 +165,7 @@
                 </div>
                 <div>
                     <label>Film dla dzieci?</label>
-                    <input asp-for="MovieEdit.for_kids" id="edit-kids" type="checkbox" />
+                    <input class="checkbox-input" asp-for="MovieEdit.for_kids" id="edit-kids" type="checkbox" />
                 </div>
 
                 <fieldset>
@@ -174,24 +174,24 @@
                     {
                         <div class="genreBox">
                             <label>@g.genre_name</label>
-                            <input name="genreCheckbox" type="checkbox" value="@g.genre_id" />
+                            <input name="genreCheckbox" type="checkbox" class="checkbox-input" value="@g.genre_id" />
                         </div>
                     }
                 </fieldset>
 
-                <button type="submit">Save Movie Details</button>
+                <button type="submit">Zapisz dane filmów</button>
             </form>
         </div>
 
         <div>
-            <h2>Screenings</h2>
+            <h2>Seanse</h2>
             <form asp-controller="Admin" asp-action="EditScreeningDB" id="screening-form" method="post">
                 @Html.AntiForgeryToken()
                 <div id="screening-form-interior">
                     <!--set in js-->
                 </div>
                 <button type="button" class="create-screening">+</button>
-                <button type="submit">Save Screening Details</button>
+                <button type="submit">Zapisz dane seansów</button>
             </form>
         </div>
     </div>
@@ -205,12 +205,12 @@
         <select name="hallId">
             @foreach (var h in availableHalls)
             {
-                <option value="@h.hall_id">@h.hall_id  -  Seat Count: @((int)(h.rowcount * h.rowsize + 2))</option>
+                <option value="@h.hall_id">Sala @h.hall_id  -  Liczba miejsc: @((int)(h.rowcount * h.rowsize + 2))</option>
             }
         </select>
-
+        <label>Dubbing?</label>
         <input name="isDubbing" type="hidden" />
-        <input name="dubCheckbox" type="checkbox" />
+        <input class="checkbox-input" name="dubCheckbox" type="checkbox" />
 
         <button type="button" class="del-screening">SKASUJ</button> <!--for some reason defaults to type=submit-->
     </div>
@@ -225,7 +225,6 @@
     z-index: 999;
     background-color: rbga(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);">
-    <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
     <div id="modal-delete-confirm" style="background-color: gray;">
         <form asp-controller="Admin" asp-action="DeleteMovie" method="post">
             @Html.AntiForgeryToken()
@@ -243,7 +242,7 @@
         Model.Screenings.Select(sc => new { // ^ basically just makes a json-interpretable string
             screening_id = sc.screening_id,
             movie_id = sc.movie_id,
-            screening_time = sc.screening_time.ToString("yyyy-MM-ddTHH:mm"), //input type=datetime(-local?) requires this format
+            screening_time = sc.screening_time.ToString("yyyy-MM-ddTHH:mm"), //input type=datetime-local requires this format
             hall_id = sc.hall_id,
             dubbing = sc.dubbing
         }) //as the script it's just the text content - so it can be read w/ getelementbyid later
