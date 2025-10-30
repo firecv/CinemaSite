@@ -73,6 +73,7 @@ namespace CinemaSite.Controllers
                 HttpContext.Session.SetInt32("ActiveUserID", currentUser.account_id);
                 HttpContext.Session.SetString("ActiveUserUsername", currentUser.username);
                 HttpContext.Session.SetString("ActiveUserEmail", currentUser.email);
+                HttpContext.Session.SetInt32("ActiveUserAdmin", currentUser.is_admin ? 1 : 0);
             }
 
             return RedirectToAction(controllerName: "Home", actionName: "Konto");

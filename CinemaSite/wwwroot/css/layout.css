@@ -201,13 +201,66 @@ main {
 }
 
 .contact {
-    position: static;
-    flex-shrink: 0;
-    width: 100%;
-    height: 50vh;
-    white-space: nowrap;
-    line-height: 60px;
     background-color: black;
+    align-items: center;
+    gap: 20px;
+    color: white;
+    padding: 30px;
+}
+
+.contact h2 {
+    font-size: 38px;
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 330;
+    font-style: normal;
+}
+
+.footer-flex {
     display: flex;
-    padding-left: 5vw;
+    flex-direction: row;
+    height: 400px;
+    gap: 30px;
+}
+
+.footer-contactlist {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: "Mulish", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    text-align: left;
+}
+
+.footer-contactlist h3 {
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 330;
+    font-style: normal;
+}
+
+.footer-contactlist p {
+    margin-bottom: 40px;
+}
+
+@media (max-width: 800px) {
+    .footer-maplink img {
+        width: 80vw;
+        height: auto;
+    }
+
+    .footer-flex {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    .footer-contactlist {
+        height: fit-content;
+    }
+
+    .copy-container {
+    }
 }

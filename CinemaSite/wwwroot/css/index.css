@@ -99,3 +99,9 @@
     background-color: #E6164B !important;
     transform: scale(1.2);
 }
+
+@media (max-width: 600px) {
+    .autoscroll-container {
+        padding: 20px;
+    }
+}
