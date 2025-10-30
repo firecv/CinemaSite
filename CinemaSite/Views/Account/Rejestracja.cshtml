@@ -8,16 +8,19 @@
     <link rel="stylesheet" href="~/css/login.css" />
 }
 
-<div class="form-container">
-    <form class="user-form" asp-action="NowyUzytkownik" method="post">
-        <input class="form-field" asp-for="username" id="username" placeholder="Nazwa Uzytkownika" />
-        <input class="form-field" asp-for="email" id="email" placeholder="Adres e-mail" />
-        <input class="form-field" asp-for="phone" id="phone" placeholder="Numer telefonu" />
-        <input class="form-field" asp-for="password_unhashed" id="password" type="password" placeholder="Hasło" />
-        <input class="form-field" asp-for="repeat_password_unhashed" id="repeat-password" type="password" placeholder="Powtórz Hasło" />
-        <button class="form-button" id="submit-button" type="submit">Zarejestruj</button>
-    </form>
-    <p class="error-text" id="error-message">AAA</p>
+<div class="overcontainer">
+    <div class="form-container">
+        <h1>REJESTRACJA</h1>
+        <form class="user-form" asp-action="NowyUzytkownik" method="post">
+            <input class="form-field" asp-for="username" id="username" placeholder="Nazwa Uzytkownika" />
+            <input class="form-field" asp-for="email" id="email" placeholder="Adres e-mail" />
+            <input class="form-field" asp-for="phone" id="phone" placeholder="Numer telefonu" />
+            <input class="form-field" asp-for="password_unhashed" id="password" type="password" placeholder="Hasło" />
+            <input class="form-field" asp-for="repeat_password_unhashed" id="repeat-password" type="password" placeholder="Powtórz Hasło" />
+            <button class="form-button" id="submit-button" type="submit">Zarejestruj</button>
+        </form>
+        <p class="error-text" id="error-message">AAA</p>
+    </div>
 </div>
 
 @section Scripts {

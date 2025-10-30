@@ -36,18 +36,6 @@ a {
     line-height: inherit;
 }*/
 
-.footer {
-    position: static;
-    flex-shrink: 0;
-    width: 100%;
-    height: 50vh;
-    white-space: nowrap;
-    line-height: 60px;
-    background-color: black;
-    display: flex;
-    padding-left: 5vw;
-}
-
 .nav-logo {
     height: 80px;
     width: auto;
@@ -210,4 +198,16 @@ main {
     body {
         padding-top: 60px;
     }
+}
+
+.contact {
+    position: static;
+    flex-shrink: 0;
+    width: 100%;
+    height: 50vh;
+    white-space: nowrap;
+    line-height: 60px;
+    background-color: black;
+    display: flex;
+    padding-left: 5vw;
 }

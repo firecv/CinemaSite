@@ -1,20 +1,43 @@
-﻿.form-container {
+﻿.overcontainer {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #EEEEEE;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
     border-radius: 50px;
     padding: 1vh 4vw 3vh 2vw;
     margin: 1vw 1vw 1vw 1vw;
 }
 
+.overcontainer .form-container {
+    max-width: 800px;
+}
+
+.form-container h1 {
+    color: black;
+    font-family: "Alumni Sans SC", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+
 .form-field {
     background-color: #FFFFFF;
     opacity: 100%;
     padding: 0 1vw 0 1vw;
+    border: 2px black solid;
     border-radius: 30px;
     height: 50px;
     margin: 1vw 1vw 1vw 1vw;
     width: 100%;
+    max-width: 700px;
 }
 
 .user-details {
