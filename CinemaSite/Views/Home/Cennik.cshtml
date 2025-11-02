@@ -11,14 +11,19 @@
 <div class="overbody">
     <h1 class="page-title">CENNIK</h1>
 </div>
-<div class="innerdiv vertical-flex">
-    @foreach (var tt in Model.TicketTypes)
-    {
-        <div class="price-item">
-            <p class="price-title">Bilet @tt.ticket_type</p>
-            <div>
-                <p class="price-num">@((tt.price / 100.0).ToString("F2"))zł</p>
+<div class="price-div-outer">
+    <div class="innerdiv vertical-flex price-div">
+        @foreach (var tt in Model.TicketTypes)
+        {
+            <div class="price-item">
+                <div>
+                    <p class="price-title">Bilet @tt.ticket_type</p>
+                </div>
+                <div>
+                    <p class="price-num">@((tt.price / 100.0).ToString("F2"))zł</p>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
+    
