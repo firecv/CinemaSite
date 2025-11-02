@@ -134,7 +134,7 @@
     </div>
 </div>
 
-<div id="modal-delete" hidden style="position: fixed;
+<div id="modal-delete" class="admin-delete" hidden style="position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -142,7 +142,6 @@
     z-index: 999;
     background-color: rbga(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);">
-    <!--THIS ^^^ WILL BE MOVED TO CSS LATER!-->
     <div id="modal-delete-confirm" style="background-color: gray;">
         <form asp-controller="Admin" asp-action="DeleteArticle" method="post">
             @Html.AntiForgeryToken()
@@ -150,8 +149,8 @@
             <label id="confirmation-message"></label>
             <button type="submit">Zatwierdź</button>
         </form>
+        <button id="xbutton-delete">Anuluj</button>
     </div>
-    <button id="xbutton-delete">Anuluj</button>
 </div>
 
 @section Scripts {

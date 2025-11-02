@@ -177,7 +177,7 @@
 
     function modalDelPopup(del) {
         movieToDelete.value = del.dataset.id;
-        confirmationMessage.textContent = "Are you sure you wish to permanently delete " + del.dataset.title + "?";
+        confirmationMessage.textContent = "Na pewno chcesz skasować film: " + del.dataset.title + "?";
         deleteModal.hidden = false;
     }
 

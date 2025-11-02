@@ -15,6 +15,12 @@
     margin: 1vw 1vw 1vw 1vw;
 }
 
+@media (max-width: 800px) {
+    .form-container {
+        padding: 20px;
+    }
+}
+
 .overcontainer .form-container {
     max-width: 800px;
 }
@@ -44,6 +50,32 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    padding-top: 5px;
+}
+
+.user-details a {
+    background-color: rgb(0, 0, 0, 0.00);
+    color: black;
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    padding: 10px 10px 0px 10px;
+    border: black 2px solid;
+    border-radius: 15px;
+    transition: 0.5s;
+}
+
+.user-details a:hover {
+    background-color: #E6164B;
+    border: #E6164B 2px solid;
+    color: white;
+}
+
+@media (max-width: 800px) {
+    .user-details {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .user-info {

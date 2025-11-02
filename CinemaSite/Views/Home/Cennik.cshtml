@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Cennik";
+}
+
+@model CinemaSite.ViewModels.DatabaseViewModel
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/index.css" />
+}
+
+<div class="overbody">
+    <h1 class="page-title">CENNIK</h1>
+</div>
+<div class="innerdiv vertical-flex">
+    @foreach (var tt in Model.TicketTypes)
+    {
+        <div class="price-item">
+            <p class="price-title">Bilet @tt.ticket_type</p>
+            <div>
+                <p class="price-num">@((tt.price / 100.0).ToString("F2"))zł</p>
+            </div>
+        </div>
+    }
+</div>

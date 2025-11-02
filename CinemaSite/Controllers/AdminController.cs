@@ -194,7 +194,7 @@ namespace CinemaSite.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteMovie(int id)
+        public IActionResult DeleteMovie(int id, [FromServices] IWebHostEnvironment www)
         {
             var movieEntityEdit = _context.Movie.FirstOrDefault(m => m.movie_id == id);
 
@@ -212,6 +212,10 @@ namespace CinemaSite.Controllers
                 _context.Screening.RemoveRange(screeningInQuestion); //there's just 1 but otherwise it's an IQueryable and it can't convert it
                 _context.SaveChanges();
             }
+
+            var imageToDelete = "img" + movieEntityEdit.poster_id + ".jpg";
+            var pathToDelete = Path.Combine(www.WebRootPath, "Content", imageToDelete);
+            if (System.IO.File.Exists(pathToDelete)) { System.IO.File.Delete(pathToDelete); }
 
             _context.Movie.Remove(movieEntityEdit);
 
@@ -274,11 +278,15 @@ namespace CinemaSite.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteArticle(int id)
+        public IActionResult DeleteArticle(int id, [FromServices] IWebHostEnvironment www)
         {
             var articleEntityEdit = _context.Article.FirstOrDefault(a => a.article_id == id);
-
+            
             if (articleEntityEdit == null) return RedirectToAction("ZgloszeniePanel");
+
+            var imageToDelete = "img" + articleEntityEdit.image_id + ".jpg";
+            var pathToDelete = Path.Combine(www.WebRootPath, "Content", imageToDelete);
+            if (System.IO.File.Exists(pathToDelete)) { System.IO.File.Delete(pathToDelete); }
 
             _context.Article.Remove(articleEntityEdit);
 

@@ -32,6 +32,16 @@ namespace CinemaSite.Controllers
             return View(viewModel);
         }
 
+        public IActionResult Cennik()
+        {
+            var viewModel = new DatabaseViewModel
+            {
+                TicketTypes = _context.TicketType.OrderBy(tt => tt.ticket_type_id).ToList()
+            };
+
+            return View(viewModel);
+        }
+
         public IActionResult Zgloszenia()
         {
             var viewModel = new DatabaseViewModel

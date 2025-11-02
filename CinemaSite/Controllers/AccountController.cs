@@ -78,5 +78,14 @@ namespace CinemaSite.Controllers
 
             return RedirectToAction(controllerName: "Home", actionName: "Konto");
         }
+
+        public async Task<IActionResult> KontoWylogowanie()
+        {
+            HttpContext.Session.SetInt32("ActiveUserID", 0);
+            HttpContext.Session.SetString("ActiveUserUsername", "");
+            HttpContext.Session.SetString("ActiveUserEmail", "");
+            HttpContext.Session.SetInt32("ActiveUserAdmin", 0);
+            return RedirectToAction(controllerName: "Account", actionName: "Logowanie");
+        }
     }
 }

@@ -20,7 +20,7 @@
 
 .admin-modal-info {
     padding: 2vw;
-    max-height: 83vh;
+    max-height: 88vh;
     overflow-y: scroll;
     display: flex;
     flex-direction: row;
@@ -113,4 +113,8 @@ fieldset {
 
 label {
     margin-right: 10px;
+}
+
+.admin-delete div {
+    padding: 50px;
 }

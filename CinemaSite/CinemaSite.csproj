@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Content\logo-black.svg" />
     <None Include="wwwroot\Content\logo-white.svg" />
     <None Include="wwwroot\Content\logo.svg" />
     <None Include="wwwroot\css\layout.css" />

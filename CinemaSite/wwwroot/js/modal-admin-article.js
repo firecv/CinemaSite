@@ -83,7 +83,7 @@
 
     function modalDelPopup(del) {
         articleToDelete.value = del.dataset.id;
-        confirmationMessage.textContent = "Are you sure you wish to permanently delete " + del.dataset.title + "?";
+        confirmationMessage.textContent = "Na pewno chcesz skasować zgłoszenie: " + del.dataset.title + "?";
         deleteModal.hidden = false;
     }
 

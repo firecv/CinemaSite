@@ -7,6 +7,7 @@ html {
     position: relative;
     min-height: 100%;
     font-size: 14px;
+    scroll-behavior: smooth;
 }
 
 @media (min-width: 768px) {
@@ -280,4 +281,32 @@ a {
     background-color: #E6164B;
     color: white;
     border: #E6164B 2px solid;
+}
+
+
+
+
+
+.overbody {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.page-title {
+    font-size: calc(48px + 3vw);
+    color: black;
+    -webkit-text-stroke: 3px white;
+    text-shadow: 8px 8px 8px black;
+    line-height: 130px;
+    font-family: "Jaro", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+}
+
+@media (max-width: 1200px) {
+    .page-title {
+        -webkit-text-stroke: 2px white;
+    }
 }

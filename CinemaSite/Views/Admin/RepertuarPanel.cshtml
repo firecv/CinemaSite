@@ -84,7 +84,7 @@
     z-index: 999;
     background-color: rbga(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);">
-    <!--Breaks when I move it to the css file, to be fixed later-->
+    <!--Breaks when I move it to the css file, to be fixed later maybe-->
     <div id="new-movie-modal-info" class="admin-modal-info" style="background-color: gray;">
 
         <button id="new-movie-xbutton" class="form-xbutton">X</button>
@@ -217,7 +217,7 @@
 </template>
 
 
-<div id="modal-delete" hidden style="position: fixed;
+<div id="modal-delete" class="admin-delete" hidden style="position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -232,8 +232,8 @@
             <label id="confirmation-message"></label>
             <button type="submit">Zatwierdź</button>
         </form>
+        <button id="xbutton-delete">Anuluj</button>
     </div>
-    <button id="xbutton-delete">Anuluj</button>
 </div>
 
 <!--don't move to the js, it literally passes data there-->

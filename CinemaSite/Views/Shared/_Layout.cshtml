@@ -25,6 +25,8 @@
             <div id="navmenu">
                 <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">ZGŁOSZENIA</a>
                 <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Repertuar">REPERTUAR</a>
+                <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Cennik">CENNIK</a>
+                <a class="nav-link blacklink" href="#contact-here">KONTAKT</a>
                 <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Rejestracja">REJESTRACJA</a>
                 <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Logowanie">LOGOWANIE</a>
                 <a class="nav-link whitelink" asp-area="" asp-controller="Home" asp-action="Konto">@(Context.Session.GetString("ActiveUserUsername") ?? "")</a>
@@ -41,6 +43,8 @@
             </a>
             <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">ZGŁOSZENIA</a>
             <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Repertuar">REPERTUAR</a>
+            <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Cennik">CENNIK</a>
+            <a class="nav-link blacklink" href="#contact-here">KONTAKT</a>
             <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Rejestracja">REJESTRACJA</a>
             <a class="nav-link blacklink" asp-area="" asp-controller="Account" asp-action="Logowanie">LOGOWANIE</a>
             <a class="nav-link whitelink" asp-area="" asp-controller="Home" asp-action="Konto">@(Context.Session.GetString("ActiveUserUsername") ?? "")</a>
@@ -54,7 +58,7 @@
             <h2>ZNAJDŹ NAS!</h2>
             <div class="footer-flex">
                 <a class="footer-maplink" href="https://www.google.com/maps/place/Suwalki+Plaza/@@54.1075878,22.931452,17z/data=!3m2!4b1!5s0x46e10247e96bff15:0x25a2cc5aaa1241d6!4m6!3m5!1s0x46e10247b8b8d843:0xde427c6aeeb85715!8m2!3d54.1075847!4d22.9340269!16s%2Fg%2F121z_b5b?entry=ttu&g_ep=EgoyMDI1MTAyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank"><img src="~/Content/map.png" alt="Mapa pokazująca Suwałki Plaza" /></a>
-                <div class="footer-contactlist">
+                <div id="contact-here" class="footer-contactlist">
                     <p>Suwałki Plaza<br />ul. Generała Józefa Dwernickiego 15<br />16-400 Suwałki</p>
                     <h3>KONTAKT</h3>
                     <ul>
@@ -68,8 +72,8 @@
                 &copy; 2025 - Cinema Suwałki - <a asp-area="" asp-controller="Home" asp-action="Privacy">Polityka prywatności</a>
                 @if (Context.Session.GetInt32("ActiveUserAdmin") == 1)
                 {
-                    <a asp-area="" asp-controller="Admin" asp-action="RepertuarPanel">Admin - Repertuar</a>
-                    <a asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">Admin - Zgłoszenia</a>
+                    <a asp-area="" asp-controller="Admin" asp-action="RepertuarPanel">[Admin - Repertuar]</a>
+                    <a asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">[Admin - Zgłoszenia]</a>
                 }
             </div>
         </footer>
