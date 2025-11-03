@@ -23,17 +23,17 @@
 
     var validateForm = function () {
         if (username.value.length < 6) {
-            updateErrorMessage("Nazwa uzytkownika musi zawierać conajmniej 6 znaki.");
+            updateErrorMessage("Nazwa uzytkownika musi zawierać conajmniej 6 znaków.");
         } else if (username.value.length > 16) {
-            updateErrorMessage("Nazwa uzytkownika może zawierać najwyżej 16 znaki.");
+            updateErrorMessage("Nazwa uzytkownika może zawierać najwyżej 16 znaków.");
         } else if (!email.value.match(emailRegex)) {
             updateErrorMessage("Nieprawidłowy adres e-mail.");
         } else if (!phone.value.match(phoneRegex)) {
             updateErrorMessage("Nieprawidłowy numer telefonu.");
         } else if (password.value.length < 8) {
-            updateErrorMessage("Hasło musi zawierać conajmniej 8 znaki.");
+            updateErrorMessage("Hasło musi zawierać conajmniej 8 znaków.");
         } else if (password.value.length > 256) {
-            updateErrorMessage("Hasło może zawierać najwyżej 256 znaki.");
+            updateErrorMessage("Hasło może zawierać najwyżej 256 znaków.");
         } else if (password.value != repeatPassword.value) {
             updateErrorMessage("Hasła się nie zgadzają.");
         } else {

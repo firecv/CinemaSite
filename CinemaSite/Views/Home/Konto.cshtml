@@ -16,7 +16,7 @@
     <div class="user-details">
         <p class="user-info">@(Context.Session.GetString("ActiveUserUsername"))</p>
         <p class="user-info">@(Context.Session.GetString("ActiveUserEmail"))</p>
-        <a asp-area="" asp-controller="Konto" asp-action="KontoWylogowanie">WYLOGUJ SIĘ</a>
+        <a asp-area="" asp-controller="Account" asp-action="KontoWylogowanie">WYLOGUJ SIĘ</a>
     </div>
     <hr />
     <p class="user-tickets-title">Your Tickets:</p>

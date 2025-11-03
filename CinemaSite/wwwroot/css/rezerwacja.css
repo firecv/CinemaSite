@@ -5,7 +5,12 @@
 }
 
 .back-button {
+    padding-top: 3px;
     background-color: black;
+}
+
+.back-button:hover {
+    color: white !important;
 }
 
 #seat-grid {
