@@ -86,19 +86,19 @@
 
         window.addEventListener("resize", () => {
             winWidth = window.innerWidth;
-            if (winWidth <= 600) {
+            if (winWidth <= 700) {
                 dayCount = 3;
-            } else if (winWidth <= 800) {
-                dayCount = 5;
             } else if (winWidth <= 900) {
-                dayCount = 6;
-            } else if (winWidth <= 1000) {
-                dayCount = 7;
-            } else if (winWidth <= 1100) {
-                dayCount = 4;
-            } else if (winWidth <= 1200) {
                 dayCount = 5;
-            } else if (winWidth <= 1400) {
+            } else if (winWidth <= 1000) {
+                dayCount = 6;
+            } else if (winWidth <= 1100) {
+                dayCount = 7;
+            } else if (winWidth <= 1200) {
+                dayCount = 4;
+            } else if (winWidth <= 1300) {
+                dayCount = 5;
+            } else if (winWidth <= 1500) {
                 dayCount = 6;
             } else {
                 dayCount = 7;

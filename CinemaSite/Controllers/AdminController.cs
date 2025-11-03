@@ -37,7 +37,7 @@ namespace CinemaSite.Controllers
 
             if (HttpContext.Session.GetInt32("ActiveUserID") == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Logowanie", "Account");
             }
 
             var userAdminCheck = _context.UserAccount
@@ -45,7 +45,7 @@ namespace CinemaSite.Controllers
                 && ua.is_admin);
 
             if (userAdminCheck == null) {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Logowanie", "Account");
             }
 
             return View(viewModel);
@@ -62,7 +62,7 @@ namespace CinemaSite.Controllers
 
             if (HttpContext.Session.GetInt32("ActiveUserID") == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Logowanie", "Account");
             }
 
             var userAdminCheck = _context.UserAccount
@@ -71,7 +71,7 @@ namespace CinemaSite.Controllers
 
             if (userAdminCheck == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Logowanie", "Account");
             }
 
             return View(viewModel);

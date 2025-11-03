@@ -66,7 +66,8 @@
 }
 
 textarea {
-    width: 600px;
+    width: 30vw;
+    max-width: 600px;
     height: 250px;
 }
 
@@ -92,10 +93,10 @@ fieldset {
 
 .create-screening {
     margin-top: 10px;
-    width: 600px;
+    width: 15vw;
 }
 
-.genreBox {
+.genreBox, .genreBoxNew {
     justify-content: end;
     margin-right: 50vw;
 }
@@ -106,7 +107,7 @@ fieldset {
         flex-direction: column;
     }
 
-    .genreBox {
+    .genreBox, .genreBoxNew {
         margin-right: 80vw;
     }
 }

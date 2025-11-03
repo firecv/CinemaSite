@@ -113,7 +113,7 @@
             </div>
             <div>
                 <label>Film dla dzieci?</label>
-                <input asp-for="NewMovie.for_kids" id="nm-kids" type="checkbox" />
+                <input class="checkbox-input" asp-for="NewMovie.for_kids" id="nm-kids" type="checkbox" />
             </div>
 
             <fieldset>
@@ -122,7 +122,7 @@
                 {
                     <div class="genreBoxNew">
                         <label>@g.genre_name</label>
-                        <input name="genreCheckbox" type="checkbox" value="@g.genre_id" />
+                        <input name="genreCheckbox" type="checkbox" class="checkbox-input" value="@g.genre_id" />
                     </div>
                 }
             </fieldset>
@@ -179,7 +179,7 @@
                     }
                 </fieldset>
 
-                <button type="submit">Zapisz dane filmów</button>
+                <button type="submit">Zapisz danych filmu</button>
             </form>
         </div>
 
