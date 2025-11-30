@@ -24,8 +24,10 @@ namespace CinemaSite.Controllers
             return View();
         }
 
-        public IActionResult Logowanie()
+        public IActionResult Logowanie(int redirectMovieId = 0, int redirectScreeningId = 0)
         {
+            ViewData["rmovie"] = redirectMovieId;
+            ViewData["rscreen"] = redirectScreeningId;
             return View();
         }
 
@@ -54,13 +56,18 @@ namespace CinemaSite.Controllers
                 _context.UserAccount.Add(userAccount);
                 _context.SaveChanges();
 
-                return RedirectToAction(controllerName: "Account", actionName: "Logowanie");
+                HttpContext.Session.SetInt32("ActiveUserID", userAccount.account_id);
+                HttpContext.Session.SetString("ActiveUserUsername", userAccount.username);
+                HttpContext.Session.SetString("ActiveUserEmail", userAccount.email);
+                HttpContext.Session.SetInt32("ActiveUserAdmin", 0);
+
+                return RedirectToAction(controllerName: "Home", actionName: "Konto");
             }
 
             return RedirectToAction("Rejestracja"); //add error message to say that account already exists
         }
 
-        public async Task<IActionResult> KontoLogowanie(LoginForm login)
+        public async Task<IActionResult> KontoLogowanie(LoginForm login, int rmovie = 0, int rscreen = 0)
         {
             var _hasher = new PasswordHasher<UserAccountEntity>();
 
@@ -76,15 +83,16 @@ namespace CinemaSite.Controllers
                 HttpContext.Session.SetInt32("ActiveUserAdmin", currentUser.is_admin ? 1 : 0);
             }
 
+            if (rmovie != 0 && rscreen != 0)
+            {
+                return RedirectToAction("Rezerwacja", "Home", new { movieId = rmovie, screeningId = rscreen});
+            }
             return RedirectToAction(controllerName: "Home", actionName: "Konto");
         }
 
         public async Task<IActionResult> KontoWylogowanie()
         {
-            HttpContext.Session.SetInt32("ActiveUserID", 0);
-            HttpContext.Session.SetString("ActiveUserUsername", "");
-            HttpContext.Session.SetString("ActiveUserEmail", "");
-            HttpContext.Session.SetInt32("ActiveUserAdmin", 0);
+            HttpContext.Session.Clear();
             return RedirectToAction(controllerName: "Account", actionName: "Logowanie");
         }
     }

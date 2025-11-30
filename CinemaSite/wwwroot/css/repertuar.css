@@ -137,6 +137,15 @@
     margin: 0 10px 0 -10px;
 }
 
+.movie-thumbnail h2 {
+    color: white;
+    transition: 0.3s ease-in-out;
+}
+
+.movie-thumbnail:hover h2 {
+    color: #E6164B;
+}
+
 @media (max-width: 1500px) {
     .screening-items {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;

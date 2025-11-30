@@ -88,7 +88,7 @@
                                 .Where(s => s.movie_id == movie.movie_id && s.screening_time.Date == today.Date).ToList();
                                     
                                 <div data-index="@i">
-                                    <p class="day-header">@today.ToString("ddd dd MMM")</p>
+                                    <p class="day-header">@today.ToString("ddd dd MMM", translateToPolish)</p>
    
                                     @foreach (var screening in screeningsThatDay)
                                     {

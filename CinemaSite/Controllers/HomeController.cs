@@ -123,11 +123,12 @@ namespace CinemaSite.Controllers
 
 
         [HttpPost]
-        public IActionResult RedirectCheckout(int screeningIdPost, List<int> ticketTypesPost, List<int> seatIdsPost)
+        public IActionResult RedirectCheckout(int screeningIdPost, int movieIdPost, List<int> ticketTypesPost, List<int> seatIdsPost)
         {
             if (HttpContext.Session.GetInt32("ActiveUserID") == null || screeningIdPost == 0)
             {
-                return RedirectToAction(controllerName: "Account", actionName: "Logowanie");
+                return RedirectToAction("Logowanie", "Account",
+                    new { redirectMovieId = movieIdPost, redirectScreeningId = screeningIdPost });
             }
 
             Console.WriteLine(screeningIdPost);

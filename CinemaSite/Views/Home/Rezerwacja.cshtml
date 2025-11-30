@@ -120,6 +120,7 @@
     <div id="cart-container">
         <form id="pseudo-cart" asp-controller="Home" asp-action="RedirectCheckout" method="POST">
             <input name="screeningIdPost" type="hidden" value="@Model.Screening.screening_id" />
+            <input name="movieIdPost" type="hidden" value="@Model.Movie.movie_id" />
 
             <table>
                 <thead>
