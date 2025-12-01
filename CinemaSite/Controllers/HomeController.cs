@@ -191,6 +191,7 @@ namespace CinemaSite.Controllers
                               join h in _context.Hall on sc.hall_id equals h.hall_id
                               join tt in _context.TicketType on t.ticket_type_id equals tt.ticket_type_id
                               join s in _context.Seat on t.seat_id equals s.seat_id
+                              where t.account_id == HttpContext.Session.GetInt32("ActiveUserID") && t.ticket_status == 2
                               orderby t.ticket_id descending
                               select new UserTicket {
                                   ticket_id = t.ticket_id,
