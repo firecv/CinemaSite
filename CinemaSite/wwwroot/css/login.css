@@ -114,6 +114,14 @@ hr {
     border-color: black;
 }
 
+.login-do-rejestracji {
+    color: #E6164B !important;
+}
+
+.login-do-rejestracji:hover {
+    color: #960004 !important;
+}
+
 @media (max-width: 1200px) {
     .user-info {
         font-size: 24px;
