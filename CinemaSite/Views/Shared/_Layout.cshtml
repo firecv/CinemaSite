@@ -23,7 +23,7 @@
         <nav class="align-items-center navflex">
             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><img class="nav-logo" src="~/Content/logo-tp-cropped.svg" alt="Cinema Suwalki logo" /></a>
             <div id="navmenu">
-                <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">ZGŁOSZENIA</a>
+                <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">AKTUALNOŚCI</a>
                 <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Repertuar">REPERTUAR</a>
                 <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Cennik">CENNIK</a>
                 <a class="nav-link blacklink" href="#contact-here">KONTAKT</a>
@@ -41,7 +41,7 @@
             <a href="#" id="hamburger-button2">
                 <img src="/Content/close-arrow.svg" alt="Zamknij nawigację" />
             </a>
-            <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">ZGŁOSZENIA</a>
+            <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Zgloszenia">AKTUALNOŚCI</a>
             <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Repertuar">REPERTUAR</a>
             <a class="nav-link blacklink" asp-area="" asp-controller="Home" asp-action="Cennik">CENNIK</a>
             <a class="nav-link blacklink" href="#contact-here">KONTAKT</a>
@@ -73,7 +73,7 @@
                 @if (Context.Session.GetInt32("ActiveUserAdmin") == 1)
                 {
                     <a asp-area="" asp-controller="Admin" asp-action="RepertuarPanel">[Admin - Repertuar]</a>
-                    <a asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">[Admin - Zgłoszenia]</a>
+                    <a asp-area="" asp-controller="Admin" asp-action="ZgloszeniePanel">[Admin - Aktualności]</a>
                 }
             </div>
         </footer>
