@@ -195,6 +195,12 @@ a {
     white-space: pre-line;
 }
 
+@media (min-width: 1200px) {
+    .announcement p {
+        margin: 0 5vw 0 5vw;
+    }
+}
+
 .article-container {
     scroll-snap-type: x mandatory;
     margin: 1vw 0vw 1vw 0vw !important;
